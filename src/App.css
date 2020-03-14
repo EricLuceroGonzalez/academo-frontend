@@ -1,38 +1,61 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: Poppins-Regular;
+  src: url(./styles/fonts/poppins/Poppins-Regular.ttf);
+  /* src: url('../fonts/poppins/Poppins-Regular.ttf');  */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+  font-family: Poppins-Medium;
+  src: url(./styles/fonts/poppins/Poppins-Medium.ttf);
+  /* src: url('../fonts/poppins/Poppins-Regular.ttf');  */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@font-face {
+  font-family: Poppins-ExtraBold;
+  src: url(./styles/fonts/poppins/Poppins-ExtraBold.ttf);
+  /* src: url('../fonts/poppins/Poppins-Regular.ttf');  */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+@font-face {
+  font-family: Poppins-Light;
+  src: url(./styles/fonts/poppins/Poppins-Light.ttf);
+  /* src: url('../fonts/poppins/Poppins-Regular.ttf');  */
+}
+
+@font-face {
+  font-family: Poppins-Thin;
+  src: url(./styles/fonts/poppins/Poppins-Thin.ttf);
+  /* src: url('../fonts/poppins/Poppins-Regular.ttf');  */
+}
+
+@font-face {
+  font-family: Montserrat-ExtraBoldItalic;
+  src: url(./styles/fonts/montserrat/Montserrat-ExtraBoldItalic.ttf);
+  /* src: url('../fonts/poppins/Poppins-Regular.ttf');  */
+}
+
+@font-face {
+  font-family: Montserrat-ExtraBold;
+  src: url(./styles/fonts/montserrat/Montserrat-ExtraBold.ttf);
+  /* src: url('../fonts/poppins/Poppins-Regular.ttf');  */
+}
+
+@font-face {
+  font-family: Montserrat-Light;
+  src: url(./styles/fonts/montserrat/Montserrat-Light.ttf);
+  /* src: url('../fonts/poppins/Poppins-Regular.ttf');  */
+}
+
+.foot {
   color: white;
+  font-family: Montserrat-ExtraBold;
 }
 
-.App-link {
-  color: #61dafb;
+.activeNavLink {
+  color: red;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navThing {
+  margin: 5px 8px;
+  font-family: Montserrat-ExtraBold;
 }
