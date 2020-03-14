@@ -1,21 +1,31 @@
-import axios from "axios";
+import api from "../api/index";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
-import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./types"; // Register User
+import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./types";
+
+// Register User
 export const registerUser = (userData, history) => dispatch => {
-  axios
-    .post("/api/users/register", userData)
-    .then(res => history.push("/login")) // re-direct to login on successful register
-    .catch(err =>
+  console.log("Here!!");
+  api
+    .postRegister(userData)
+    .then(res => {
+      console.log(`Register OK!\n user: ${res.data}`);
+      history.push("/login")}) // re-direct to login on successful register
+    .catch(err => {
+      console.log("Error on register:");
+      console.log(err);
+      
       dispatch({
         type: GET_ERRORS,
         payload: err.response.data
-      })
-    );
-}; // Login - get user token
+      });
+    });
+};
+
+// Login - get user token
 export const loginUser = userData => dispatch => {
-  axios
-    .post("/api/users/login", userData)
+  api
+    .postLogin(userData)
     .then(res => {
       // Save to localStorage// Set token to localStorage
       const { token } = res.data;

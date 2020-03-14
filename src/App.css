@@ -36,7 +36,7 @@
 
 @font-face {
   font-family: Montserrat-ExtraBold;
-  src: url(./styles/fonts/montserrat/Montserrat-ExtraBold.ttf);
+  src: url(./styles//fonts/montserrat/Montserrat-ExtraBold.ttf);
   /* src: url('../fonts/poppins/Poppins-Regular.ttf');  */
 }
 
@@ -58,4 +58,12 @@
 .navThing {
   margin: 5px 8px;
   font-family: Montserrat-ExtraBold;
+}
+
+.printError {
+  color: white;
+  font-size: 0.5em;
+  background-color: red;
+  padding: 5px 10px;
+  font-family: Montserrat-ExtraBoldItalic;
 }
