@@ -2,6 +2,12 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
+
+// The Redux
+import { Provider } from "react-redux";
+import store from "./store";
+
+// Components
 import NavBar from "./components/layout/Navbar";
 import FooterComponent from "./components/layout/Footer";
 import HomeComponent from "./components/layout/Home";
@@ -11,6 +17,7 @@ import Login from "./auth/Login";
 
 function App() {
   return (
+    <Provider store={store}>
     <div
       className="App"
       style={{
@@ -28,6 +35,7 @@ function App() {
       </Router>
       <FooterComponent></FooterComponent>
     </div>
+    </Provider>
   );
 }
 
