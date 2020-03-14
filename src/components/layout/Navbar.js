@@ -1,7 +1,7 @@
 // import React, { Component } from "react";
 import React, { useState } from "react";
 import { NavLink as NabLink } from "react-router-dom";
-import { Collapse, Navbar, NavbarToggler, Nav, Button } from "reactstrap";
+import { Collapse, Navbar, NavbarToggler, Nav } from "reactstrap";
 // import { faBars } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -41,17 +41,17 @@ const NavBar = props => {
           </Nav>
           <NabLink
             className="navThing"
-            to={"/landing"}
+            to={"/register"}
             activeClassName="activeNavLink"
           >
-            <Button outline color="primary">
-              primary
-            </Button>
+            register
           </NabLink>
-          <NabLink to={"/landing"} activeClassName="activeNavLink">
-            <Button outline color="warning">
-              primary
-            </Button>
+          <NabLink
+            className="navThing"
+            to={"/login"}
+            activeClassName="activeNavLink"
+          >
+            login
           </NabLink>
         </Collapse>
       </Navbar>

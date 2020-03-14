@@ -6,6 +6,8 @@ import NavBar from "./components/layout/Navbar";
 import FooterComponent from "./components/layout/Footer";
 import HomeComponent from "./components/layout/Home";
 import Landing from "./components/layout/Landing";
+import Register from "./auth/Register";
+import Login from "./auth/Login";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
       <Router>
         <NavBar></NavBar>
         <Route exact path="/" component={HomeComponent} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/login" component={Login} />
         <Route path="/landing" component={Landing} />
       </Router>
       <FooterComponent></FooterComponent>
