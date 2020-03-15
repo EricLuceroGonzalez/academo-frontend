@@ -67,3 +67,15 @@
   padding: 5px 10px;
   font-family: Montserrat-ExtraBoldItalic;
 }
+
+.testBorder-g {
+  border: 1px solid gray;
+}
+
+.testBorder-b {
+  border: 1px solid blue;
+}
+
+.testBorder-r {
+  border: 1px solid red;
+}

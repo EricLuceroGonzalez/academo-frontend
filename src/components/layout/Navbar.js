@@ -4,11 +4,13 @@ import { NavLink as NabLink } from "react-router-dom";
 import { Collapse, Navbar, NavbarToggler, Nav } from "reactstrap";
 // import { faBars } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import PropTypes from "prop-types";
+// import { connect } from "react-redux";
+// import { logoutUser } from "../../actions/authActions";
 
 const NavBar = props => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-
   return (
     <div>
       <Navbar color="light" light expand="md">
@@ -18,7 +20,7 @@ const NavBar = props => {
           to={"/"}
           activeClassName="activeNavLink"
         >
-          Home
+          Academo
         </NabLink>
 
         <NavbarToggler onClick={toggle} />
@@ -27,16 +29,23 @@ const NavBar = props => {
             <NabLink
               className="navThing"
               activeClassName="activeNavLink"
-              to="/landing"
+              to="/courses"
             >
-              Componentes!
+              Cursos
             </NabLink>
             <NabLink
               className="navThing"
               activeClassName="activeNavLink"
-              to="/materias"
+              to="/resources"
             >
-              thirdLink
+              Recursos
+            </NabLink>
+            <NabLink
+              className="navThing"
+              activeClassName="activeNavLink"
+              to="/about"
+            >
+              about
             </NabLink>
           </Nav>
           <NabLink
@@ -44,14 +53,14 @@ const NavBar = props => {
             to={"/register"}
             activeClassName="activeNavLink"
           >
-            register
+            <span className="border border-success">register</span>
           </NabLink>
           <NabLink
             className="navThing"
             to={"/login"}
             activeClassName="activeNavLink"
           >
-            login
+            <span className="border border-info">login </span>
           </NabLink>
         </Collapse>
       </Navbar>
@@ -60,3 +69,11 @@ const NavBar = props => {
 };
 
 export default NavBar;
+// NavBar.propTypes = {
+//   logoutUser: PropTypes.func.isRequired,
+//   auth: PropTypes.object.isRequired
+// };
+// const mapStateToProps = state => ({
+//   auth: state.auth
+// });
+// export default connect(mapStateToProps, { logoutUser })(NavBar);
