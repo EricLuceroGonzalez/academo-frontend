@@ -15,7 +15,7 @@ import { setCurrentUser, logoutUser } from "./actions/authActions";
 // Components
 import NavBar from "./components/layout/Navbar";
 import FooterComponent from "./components/layout/Footer";
-import HomeComponent from "./components/layout/Home";
+// import HomeComponent from "./components/layout/Home";
 import Landing from "./components/layout/Landing";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
@@ -27,6 +27,9 @@ import MathTwoComponent from "./components/Courses/MathB/MathTwoComponent";
 import StatisticsComponent from "./components/Courses/Estadistica/EstadisticaComponent";
 import Taller1 from "./components/Courses/Estadistica/EstadisticaTaller-1";
 import Taller2 from "./components/Courses/Estadistica/EstadisticaTaller-2";
+import CheckOut from "./components/dashboard/CheckOut";
+import About from "./components/layout/About";
+import NotFound from "./components/layout/NotFount";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -51,21 +54,25 @@ function App() {
       <div
         className="App"
         style={{
-          height: "150vh",
-          backgroundColor: "rgba(200,10,10,0.1)",
+          // height: "100vh",
+          top: "0px",
+          background:
+            "linear-gradient(200deg, rgba(14,254,251,1) 0%, rgba(15,50,240,0.85) 100%)",
           textAlign: "center"
         }}
       >
         <Router>
           <NavBar></NavBar>
           <Switch>
-            <Route exact path="/" component={HomeComponent} />
+            <Route exact path="/" component={About} />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
             <Route exact path="/resources" component={CoursesComponent} />
             <Route exact path="/resources/a" component={Login} />
             <Route path="/landing" component={Landing} />
+            <Route path="/about" component={About} />
             <PrivateRoute exact path="/dashboard" component={Dashboard} />
+
             <Route exact path="/courses" component={CoursesComponent} />
             <PrivateRoute
               exact
@@ -83,10 +90,17 @@ function App() {
               component={Taller1}
             />
             <PrivateRoute
-            exact
-            path="/courses/estadistica/taller2"
-            component={Taller2}
-          />
+              exact
+              path="/courses/estadistica/taller2"
+              component={Taller2}
+            />
+            <PrivateRoute
+              exact
+              path="/checkOut"
+              component={CheckOut}
+            ></PrivateRoute>
+            <Route component={NotFound}></Route>
+
           </Switch>
         </Router>
         <FooterComponent></FooterComponent>

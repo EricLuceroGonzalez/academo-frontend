@@ -17,6 +17,8 @@
     "mathjax": "^3.0.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-mathjax": "^1.0.1",
+    "react-mathjax2": "0.0.2",
     "react-phone-number-input": "^3.0.21",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",

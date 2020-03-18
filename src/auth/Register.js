@@ -12,7 +12,9 @@ import "react-phone-number-input/style.css";
 const formBg = {
   background: "white",
   borderRadius: "18px",
-  boxShadow: "4px 5px 4px gray"
+  boxShadow: "4px 5px 4px rgba(60,60,60,1)",
+  paddingTop: "60px",
+  paddingBottom: "60px"
 };
 
 const inputSty = {
@@ -49,7 +51,7 @@ class Register extends Component {
     this.state = {
       name: "",
       email: "",
-      phoneNumber: "",
+      phone: "",
       password: "",
       password2: "",
       errors: {}
@@ -78,18 +80,19 @@ class Register extends Component {
     const newUser = {
       name: this.state.name,
       email: this.state.email,
-      phoneNumber: this.state.phoneNumber,
+      phone: this.state.phone,
       password: this.state.password,
       password2: this.state.password2
     };
-    console.log(newUser);
+    // console.log(newUser);
     this.props.registerUser(newUser, this.props.history);
   };
 
   render() {
     const { errors } = this.state;
     return (
-      <div className="container">
+      <div className="container"
+      style={{ height: "100vh", paddingTop: "12%" }}>
         <div className="row">
           <div
             className="col-10 col-md-8 col-lg-6 mr-auto ml-auto mt-4"
@@ -100,10 +103,10 @@ class Register extends Component {
               style={{ textAlign: "center" }}
             >
               <h4>
-                <b>Register</b> below
+                <b className="theTitle">Regístrate</b>
               </h4>
               <p className="grey-text text-darken-1">
-                Already have an account? <Link to="/login">Log in</Link>
+              ¿Ya tienes cuenta? <Link to="/login" style={{ color: "rgb(116, 35, 153)" }}>Log in</Link>
               </p>
             </div>
             <form noValidate onSubmit={this.onSubmit}>
@@ -120,7 +123,7 @@ class Register extends Component {
                   })}
                 />
                 <label style={labelSty} htmlFor="name">
-                  Name
+                  Nombre
                 </label>
                 <span className={classnames('', {printError: errors.name})}>{errors.name}</span>
               </div>
@@ -171,7 +174,7 @@ class Register extends Component {
                   })}
                 />
                 <label style={labelSty} htmlFor="password2">
-                  Confirm Password
+                  Confirma el password
                 </label>
                 <span className={classnames('', {printError: errors.password})}>{errors.password2}</span>
               </div>
@@ -180,26 +183,29 @@ class Register extends Component {
                   countrySelectProps={{ unicodeFlags: true }}
                   defaultCountry={"PA"}
                   value={this.state.phone}
-                  onChange={phone => this.setState({ phoneNumber: phone })}
+                  onChange={phone => this.setState({ phone: phone })}
                   // placeholder="Enter phone number"
                 ></Phone>
               </div>
               <label style={labelSty} htmlFor="birthdate">
                 Telefono
               </label>
-              <span className={classnames('', {printError: errors.phone})}>{errors.phoneNumber}</span>
+              <span className={classnames('', {printError: errors.phone})}>{errors.phone}</span>
               <div className="col-12" style={{ paddingLeft: "11.250px" }}>
                 <button
                   style={{
-                    width: "150px",
                     borderRadius: "3px",
                     letterSpacing: "1.5px",
                     marginTop: "1rem"
                   }}
                   type="submit"
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                  className="btn btn-large nextBtn col-10 mt-5"
                 >
-                  Sign up
+                  Enviar{" "}
+                  <span role="img" aria-label="rocket">
+                    {" "}
+                    🚀
+                  </span>
                 </button>
               </div>
             </form>

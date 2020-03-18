@@ -10,7 +10,10 @@ import classnames from "classnames";
 const formBg = {
   background: "white",
   borderRadius: "18px",
-  boxShadow: "4px 5px 4px gray"
+  boxShadow: "4px 5px 4px rgba(60,60,60,1)",
+  paddingTop: "60px",
+  paddingBottom: "60px"
+  // marginTop: '2150px'
 };
 
 const inputSty = {
@@ -54,13 +57,13 @@ class Login extends Component {
   componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+      this.props.history.push("/courses/estadistica");
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard"); // push user to dashboard when they login
+      this.props.history.push("/courses/estadistica"); // push user to dashboard when they login
     }
     if (nextProps.errors) {
       this.setState({
@@ -78,23 +81,26 @@ class Login extends Component {
       password: this.state.password
     };
 
-    console.log(userData);
+    // console.log(userData);
     this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
   };
   render() {
     const { errors } = this.state;
     return (
-      <div className="container">
+      <div className="container" style={{ height: "100vh", paddingTop: "12%" }}>
         <div
           className="col-10 col-md-8 col-lg-6 mr-auto ml-auto mt-4"
           style={formBg}
         >
           <div className="col-12" style={{ paddingLeft: "11.250px" }}>
             <h4>
-              <b>Login</b> below
+              <b className="theTitle">Login</b>
             </h4>
             <p className="grey-text text-darken-1">
-              Don't have an account? <Link to="/register">Register</Link>
+              ¿No tienes cuenta?{" "}
+              <Link to="/register" style={{ color: "rgb(116, 35, 153)" }}>
+                Regístrate
+              </Link>
             </p>
           </div>
           <form noValidate onSubmit={this.onSubmit}>
@@ -141,15 +147,18 @@ class Login extends Component {
             <div className="col-12" style={{ paddingLeft: "11.250px" }}>
               <button
                 style={{
-                  width: "150px",
                   borderRadius: "3px",
                   letterSpacing: "1.5px",
                   marginTop: "1rem"
                 }}
                 type="submit"
-                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                className="btn btn-large nextBtn col-10 mt-5"
               >
-                Login
+                Login{" "}
+                <span role="img" aria-label="star-dust">
+                  {" "}
+                  🚀
+                </span>
               </button>
             </div>
           </form>

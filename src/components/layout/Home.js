@@ -7,7 +7,7 @@ class HomeComponent extends Component {
     return (
       <div
         className="mr-auto ml-auto col-lg-8 col-md-10 col-12"
-        style={{ marginTop: "6em" }}
+        style={{ height: "100vh" }}
       >
         <Link to={"/resources/a"}>
           <div>aabbbbbCC</div>

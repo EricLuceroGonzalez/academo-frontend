@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 
-class Dashboard extends Component {
+class CheckOut extends Component {
   onLogoutClick = e => {
     e.preventDefault();
     this.props.logoutUser();
@@ -18,21 +18,29 @@ class Dashboard extends Component {
       >
         <div className="row">
           <div className="col-12 col-lg-6 col-md-8 col-sm-10 center-align mr-auto ml-auto">
+            <div className="shakeThatThing">
+              <span
+                role="img"
+                aria-label="star-dust"
+                style={{ fontSize: "6em" }}
+              >
+                {" "}
+                🚀
+              </span>
+            </div>
             <h4>
-              <b>Hola,</b> {user.name.split(" ")[0]}{" "}
+              <b className='navThing'>Gracias,</b> {user.name.split(" ")[0]}{" "}
               <span role="img" aria-label="face-mask">
                 {" "}
                 😷
               </span>
               <p className="flow-text grey-text text-darken-1">
-                Tu sesión está abierta.{" "}
+                Lo que llenaste ha sido enviado.{" "}
               </p>
-              <div style={{ fontSize: "0.55em", marginTop: "80%" }}>
-                <span style={{ fontFamily: "monospace" }}>
-                  {" "}
-                  Tienes 60 minutos{" "}
-                </span>
-                para terminar los deberes. Recuerda lavarte las manos.👏
+              <div style={{ fontSize: "0.85em", marginTop: "80%" }}
+              className='navThing'>
+                {" "}
+                Recuerda lavarte las manos.👏
               </div>
             </h4>
             <button
@@ -44,7 +52,7 @@ class Dashboard extends Component {
               onClick={this.onLogoutClick}
               className="btn btn-large nextBtn col-10"
             >
-              Cerrar sesión
+              Salir
             </button>
           </div>
         </div>
@@ -52,11 +60,11 @@ class Dashboard extends Component {
     );
   }
 }
-Dashboard.propTypes = {
+CheckOut.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   auth: state.auth
 });
-export default connect(mapStateToProps, { logoutUser })(Dashboard);
+export default connect(mapStateToProps, { logoutUser })(CheckOut);

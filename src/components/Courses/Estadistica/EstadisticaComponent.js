@@ -13,23 +13,30 @@ class StatisticsComponent extends Component {
 
   render() {
     return (
-      <div>
-        <h3>Statistics</h3>
+      <div
+        style={{
+          height: "100vh",
+          margin: "0px auto 35px auto",
+          padding: "65px 0px 50px 0px"
+        }}
+      >
+        <h3 className='navThing'>Estadística</h3>
         <TallerComponent
           handleClick={this.handleClicks}
           id={"taller1"}
           theIcon={faDiceOne}
-          theTitle={"Taller "}
-          theText={"bbbbbbb"}
+          theTitle={"Examen Parcial "}
+          theText={"Contesta las siguientes preguntas correctamente. Los puntos acumulados en esta prueba sumaran una nota parcial."}
         ></TallerComponent>
-        <TallerComponent
+        {/**
+                  <TallerComponent
           id={"taller2"}
           handleClick={this.handleClicks}
           theIcon={faDiceOne}
           theTitle={"Taller "}
           theText={"bbbbbbb"}
         ></TallerComponent>
-        {/**
+
           <TallerComponent
           goTo={() => this.goToCompo("Taller1")}
           theIcon={faDiceOne}

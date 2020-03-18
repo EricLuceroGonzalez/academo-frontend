@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { faSuperscript, faSubscript } from "@fortawesome/free-solid-svg-icons";
+import { faSubscript, faPercentage } from "@fortawesome/free-solid-svg-icons";
 import CourseComponent from "./CursoComponent";
 import { Link } from "react-router-dom";
 
@@ -8,20 +8,21 @@ class CoursesComponent extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{height: "100vh"}}
+      className='col-12 col-lg-6 mr-auto ml-auto'>
         <h2>Courses</h2>
         <Link to={"/courses/estadistica"}>
           <CourseComponent
-            theIcon={faSuperscript}
-            theTitle={"Estadistica"}
-            theText={"the text"}
+            theIcon={faPercentage}
+            theTitle={"Estadística"}
+            theText={"Entra para realizar la prueba de estadística"}
           ></CourseComponent>
         </Link>
-        <Link to={"/courses/mat2"}>
+        <Link to={"/courses"}>
           <CourseComponent
             theIcon={faSubscript}
             theTitle={"Mat 2"}
-            theText={"Curso de matematica 2"}
+            theText={"Curso de matematica II"}
           ></CourseComponent>
         </Link>
       </div>
