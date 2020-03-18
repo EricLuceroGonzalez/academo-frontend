@@ -26,7 +26,7 @@ const inputSty = {
   borderRadius: "8px",
   padding: "5px 7px",
   color: "gray",
-  fontFamily: "Montserrat-BlackItalic",
+  fontFamily: "Montserrat-Bold",
   fontSize: "inherit",
   fontWeight: "500",
   lineHeight: "inherit",
