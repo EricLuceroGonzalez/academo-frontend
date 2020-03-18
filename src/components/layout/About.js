@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 class About extends Component {
   state = {};
@@ -12,24 +13,36 @@ class About extends Component {
         style={{
           height: "100vh",
           margin: "0px auto 35px auto",
-          padding: "33% 0px 50px 0px"
+          padding: "25% 0px 50px 0px"
         }}
       >
-        <Link to={"/resources/a"}>
-          <div className="col-10 col-md-8 mr-auto ml-auto lightThing">
-            <div className='mb-5'>
-              <span className="navThing">Academo</span> es un sitio que lleva la
-              educación virtual de manera personalizada.
-            </div>
-            Sitio creado y desarrollado para uso
-            público.
-            <FontAwesomeIcon
-              style={{ color: "red" }}
-              className="shakeThatLittleThing"
-              icon={faHeart}
-            ></FontAwesomeIcon>
+        <div className="col-10 col-md-8 mr-auto ml-auto lightThing">
+          <div className="mb-5">
+            <span className="navThing">Academo</span> es un sitio que lleva la
+            educación virtual de manera personalizada.
           </div>
-        </Link>
+          Sitio creado y desarrollado para uso público.
+          <FontAwesomeIcon
+            style={{ color: "red" }}
+            className="shakeThatLittleThing"
+            icon={faHeart}
+          ></FontAwesomeIcon>
+        </div>
+<Link to='/courses'>
+<div
+className="col-4 mr-auto ml-auto"
+style={{
+  fontFamily: "Montserrat-ExtraBold",
+  color: "white",
+  backgroundColor: "rgb(116, 35, 153)",
+  marginTop: "205px",
+  padding: "7px 12px",
+  boxShadow: "2px 2px 3px black"
+}}
+>
+Cursos
+</div>
+</Link>
       </div>
     );
   }

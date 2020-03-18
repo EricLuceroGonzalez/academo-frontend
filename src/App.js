@@ -30,6 +30,7 @@ import Taller2 from "./components/Courses/Estadistica/EstadisticaTaller-2";
 import CheckOut from "./components/dashboard/CheckOut";
 import About from "./components/layout/About";
 import NotFound from "./components/layout/NotFount";
+import CheckError from "./components/dashboard/CheckError";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -99,6 +100,11 @@ function App() {
               path="/checkOut"
               component={CheckOut}
             ></PrivateRoute>
+            <PrivateRoute
+            exact
+            path="/checkError"
+            component={CheckError}
+          ></PrivateRoute>
             <Route component={NotFound}></Route>
 
           </Switch>

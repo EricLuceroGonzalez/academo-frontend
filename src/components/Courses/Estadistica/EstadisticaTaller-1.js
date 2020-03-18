@@ -503,11 +503,8 @@ class Taller1 extends Component {
     }
   };
   sendForm = () => {
-    // console.log("asdasd");
-    // console.log(this.state);
-    // console.log(this.props.auth.user);
     let puntos = this.renderPuntaje();
-    let grade = puntos / this.state.checkBoxItem.length;
+    let grade = (puntos / this.state.checkBoxItem.length)*100;
 
     this.setState({ puntos: puntos, grade: grade, examDate: Date.now() });
 
@@ -524,7 +521,7 @@ class Taller1 extends Component {
         });
       })
       .catch(err => {
-        // this.props.history.push("/checkError");
+        this.props.history.push("/checkError");
         // console.log(this.state);
         // console.log(err);
       });
