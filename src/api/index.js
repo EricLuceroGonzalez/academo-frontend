@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  // baseURL: "https://cygapi.herokuapp.com/api"
-  baseURL: "http://localhost:3001/api"
+  baseURL: "https://academo-backend.herokuapp.com/"
+  // baseURL: "http://localhost:3001/api"
 });
 
 axios.defaults.headers.common = {
