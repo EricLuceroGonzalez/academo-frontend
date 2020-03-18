@@ -8,9 +8,8 @@ class CoursesComponent extends Component {
 
   render() {
     return (
-      <div style={{height: "100vh"}}
+      <div style={{height: "100vh", paddingTop: '120px'}}
       className='col-12 col-lg-6 mr-auto ml-auto'>
-        <h2>Courses</h2>
         <Link to={"/courses/estadistica"}>
           <CourseComponent
             theIcon={faPercentage}

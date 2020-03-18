@@ -444,7 +444,7 @@ class Taller1 extends Component {
     } else {
       // console.log(`${theAnswer} neq ${theValue}`);
       this.setState(
-        { [name]: e.target.value, puntaje: this.state.puntaje },
+        { [name]: e.target.value, puntaje: this.state.puntaje }
         // console.log(`${name} = ${e.target.value}`)
       );
     }
@@ -467,7 +467,7 @@ class Taller1 extends Component {
           : (stateCopy.checkBoxItem[k].pts = correctPoints);
         this.setState(stateCopy);
       }
-      return null
+      return null;
     });
   };
 
@@ -540,10 +540,17 @@ class Taller1 extends Component {
         className="pb-2 col-10"
       >
         <h3 className="theTitle">Nota parcial </h3>
-        <div className='instrucciones'>Tienes 38 preguntas, donde debes elegir la respuesta correcta. Al final, y si estas de acuerdo con tus respuestas, debes presionar el boton de enviar          <span role="img" aria-label="star-dust">
-        {" "}
-        🚀
-      </span></div>
+        <div className="instrucciones">
+          Tienes 38 preguntas, donde debes elegir la respuesta correcta. Al
+          final, y si estas de acuerdo con tus respuestas, debes presionar el
+          boton de enviar{" "}
+          <p className='shakeThatThing '>
+          <span role="img" aria-label="star-dust">
+            {" "}
+            🚀
+          </span>
+          </p>
+        </div>
         <p className="theTitle mt-4">
           <b>Estudiante: </b>
           {user.name.split(" ")[0]}

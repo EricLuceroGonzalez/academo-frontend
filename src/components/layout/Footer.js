@@ -8,15 +8,15 @@ class FooterComponent extends Component {
   render() {
     return (
       <div
-        className="col-12"
+        className="col-12 p-2"
         style={{
           //   marginTop: "150px",
           height: '5%',
           color: "white",
-          background:"rgba(63,10,88,1)",
+          background:"rgba(75,20,90,0.97)",
           position: "fixed",
           bottom: "0px",
-          fontSize: "0.85em",
+          fontSize: "0.75em",
           fontFamily: "Montserrat-Light"
         }}
       >

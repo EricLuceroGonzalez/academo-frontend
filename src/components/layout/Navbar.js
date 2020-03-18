@@ -13,7 +13,7 @@ const NavBar = props => {
   const toggle = () => setIsOpen(!isOpen);
   return (
     <div className='mb-2'>
-      <Navbar color="light" light expand="md" fixed="top">
+      <Navbar color="light" light expand="sm" fixed="top">
         <NabLink
           className="navThing"
           exact
@@ -33,27 +33,20 @@ const NavBar = props => {
             >
               Cursos
             </NabLink>
-            <NabLink
-              className="navThing"
-              activeClassName="activeNavLink"
-              to="/about"
-            >
-              about
-            </NabLink>
           </Nav>
           <NabLink
             className="navThing"
             to={"/register"}
             activeClassName="activeNavLink"
           >
-            <span className="border border-success p-2">registro</span>
+            <span className="border border-success p-1">registro</span>
           </NabLink>
           <NabLink
             className="navThing"
             to={"/login"}
             activeClassName="activeNavLink"
           >
-            <span className="border border-info p-2">login </span>
+            <span className="border border-info p-1">login </span>
           </NabLink>
         </Collapse>
       </Navbar>
