@@ -10,6 +10,7 @@ import Phone from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 
 const formBg = {
+  fontSize: '0.75em',
   background: "white",
   borderRadius: "18px",
   boxShadow: "4px 5px 4px rgba(60,60,60,1)",
@@ -92,7 +93,7 @@ class Register extends Component {
     const { errors } = this.state;
     return (
       <div className="container"
-      style={{ height: "100vh", paddingTop: "12%" }}>
+      style={{ height: "100%", paddingTop: "12%", paddingBottom: '130px',marginBottom: '30px', fontSize: "0.75em" }}>
         <div className="row">
           <div
             className="col-10 col-md-8 col-lg-6 mr-auto ml-auto mt-4"

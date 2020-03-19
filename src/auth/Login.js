@@ -87,7 +87,10 @@ class Login extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="container" style={{ height: "100vh", paddingTop: "12%" }}>
+      <div
+        className="container"
+        style={{ height: "100vh", paddingTop: "66px", paddingBottom: '150px',fontSize: "0.8em" }}
+      >
         <div
           className="col-10 col-md-8 col-lg-6 mr-auto ml-auto mt-4"
           style={formBg}

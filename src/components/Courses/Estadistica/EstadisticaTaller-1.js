@@ -504,13 +504,15 @@ class Taller1 extends Component {
   };
   sendForm = () => {
     let puntos = this.renderPuntaje();
-    let grade = (puntos / this.state.checkBoxItem.length)*100;
+    let grade = (puntos / this.state.checkBoxItem.length) * 100;
 
     this.setState({ puntos: puntos, grade: grade, examDate: Date.now() });
+    console.log(this.props.auth.user);
 
     theApi
       .postExam({
-        id: this.props.auth.user.id,
+        theName: this.props.auth.user.name,
+        theId: this.props.auth.user.id,
         points: puntos,
         grade: grade
       })
@@ -541,11 +543,11 @@ class Taller1 extends Component {
           Tienes 38 preguntas, donde debes elegir la respuesta correcta. Al
           final, y si estas de acuerdo con tus respuestas, debes presionar el
           boton de enviar{" "}
-          <p className='shakeThatThing '>
-          <span role="img" aria-label="star-dust">
-            {" "}
-            🚀
-          </span>
+          <p className="shakeThatThing ">
+            <span role="img" aria-label="star-dust">
+              {" "}
+              🚀
+            </span>
           </p>
         </div>
         <p className="theTitle mt-4">

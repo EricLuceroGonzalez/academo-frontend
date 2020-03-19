@@ -41,7 +41,7 @@ class CheckItems extends Component {
           {this.props.question}
         </p>
         <div
-        className=' col-lg-6 col-10 col-md-5'
+        className=' col-lg-6 col-10 col-md-8'
          style={{ textAlign: "left" }}>{this.generateCheck()}</div>
       </div>
     );

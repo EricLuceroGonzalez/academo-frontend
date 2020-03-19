@@ -13,7 +13,12 @@ class Dashboard extends Component {
     const { user } = this.props.auth;
     return (
       <div
-        style={{ marginTop: "56px", paddingTop: "60px", height: "95vh" }}
+        style={{
+          marginTop: "56px",
+          paddingTop: "60px",
+          paddingBottom: "30px",
+          height: "100%"
+        }}
         className="container valign-wrapper"
       >
         <div className="row">

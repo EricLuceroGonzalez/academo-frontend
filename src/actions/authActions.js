@@ -5,13 +5,13 @@ import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./types";
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
-  console.log("Here!!");
-  console.log(history);
+  // console.log("Here!!");
+  // console.log(history);
 
   theApi
     .postRegister(userData)
     .then(res => {
-      console.log(`Register OK!\n user: ${res.data}`);
+      console.log(`Register OK!`);
       history.push("/login");
     }) // re-direct to login on successful register
     .catch(err => {

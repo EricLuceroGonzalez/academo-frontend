@@ -12,8 +12,9 @@ class About extends Component {
         className="mr-auto ml-auto col-lg-8 col-md-10 col-12"
         style={{
           height: "100vh",
-          margin: "0px auto 35px auto",
-          padding: "25% 0px 50px 0px"
+          width: "100vw",
+          margin: "0px auto 1px auto",
+          padding: "75px 0px 50px 0px"
         }}
       >
         <div className="col-10 col-md-8 mr-auto ml-auto lightThing">
@@ -35,7 +36,7 @@ style={{
   fontFamily: "Montserrat-ExtraBold",
   color: "white",
   backgroundColor: "rgb(116, 35, 153)",
-  marginTop: "205px",
+  marginTop: "55px",
   padding: "7px 12px",
   boxShadow: "2px 2px 3px black"
 }}

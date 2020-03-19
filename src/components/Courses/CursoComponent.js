@@ -12,7 +12,7 @@ class CourseComponent extends Component {
   render() {
     return (
       <div
-        className="row media col-12 mr-auto ml-auto mt-4 pt-4 pb-4"
+        className="row media col-12 mr-auto ml-auto mt-4 pt-3 pb-3"
         onClick={() => this.props.goToPage}
         style={courseStyle}
       >
