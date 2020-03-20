@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import theApi from "../../api/index";
 import { Spinner } from "reactstrap";
+import moment from "moment";
 
 class GetGrades extends Component {
   state = { allGrades: [] };
@@ -10,7 +11,7 @@ class GetGrades extends Component {
       .getGrades()
       .then(res => {
         // console.log({ mensaje: "Get all data", response: res.data });
-        // console.log(res.data);
+        console.log(res.data);
         // console.log(res.data[0]);
         this.setState({ allGrades: res.data });
       })
@@ -42,12 +43,17 @@ class GetGrades extends Component {
       const table = this.state.allGrades.map((item, i) => {
         // console.log(`------------- ${i} ------------`);
         var nota = "";
+        var fecha = "";
         if (item.testInfo.length !== 0) {
           item.testInfo.length > 1
             ? (nota = item.testInfo[item.testInfo.length - 1].grade)
             : (nota = item.testInfo[0].grade);
+          item.testInfo.length > 1
+            ? (fecha = item.testInfo[item.testInfo.length - 1].examDate)
+            : (fecha = item.testInfo[0].examDate);
         } else {
           nota = "No registrado";
+          fecha = "No registrado";
         }
 
         return (
@@ -58,6 +64,7 @@ class GetGrades extends Component {
               {nota !== "No registrado" ? nota.toFixed(1) : "No registrado"}
             </td>
             <td>{item.email}</td>
+            <td>{moment(fecha).format('MMMM Do YYYY, h:mm:ss a')}</td>
           </tr>
         );
       });
@@ -70,8 +77,7 @@ class GetGrades extends Component {
         style={{
           marginTop: "56px",
           paddingTop: "60px",
-          paddingBottom: 
-          "60px",
+          paddingBottom: "60px",
           height: "100%"
         }}
         className="container valign-wrapper"
@@ -81,11 +87,13 @@ class GetGrades extends Component {
           className="table-responsive ml-auto mr-auto"
           style={{ margin: "10px 15px", fontFamily: "Poppins-Light" }}
         >
-          <table className="table table-striped col-12 ml-auto mr-auto " 
-          style={{
-            backgroundColor: "rgba(225,224,227,1)",
-            fontSize: '0.75em'
-          }}>
+          <table
+            className="table table-striped col-12 ml-auto mr-auto "
+            style={{
+              backgroundColor: "rgba(225,224,227,1)",
+              fontSize: "0.65em"
+            }}
+          >
             <thead>
               <tr
                 style={{
@@ -98,6 +106,7 @@ class GetGrades extends Component {
                 <th>Nombre</th>
                 <th>Nota</th>
                 <th>Correo</th>
+                <th>Fecha</th>
               </tr>
             </thead>
             <tbody
