@@ -55,7 +55,7 @@ class GetGrades extends Component {
           nota = "No registrado";
           fecha = "No registrado";
         }
-
+        moment.locale();         // es
         return (
           <tr key={i}>
             <th scope="row">{i + 1}</th>
@@ -66,7 +66,7 @@ class GetGrades extends Component {
               <td className="table-danger">Error</td>
             )}
             {/**<td>{item.email}</td> */}
-            <td>{moment(fecha).startOf('day').fromNow()}</td>
+            <td>{moment(fecha).format('LLLL')}</td>
           </tr>
         );
       });
