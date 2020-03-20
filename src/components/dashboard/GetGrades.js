@@ -78,13 +78,15 @@ class GetGrades extends Component {
         <h1 className="navThing">Notas</h1>
         <div
           className="table-responsive ml-auto mr-auto"
-          style={{ margin: "90px 15px", fontFamily: "Poppins-Light" }}
+          style={{ margin: "10px 15px", fontFamily: "Poppins-Light" }}
         >
-          <table className="table table-striped col-6">
+          <table className="table table-striped col-8 ml-auto mr-auto " 
+          style={{
+            backgroundColor: "rgba(225,224,227,1)"
+          }}>
             <thead>
               <tr
                 style={{
-                  fontSize: "0.85em",
                   backgroundColor: "rgba(155,74,177,1)",
                   color: "white",
                   fontFamily: "Montserrat-ExtraBold"
@@ -96,7 +98,14 @@ class GetGrades extends Component {
                 <th>Nota</th>
               </tr>
             </thead>
-            <tbody style={{ fontSize: "0.65em" }}>{this.renderGrades()}</tbody>
+            <tbody
+              style={{
+                fontFamily: "Montserrat-ExtraBold"
+                // backgroundColor: "rgba(155,74,177,1)"
+              }}
+            >
+              {this.renderGrades()}
+            </tbody>
           </table>
         </div>
       </div>
