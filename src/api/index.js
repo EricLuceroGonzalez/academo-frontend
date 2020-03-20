@@ -13,11 +13,14 @@ axios.defaults.headers.common = {
 export const postRegister = usrData => api.post("/user/register", usrData);
 export const postLogin = usrData => api.post("/user/login", usrData);
 export const postExam = examData => api.post("/test", examData);
+export const getGrades = () => api.get("/getAllGrades");
 
+// api.get("/getGrades");
 const theApi = {
   postRegister,
   postLogin,
-  postExam
+  postExam,
+  getGrades
 };
 
 // baseURL: "http://localhost:3000/api"

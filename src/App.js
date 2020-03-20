@@ -31,6 +31,7 @@ import CheckOut from "./components/dashboard/CheckOut";
 import About from "./components/layout/About";
 import NotFound from "./components/layout/NotFount";
 import CheckError from "./components/dashboard/CheckError";
+import GetGrades from "./components/dashboard/GetGrades";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -105,6 +106,11 @@ function App() {
             path="/checkError"
             component={CheckError}
           ></PrivateRoute>
+          <PrivateRoute
+          exact
+          path="/getGrades"
+          component={GetGrades}
+        ></PrivateRoute>
             <Route component={NotFound}></Route>
 
           </Switch>
