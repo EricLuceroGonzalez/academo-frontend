@@ -60,11 +60,13 @@ class GetGrades extends Component {
           <tr key={i}>
             <th scope="row">{i + 1}</th>
             <td>{item.name}</td>
-            <td>
-              {nota !== "No registrado" ? nota.toFixed(1) : "No registrado"}
-            </td>
+            {nota !== "No registrado" ? (
+              <td>{nota.toFixed(1)}</td>
+            ) : (
+              <td class="table-danger">Error</td>
+            )}
             <td>{item.email}</td>
-            <td>{moment(fecha).format('MMMM Do YYYY, h:mm:ss a')}</td>
+            <td>{moment(fecha).format("MMMM Do YYYY, h:mm:ss a")}</td>
           </tr>
         );
       });
@@ -75,7 +77,6 @@ class GetGrades extends Component {
     return (
       <div
         style={{
-          marginTop: "56px",
           paddingTop: "60px",
           paddingBottom: "60px",
           height: "100%"
@@ -84,11 +85,11 @@ class GetGrades extends Component {
       >
         <h1 className="navThing">Notas</h1>
         <div
-          className="table-responsive ml-auto mr-auto"
-          style={{ margin: "10px 15px", fontFamily: "Poppins-Light" }}
+          className="table-responsive ml-auto mr-auto col-12"
+          style={{ margin: "10px 5px", fontFamily: "Poppins-Light" }}
         >
           <table
-            className="table table-striped col-12 ml-auto mr-auto "
+            className="table table-striped col-12 ml-auto mr-auto table-sm"
             style={{
               backgroundColor: "rgba(225,224,227,1)",
               fontSize: "0.65em"
@@ -109,14 +110,7 @@ class GetGrades extends Component {
                 <th>Fecha</th>
               </tr>
             </thead>
-            <tbody
-              style={{
-                fontFamily: "Montserrat-ExtraBold"
-                // backgroundColor: "rgba(155,74,177,1)"
-              }}
-            >
-              {this.renderGrades()}
-            </tbody>
+            <tbody>{this.renderGrades()}</tbody>
           </table>
         </div>
       </div>
