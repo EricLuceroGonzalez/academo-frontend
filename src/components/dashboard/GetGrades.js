@@ -63,10 +63,10 @@ class GetGrades extends Component {
             {nota !== "No registrado" ? (
               <td>{nota.toFixed(1)}</td>
             ) : (
-              <td class="table-danger">Error</td>
+              <td className="table-danger">Error</td>
             )}
-            <td>{item.email}</td>
-            <td>{moment(fecha).format("MMMM Do YYYY, h:mm:ss a")}</td>
+            {/**<td>{item.email}</td> */}
+            <td>{moment(fecha).startOf('day').fromNow()}</td>
           </tr>
         );
       });
@@ -106,7 +106,6 @@ class GetGrades extends Component {
                 <th>#</th>
                 <th>Nombre</th>
                 <th>Nota</th>
-                <th>Correo</th>
                 <th>Fecha</th>
               </tr>
             </thead>
