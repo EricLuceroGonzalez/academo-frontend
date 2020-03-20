@@ -54,10 +54,10 @@ class GetGrades extends Component {
           <tr key={i}>
             <th scope="row">{i + 1}</th>
             <td>{item.name}</td>
-            <td>{item.email}</td>
             <td>
               {nota !== "No registrado" ? nota.toFixed(1) : "No registrado"}
             </td>
+            <td>{item.email}</td>
           </tr>
         );
       });
@@ -70,7 +70,8 @@ class GetGrades extends Component {
         style={{
           marginTop: "56px",
           paddingTop: "60px",
-          paddingBottom: "60px",
+          paddingBottom: 
+          "60px",
           height: "100%"
         }}
         className="container valign-wrapper"
@@ -80,9 +81,10 @@ class GetGrades extends Component {
           className="table-responsive ml-auto mr-auto"
           style={{ margin: "10px 15px", fontFamily: "Poppins-Light" }}
         >
-          <table className="table table-striped col-8 ml-auto mr-auto " 
+          <table className="table table-striped col-12 ml-auto mr-auto " 
           style={{
-            backgroundColor: "rgba(225,224,227,1)"
+            backgroundColor: "rgba(225,224,227,1)",
+            fontSize: '0.75em'
           }}>
             <thead>
               <tr
@@ -94,8 +96,8 @@ class GetGrades extends Component {
               >
                 <th>#</th>
                 <th>Nombre</th>
-                <th>Correo</th>
                 <th>Nota</th>
+                <th>Correo</th>
               </tr>
             </thead>
             <tbody

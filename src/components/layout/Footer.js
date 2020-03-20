@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 // import { faHome, faRegistered, faTrademark } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,17 +12,18 @@ class FooterComponent extends Component {
         className="col-12 p-2"
         style={{
           //   marginTop: "150px",
-          height: '5%',
+          height: '6%',
           color: "white",
           background:"rgba(75,20,90,0.97)",
           position: "fixed",
           bottom: "0px",
-          fontSize: "0.75em",
+          fontSize: "0.5em",
+          padding: '5px 2px',
           fontFamily: "Montserrat-Light"
         }}
       >
         creado para fines academicos
-          por <span className="foot">Eric Lucero G.</span>
+          por <span className="foot"><Link to='/getGrades' style={{color: 'white'}}>Eric Lucero G.</Link></span>
         <div>contacto: ericlucero501@gmail.com</div>
       </div>
     );

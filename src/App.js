@@ -114,8 +114,8 @@ function App() {
             <Route component={NotFound}></Route>
 
           </Switch>
+          <FooterComponent></FooterComponent>
         </Router>
-        <FooterComponent></FooterComponent>
       </div>
     </Provider>
   );
