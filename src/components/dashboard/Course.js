@@ -21,7 +21,7 @@ class CourseDashboard extends Component {
     theApi
       .getCourseDash(this.props.auth.user.id)
       .then((res) => {
-        // console.log(res.data[0]);
+        // console.log(res);
         this.setState({
           courses: res.data[0].courseName,
           tests: res.data[0].tests,

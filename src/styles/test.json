@@ -8,8 +8,8 @@
       "options": [
         {
           "isEquation": true,
-          "equation": "",
-          "text": "x^2 + 2x + \\frac{2}{x}"
+          "equation": "x^2 + 2x + \\frac{2}{x}",
+          "text": ""
         },
         {
           "isEquation": true,
@@ -87,7 +87,7 @@
       ],
       "answer": {
         "isEquation": false,
-        "text": "Cualitativo Discreto"
+        "text": "Cuantitativo Discreto"
       },
       "pts": 0
     },
@@ -152,23 +152,11 @@
         "text": ""
       },
       "pts": 0
-    },
-    {
-      "isEquation": false,
-      "questionName": "question6",
-      "question": "El peso de todos los del salón de clases",
-      "options": [],
-      "answer": {
-        "isEquation": false,
-        "equation": "",
-        "text": "the empty one"
-      },
-      "pts": 0
     }
   ],
   "evaluation": "taller",
   "description": "Contesta las siguientes preguntas correctamente. Los puntos acumulados en esta prueba sumaran una nota como taller.",
   "instructions": "Constesta estas preguntas, donde debes elegir la respuesta correcta. Al final, y si estas de acuerdo con tus respuestas, presiona elboton de enviar",
   "testName": "Taller 1",
-  "subject": "5eb3c0311fbcb66c7391b4da"
+  "subject": "5ed12ebcfe88dd3e7a06b31d"
 }

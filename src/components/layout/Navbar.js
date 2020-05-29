@@ -19,9 +19,6 @@ const NavBar = (props) => {
     props.auth.isAuthenticated
       ? setUserName(props.auth.user.name.firstName)
       : setUserName();
-    props.auth.isAuthenticated
-      ? console.log(props.auth.user)
-      : console.log("--");
   }, [props]);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -30,7 +27,7 @@ const NavBar = (props) => {
     props.logoutUser();
     history.push('/')
   };
-  
+
   return (
     <div className="mb-2">
       <Navbar color="light" light expand="sm" fixed="top">
