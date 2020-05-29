@@ -133,6 +133,8 @@ const Login = (props) => {
 
   return (
     <React.Fragment>
+    {isLoading && <LoadingSpinner asOverlay />}
+
       <div
         className="container"
         style={{
@@ -142,7 +144,6 @@ const Login = (props) => {
           fontSize: "0.8em",
         }}
       >
-        {isLoading && <LoadingSpinner asOverlay />}
         <div
           className="col-10 col-md-8 col-lg-6 mr-auto ml-auto mt-4"
           style={formBg}

@@ -29,6 +29,7 @@ class TestsComponent extends Component {
 
         <div className="col-10">
           <h4 className="lightThing">{this.props.theTitle}</h4>
+          <h6 className="lightThing">{this.props.theContent}</h6>
           <div className="checkOption mt-2 col-10">{this.props.theText}</div>
         </div>
       </Link>

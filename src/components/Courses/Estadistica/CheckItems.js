@@ -48,7 +48,8 @@ class CheckItems extends Component {
         <p className="checkQuestion">
           <span className="theNumber">{this.props.numberQuestion}</span>
           {") "}
-          {this.props.question}
+          {this.props.question} 
+          {this.props.contents}
         </p>
         <div
           className=" col-lg-6 col-10 col-md-8"

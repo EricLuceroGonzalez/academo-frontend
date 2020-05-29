@@ -45,6 +45,7 @@ class CourseDashboard extends Component {
             evaluation={test.evaluation}
             theTitle={test.testName}
             theText={test.description}
+            theContent={test.contents}
           ></TestsComponent>
         );
       });

@@ -201,7 +201,7 @@ class TallerComponent extends Component {
           className="pb-2 col-10"
         >
         {this.state.isLoading && <LoadingSpinner asOverlay />}
-          <h3 className="theTitle">Nota parcial </h3>
+          <h3 className="theTitle">{this.state.test.testName} </h3>
           {this.renderInstrucciones()}
           <p className="theTitle mt-4">
             <b>Estudiante: </b>
