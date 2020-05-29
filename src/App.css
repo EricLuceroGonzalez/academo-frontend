@@ -175,3 +175,14 @@
   80% { transform: translate(-1px, -1px) rotate(1deg); }
   100% { transform: translate(1px, -1px) rotate(-1deg); }
 }
+
+.floatCSV{
+  position:fixed;
+	bottom:45px;
+	right:10px;
+  color: white;
+  background-color: rgb(40,210,105);
+  font-family: "Montserrat-ExtraBold";
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}

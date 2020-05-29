@@ -28,14 +28,14 @@ class StatisticsComponent extends Component {
           theTitle={"Examen Parcial "}
           theText={"Contesta las siguientes preguntas correctamente. Los puntos acumulados en esta prueba sumaran una nota parcial."}
         ></TallerComponent>
-        {/**
                   <TallerComponent
-          id={"taller2"}
+          id={"taller3"}
           handleClick={this.handleClicks}
           theIcon={faDiceOne}
-          theTitle={"Taller "}
-          theText={"bbbbbbb"}
+          theTitle={"Taller 2"}
+          theText={"Contesta las siguientes preguntas correctamente. Los puntos acumulados en esta prueba sumaran una nota parcial."}
         ></TallerComponent>
+        {/**
 
           <TallerComponent
           goTo={() => this.goToCompo("Taller1")}

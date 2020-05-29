@@ -541,8 +541,8 @@ class Taller1 extends Component {
         <h3 className="theTitle">Nota parcial </h3>
         <div className="instrucciones">
           Tienes 38 preguntas, donde debes elegir la respuesta correcta. Al
-          final, y si estas de acuerdo con tus respuestas, debes presionar el
-          boton de enviar{" "}
+          final, y si estas de acuerdo con tus respuestas, presiona el
+          boton de enviar
           <p className="shakeThatThing ">
             <span role="img" aria-label="star-dust">
               {" "}

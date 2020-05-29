@@ -24,7 +24,7 @@ class Dashboard extends Component {
         <div className="row">
           <div className="col-12 col-lg-6 col-md-8 col-sm-10 center-align mr-auto ml-auto">
             <h4>
-              <b>Hola,</b> {user.name.split(" ")[0]}{" "}
+              <b>Hola,</b> {user.name.firstName.split(" ")[0]}{" "}
               <span role="img" aria-label="face-mask">
                 {" "}
                 😷

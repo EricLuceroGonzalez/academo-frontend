@@ -6,13 +6,14 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/authActions";
 import classnames from "classnames";
+import LoadingSpinner from "../components/UIElements/LoadingSpinner";
 
 const formBg = {
   background: "white",
   borderRadius: "18px",
   boxShadow: "4px 5px 4px rgba(60,60,60,1)",
   paddingTop: "60px",
-  paddingBottom: "60px"
+  paddingBottom: "60px",
   // marginTop: '2150px'
 };
 
@@ -30,7 +31,7 @@ const inputSty = {
   fontSize: "inherit",
   fontWeight: "500",
   lineHeight: "inherit",
-  transition: "0.3s ease"
+  transition: "0.3s ease",
 };
 
 const labelSty = {
@@ -41,7 +42,7 @@ const labelSty = {
   fontWeight: "500",
   lineHeight: "1",
   textTransform: "uppercase",
-  letterSpacing: ".2em"
+  letterSpacing: ".2em",
 };
 
 class Login extends Component {
@@ -50,123 +51,139 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      errors: {}
+      errors: {},
+      isLoading: false,
     };
   }
 
   componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/courses/estadistica");
+      this.props.history.push("/dashboard");
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/courses/estadistica"); // push user to dashboard when they login
+      this.props.history.push("/dashboard"); // push user to dashboard when they login
     }
     if (nextProps.errors) {
       this.setState({
-        errors: nextProps.errors
+        errors: nextProps.errors,
       });
     }
   }
-  onChange = e => {
+  
+  onChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
   };
-  onSubmit = e => {
+  onSubmit = async (e) => {
     e.preventDefault();
-    const userData = {
-      email: this.state.email,
-      password: this.state.password
-    };
+    this.setState({ isLoading: true });
+    try {
+      const userData = {
+        email: this.state.email,
+        password: this.state.password,
+      };
+      await this.props.loginUser(userData);
+      // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+    } catch (err) {
+      this.setState({ isLoading: false });
+    }
 
-    // console.log(userData);
-    this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+    this.setState({ isLoading: false });
   };
   render() {
     const { errors } = this.state;
     return (
-      <div
-        className="container"
-        style={{ height: "100vh", paddingTop: "66px", paddingBottom: '150px',fontSize: "0.8em" }}
-      >
+      <React.Fragment>
         <div
-          className="col-10 col-md-8 col-lg-6 mr-auto ml-auto mt-4"
-          style={formBg}
+          className="container"
+          style={{
+            height: "100vh",
+            paddingTop: "66px",
+            paddingBottom: "150px",
+            fontSize: "0.8em",
+          }}
         >
-          <div className="col-12" style={{ paddingLeft: "11.250px" }}>
-            <h4>
-              <b className="theTitle">Login</b>
-            </h4>
-            <p className="grey-text text-darken-1">
-              ¿No tienes cuenta?{" "}
-              <Link to="/register" style={{ color: "rgb(116, 35, 153)" }}>
-                Regístrate
-              </Link>
-            </p>
-          </div>
-          <form noValidate onSubmit={this.onSubmit}>
-            <div className="input-field col-12">
-              <input
-                style={inputSty}
-                onChange={this.onChange}
-                value={this.state.email}
-                error={errors.email}
-                id="email"
-                type="email"
-                className={classnames("", {
-                  invalid: errors.email || errors.emailnotfound
-                })}
-              />
-              <label style={labelSty} htmlFor="email">
-                Email
-              </label>
-              <span className="red-text">
-                {errors.email}
-                {errors.emailnotfound}
-              </span>
-            </div>
-            <div className="input-field col-12">
-              <input
-                style={inputSty}
-                onChange={this.onChange}
-                value={this.state.password}
-                error={errors.password}
-                id="password"
-                type="password"
-                className={classnames("", {
-                  invalid: errors.password || errors.passwordincorrect
-                })}
-              />
-              <label style={labelSty} htmlFor="password">
-                Password
-              </label>
-              <span className="red-text">
-                {errors.password}
-                {errors.passwordincorrect}
-              </span>
-            </div>
+        {this.state.isLoading && <LoadingSpinner asOverlay />}
+          <div
+            className="col-10 col-md-8 col-lg-6 mr-auto ml-auto mt-4"
+            style={formBg}
+          >
             <div className="col-12" style={{ paddingLeft: "11.250px" }}>
-              <button
-                style={{
-                  borderRadius: "3px",
-                  letterSpacing: "1.5px",
-                  marginTop: "1rem"
-                }}
-                type="submit"
-                className="btn btn-large nextBtn col-10 mt-5"
-              >
-                Login{" "}
-                <span role="img" aria-label="star-dust">
-                  {" "}
-                  🚀
-                </span>
-              </button>
+              <h4>
+                <b className="theTitle">Login</b>
+              </h4>
+              <p className="grey-text text-darken-1">
+                ¿No tienes cuenta?{" "}
+                <Link to="/register" style={{ color: "rgb(116, 35, 153)" }}>
+                  Regístrate
+                </Link>
+              </p>
             </div>
-          </form>
+            <form noValidate onSubmit={this.onSubmit}>
+              <div className="input-field col-12">
+                <input
+                  style={inputSty}
+                  onChange={this.onChange}
+                  value={this.state.email}
+                  error={errors.email}
+                  id="email"
+                  type="email"
+                  className={classnames("", {
+                    invalid: errors.email || errors.emailnotfound,
+                  })}
+                />
+                <label style={labelSty} htmlFor="email">
+                  Email
+                </label>
+                <span className="red-text">
+                  {errors.email}
+                  {errors.emailnotfound}
+                </span>
+              </div>
+              <div className="input-field col-12">
+                <input
+                  style={inputSty}
+                  onChange={this.onChange}
+                  value={this.state.password}
+                  error={errors.password}
+                  id="password"
+                  type="password"
+                  className={classnames("", {
+                    invalid: errors.password || errors.passwordincorrect,
+                  })}
+                />
+                <label style={labelSty} htmlFor="password">
+                  Password
+                </label>
+                <span className="red-text">
+                  {errors.password}
+                  {errors.passwordincorrect}
+                </span>
+              </div>
+              <div className="col-12" style={{ paddingLeft: "11.250px" }}>
+                <button
+                  style={{
+                    borderRadius: "3px",
+                    letterSpacing: "1.5px",
+                    marginTop: "1rem",
+                  }}
+                  type="submit"
+                  className="btn btn-large nextBtn col-10 mt-5"
+                >
+                  Login{" "}
+                  <span role="img" aria-label="star-dust">
+                    {" "}
+                    🚀
+                  </span>
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
@@ -174,10 +191,10 @@ class Login extends Component {
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
 });
 export default connect(mapStateToProps, { loginUser })(Login);

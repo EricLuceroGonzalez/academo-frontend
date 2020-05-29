@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import theApi from "../../api/index";
 import { Spinner } from "reactstrap";
 import moment from "moment";
+import { CSVLink } from "react-csv";
+
+const headers = [
+  { label: "Nombre", key: "name" },
+  { label: "Nota", key: "testInfo[0].grade" },
+  { label: "Correo", key: "email" },
+  { label: "Fecha", key: "testInfo[0].examDate" }
+];
 
 class GetGrades extends Component {
   state = { allGrades: [] };
@@ -65,7 +73,7 @@ class GetGrades extends Component {
             ) : (
               <td className="table-danger">Error</td>
             )}
-            {/**<td>{item.email}</td> */}
+            <td>{item.email}</td>
             <td>{moment(fecha).format('LLLL')}</td>
           </tr>
         );
@@ -73,6 +81,29 @@ class GetGrades extends Component {
       return table;
     }
   };
+  renderCSV() {
+    if (this.state.allGrades.length === 0) {
+      return <div>Nothing</div>;
+    } else {
+      return (
+        <div className="mt-2 mb-4">
+          <CSVLink
+            data={this.state.allGrades}
+            filename={"00-estadistica-DataSet.csv"}
+            headers={headers}
+            separator={","}
+            className="btn floatCSV"
+            target="_blank"
+          >
+            Descargar
+            <span role="img" aria-label="memo">
+              📝
+            </span>
+          </CSVLink>
+        </div>
+      );
+    }
+  }
   render() {
     return (
       <div
@@ -106,12 +137,14 @@ class GetGrades extends Component {
                 <th>#</th>
                 <th>Nombre</th>
                 <th>Nota</th>
+                <th>Correo</th>
                 <th>Fecha</th>
               </tr>
             </thead>
             <tbody>{this.renderGrades()}</tbody>
           </table>
         </div>
+        {this.renderCSV()}
       </div>
     );
   }

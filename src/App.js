@@ -1,5 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "katex/dist/katex.min.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 
@@ -32,6 +33,9 @@ import About from "./components/layout/About";
 import NotFound from "./components/layout/NotFount";
 import CheckError from "./components/dashboard/CheckError";
 import GetGrades from "./components/dashboard/GetGrades";
+import EstadisticaTaller3 from "./components/Courses/Estadistica/EstadisticaTaller-3";
+import Course from "./components/dashboard/Course";
+import TallerComponent from "./components/Courses/TallerComponent";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -60,7 +64,7 @@ function App() {
           top: "0px",
           background:
             "linear-gradient(200deg, rgba(14,254,251,1) 0%, rgba(15,50,240,0.85) 100%)",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
         <Router>
@@ -73,28 +77,18 @@ function App() {
             <Route exact path="/resources/a" component={Login} />
             <Route path="/landing" component={Landing} />
             <Route path="/about" component={About} />
-            <PrivateRoute exact path="/dashboard" component={Dashboard} />
-
+            <PrivateRoute exact path="/dashboard" component={Course} />
             <Route exact path="/courses" component={CoursesComponent} />
             <PrivateRoute
               exact
               path="/courses/mat2"
               component={MathTwoComponent}
             />
+
             <PrivateRoute
               exact
-              path="/courses/estadistica"
-              component={StatisticsComponent}
-            />
-            <PrivateRoute
-              exact
-              path="/courses/estadistica/taller1"
-              component={Taller1}
-            />
-            <PrivateRoute
-              exact
-              path="/courses/estadistica/taller2"
-              component={Taller2}
+              path="/taller/:Taller"
+              component={TallerComponent}
             />
             <PrivateRoute
               exact
@@ -102,17 +96,16 @@ function App() {
               component={CheckOut}
             ></PrivateRoute>
             <PrivateRoute
-            exact
-            path="/checkError"
-            component={CheckError}
-          ></PrivateRoute>
-          <PrivateRoute
-          exact
-          path="/getGrades"
-          component={GetGrades}
-        ></PrivateRoute>
+              exact
+              path="/checkError"
+              component={CheckError}
+            ></PrivateRoute>
+            <PrivateRoute
+              exact
+              path="/getGrades"
+              component={GetGrades}
+            ></PrivateRoute>
             <Route component={NotFound}></Route>
-
           </Switch>
           <FooterComponent></FooterComponent>
         </Router>

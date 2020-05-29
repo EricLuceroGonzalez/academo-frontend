@@ -1,0 +1,65 @@
+{
+    "questions": [
+      {
+        "questionName": "question1",
+        "question": "<InlineMath math='x^2' />",
+        "options": [
+          "<InlineMath math=' x^2 + 2x + \frac{2}{x}' />",
+          "<InlineMath math='x^2' />",
+          "<InlineMath math='2x' />",
+          "<InlineMath math='\frac{2}{x}' />"
+        ],
+        "answer": "<InlineMath math='2x^2' />",
+        "pts": 10
+      },
+      {
+        "questionName": "question2",
+        "question": "Las encuestas con las opciones: Malo, Regular, Bueno",
+        "options": [
+          "Cualitativo Nominal",
+          "Cualitativo Ordinal",
+          "Cuantitativo Continuo",
+          "Cuantitativo Discreto"
+        ],
+        "value": 10,
+        "answer": "Cualitativo Ordinal",
+        "pts": 0
+      },
+      {
+        "questionName": "question3",
+        "question": "Las edades (en años) de todos los del salón de clases",
+        "options": [
+          "Cualitativo Nominal",
+          "Cualitativo Ordinal",
+          "Cuantitativo Continuo",
+          "Cuantitativo Discreto"
+        ],
+        "answer": "Cuantitativo Discreto",
+        "pts": 0
+      },
+      {
+        "questionName": "question4",
+        "question": "El peso de todos los del salón de clases",
+        "options": [
+          "Cualitativo Nominal",
+          "Cualitativo Ordinal",
+          "Cuantitativo Continuo",
+          "Cuantitativo Discreto"
+        ],
+        "answer": "Cuantitativo Continuo",
+        "pts": 0
+      },
+      {
+        "questionName": "question4",
+        "question": "El peso de todos los del salón de clases",
+        "options": [],
+        "answer": "Cuantitativo Continuo",
+        "pts": 0
+      }
+    ],
+    "evaluation": "taller",
+    "description": "Contesta las siguientes preguntas correctamente. Los puntos acumulados en esta prueba sumaran una nota como taller.",
+    "instructions": "Constesta estas preguntas, donde debes elegir la respuesta correcta. Al final, y si estas de acuerdo con tus respuestas, presiona elboton de enviar",
+    "testName": "Taller 2",
+    "subject": "5eb3c0311fbcb66c7391b4da"
+  }

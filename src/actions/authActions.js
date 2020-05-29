@@ -5,21 +5,21 @@ import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./types";
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
-  // console.log("Here!!");
+//  console.log("Here!!");
   // console.log(history);
 
   theApi
     .postRegister(userData)
     .then(res => {
-      console.log(`Register OK!`);
+    //  console.log(`Register OK!`);
       history.push("/login");
     }) // re-direct to login on successful register
     .catch(err => {
-      console.log("Error on register:");
-      console.log(err);
+    //  console.log("Error on register:");
+    //  console.log(err);
       dispatch({
         type: GET_ERRORS,
-        payload: err.response.data
+        payload: err.response
       });
     });
 };
@@ -37,6 +37,9 @@ export const loginUser = userData => dispatch => {
       // Decode token to get user data
       const decoded = jwt_decode(token);
       // Set current user
+    //  console.log('the Decoded');
+    //  console.log(decoded);
+      
       dispatch(setCurrentUser(decoded));
     })
     .catch(err =>
@@ -45,7 +48,9 @@ export const loginUser = userData => dispatch => {
         payload: err.response.data
       })
     );
-}; // Set logged in user
+}; 
+
+// Set logged in user
 export const setCurrentUser = decoded => {
   return {
     type: SET_CURRENT_USER,

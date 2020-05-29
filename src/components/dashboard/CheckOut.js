@@ -1,19 +1,39 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 
-class CheckOut extends Component {
-  onLogoutClick = e => {
+const CheckOut = (props) => {
+  const onLogoutClick = (e) => {
     e.preventDefault();
-    this.props.logoutUser();
+    props.logoutUser();
   };
 
-  render() {
-    const { user } = this.props.auth;
-    return (
+  const [isLogged, setIsLogged] = useState(false);
+  const [userName, setUserName] = useState();
+  const history = useHistory();
+
+  useEffect(() => {
+    props.auth.isAuthenticated ? setIsLogged(true) : setIsLogged(false);
+    props.auth.isAuthenticated
+      ? setUserName(props.auth.user.name.firstName)
+      : setUserName();
+    props.auth.isAuthenticated
+      ? console.log(props.auth.user)
+      : console.log("--");
+  }, [props]);
+
+  return (
+    <React.Fragment>
       <div
-        style={{ marginTop: "56px", paddingTop: "60px",paddingBottom: "60px", height: "100%" }}
+        style={{
+          marginTop: "56px",
+          paddingTop: "60px",
+          paddingBottom: "60px",
+          height: "99vh",
+          width: "100vw",
+        }}
         className="container valign-wrapper"
       >
         <div className="row">
@@ -29,42 +49,46 @@ class CheckOut extends Component {
               </span>
             </div>
             <h4>
-              <b className='navThing'>Gracias,</b> {user.name.split(" ")[0]}{" "}
-              <span role="img" aria-label="face-mask">
+              <b className="navThing">Gracias,</b> {userName}
+              <span role="img" aria-label="thumb-up">
                 {" "}
-                😷
+                👍
               </span>
               <p className="flow-text grey-text text-darken-1">
                 Lo que llenaste ha sido enviado.{" "}
               </p>
-              <div style={{ fontSize: "0.85em", marginTop: "80%" }}
-              className='navThing'>
-                {" "}
-                Recuerda lavarte las manos.👏
-              </div>
+              <p
+                className="flow-text grey-text text-darken-1"
+                style={{ fontSize: "0.6em" }}
+              >
+                Revisa tu correo.{" "}
+              </p>
             </h4>
-            <button
-              style={{
-                borderRadius: "3px",
-                letterSpacing: "1.5px",
-                marginTop: "1rem"
-              }}
-              onClick={this.onLogoutClick}
-              className="btn btn-large nextBtn col-10"
-            >
-              Salir
-            </button>
           </div>
         </div>
       </div>
-    );
-  }
-}
+      <div className="col-12 col-lg-6 col-md-8 col-sm-10 center-align mr-auto ml-auto">
+        <button
+          style={{
+            borderRadius: "3px",
+            letterSpacing: "1.5px",
+            // marginTop: "1rem",
+            bottom: "160px",
+          }}
+          onClick={onLogoutClick}
+          className="btn btn-large nextBtn col-10"
+        >
+          Salir
+        </button>
+      </div>
+    </React.Fragment>
+  );
+};
 CheckOut.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 };
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 export default connect(mapStateToProps, { logoutUser })(CheckOut);

@@ -1,0 +1,174 @@
+{
+  "questions": [
+    {
+      "isEquation": true,
+      "equation": "x^2",
+      "questionName": "question1",
+      "question": "Calcule",
+      "options": [
+        {
+          "isEquation": true,
+          "equation": "",
+          "text": "x^2 + 2x + \\frac{2}{x}"
+        },
+        {
+          "isEquation": true,
+          "equation": "x^2",
+          "text": ""
+        },
+        {
+          "isEquation": true,
+          "equation": "2x",
+          "text": ""
+        },
+        {
+          "isEquation": true,
+          "equation": "\\frac{2}{x}",
+          "text": ""
+        }
+      ],
+      "answer": {
+        "isEquation": true,
+        "equation": "\\frac{2}{x}",
+        "text": ""
+      },
+      "pts": 0
+    },
+    {
+      "isEquation": false,
+      "questionName": "question2",
+      "question": "Las encuestas con las opciones: Malo, Regular, Bueno",
+      "options": [
+        {
+          "isEquation": false,
+          "text": "Cualitativo Nominal"
+        },
+        {
+          "isEquation": false,
+          "text": "Cualitativo Ordinal"
+        },
+        {
+          "isEquation": false,
+          "text": "Cuantitativo Continuo"
+        },
+        {
+          "isEquation": false,
+          "text": "Cuantitativo Discreto"
+        }
+      ],
+      "value": 10,
+      "answer": {
+        "isEquation": false,
+        "text": "Cualitativo Ordinal"
+      },
+      "pts": 0
+    },
+    {
+      "isEquation": false,
+      "questionName": "question3",
+      "question": "Las edades (en años) de todos los del salón de clases",
+      "options": [
+        {
+          "isEquation": false,
+          "text": "Cualitativo Nominal"
+        },
+        {
+          "isEquation": false,
+          "text": "Cualitativo Ordinal"
+        },
+        {
+          "isEquation": false,
+          "text": "Cuantitativo Continuo"
+        },
+        {
+          "isEquation": false,
+          "text": "Cuantitativo Discreto"
+        }
+      ],
+      "answer": {
+        "isEquation": false,
+        "text": "Cualitativo Discreto"
+      },
+      "pts": 0
+    },
+    {
+      "isEquation": false,
+      "questionName": "question4",
+      "question": "El peso de todos los del salón de clases",
+      "options": [
+        {
+          "isEquation": false,
+          "text": "Cualitativo Nominal"
+        },
+        {
+          "isEquation": false,
+          "text": "Cualitativo Ordinal"
+        },
+        {
+          "isEquation": false,
+          "text": "Cuantitativo Continuo"
+        },
+        {
+          "isEquation": false,
+          "text": "Cuantitativo Discreto"
+        }
+      ],
+      "answer": {
+        "isEquation": false,
+        "text": "Cuantitativo Continuo"
+      },
+      "pts": 0
+    },
+    {
+      "isEquation": true,
+      "equation": "x^2",
+      "questionName": "question5",
+      "question": "La derivada de",
+      "options": [
+        {
+          "isEquation": true,
+          "equation": "x^2 + 2x + \\frac{2}{x}",
+          "text": ""
+        },
+        {
+          "isEquation": true,
+          "equation": "x^2 + x",
+          "text": "Exa"
+        },
+        {
+          "isEquation": true,
+          "equation": "2x",
+          "text": "Res"
+        },
+        {
+          "isEquation": true,
+          "equation": "\\frac{2}{x} + \\cos(x) + \\sin^2(x)",
+          "text": ""
+        }
+      ],
+      "answer": {
+        "isEquation": true,
+        "equation": "2x",
+        "text": ""
+      },
+      "pts": 0
+    },
+    {
+      "isEquation": false,
+      "questionName": "question6",
+      "question": "El peso de todos los del salón de clases",
+      "options": [],
+      "answer": {
+        "isEquation": false,
+        "equation": "",
+        "text": "the empty one"
+      },
+      "pts": 0
+    }
+  ],
+  "evaluation": "taller",
+  "description": "Contesta las siguientes preguntas correctamente. Los puntos acumulados en esta prueba sumaran una nota como taller.",
+  "instructions": "Constesta estas preguntas, donde debes elegir la respuesta correcta. Al final, y si estas de acuerdo con tus respuestas, presiona elboton de enviar",
+  "testName": "Taller 1",
+  "subject": "5eb3c0311fbcb66c7391b4da"
+}
