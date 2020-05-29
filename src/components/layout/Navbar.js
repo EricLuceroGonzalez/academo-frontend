@@ -23,11 +23,14 @@ const NavBar = (props) => {
       ? console.log(props.auth.user)
       : console.log("--");
   }, [props]);
+
   const toggle = () => setIsOpen(!isOpen);
+  
   const logoutCourse = () => {
     props.logoutUser();
     history.push('/')
   };
+  
   return (
     <div className="mb-2">
       <Navbar color="light" light expand="sm" fixed="top">

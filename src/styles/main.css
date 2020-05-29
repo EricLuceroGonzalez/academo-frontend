@@ -829,6 +829,9 @@ iframe {
   background-color: rgba(250, 250, 0, 0.92);
 }
 
+.red-text{
+  color: red
+}
 /* @-webkit-keyframes color_change {
   from {
     background-color: blue;

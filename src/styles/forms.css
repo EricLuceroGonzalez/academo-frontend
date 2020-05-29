@@ -95,3 +95,7 @@
 fontWeight: "bolder",
 fontSize: "2em",
 textShadow: "2px 2px 1px black" */
+
+.red-text{
+  color: red
+}
