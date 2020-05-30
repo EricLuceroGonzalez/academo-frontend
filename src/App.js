@@ -22,18 +22,13 @@ import Register from "./auth/Register";
 import Login from "./auth/Login";
 // Private Routes
 import PrivateRoute from "./components/private-route/PrivateRoute";
-import Dashboard from "./components/dashboard/Dashboard";
 import CoursesComponent from "./components/Courses/CoursesComponent";
 import MathTwoComponent from "./components/Courses/MathB/MathTwoComponent";
-import StatisticsComponent from "./components/Courses/Estadistica/EstadisticaComponent";
-import Taller1 from "./components/Courses/Estadistica/EstadisticaTaller-1";
-import Taller2 from "./components/Courses/Estadistica/EstadisticaTaller-2";
 import CheckOut from "./components/dashboard/CheckOut";
 import About from "./components/layout/About";
 import NotFound from "./components/layout/NotFount";
 import CheckError from "./components/dashboard/CheckError";
 import GetGrades from "./components/dashboard/GetGrades";
-import EstadisticaTaller3 from "./components/Courses/Estadistica/EstadisticaTaller-3";
 import Course from "./components/dashboard/Course";
 import TallerComponent from "./components/Courses/TallerComponent";
 
@@ -87,7 +82,7 @@ function App() {
 
             <PrivateRoute
               exact
-              path="/taller/:Taller"
+              path="/taller/:Taller/:id"
               component={TallerComponent}
             />
             <PrivateRoute

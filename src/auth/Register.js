@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-import { Input } from "reactstrap";
+import React, { Component, useEffect, useState } from "react";
+import { Link, withRouter, useHistory } from "react-router-dom";
+import { Input, Spinner } from "reactstrap";
 // Redux:
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -48,105 +48,166 @@ const labelSty = {
   letterSpacing: ".2em",
 };
 
-class Register extends Component {
-  constructor() {
-    super();
-    this.state = {
-      firstname: "",
-      lastname: "",
-      email: "",
-      phone: "",
-      password: "",
-      password2: "",
-      identification: "",
-      subject: "",
-      courses: [],
-      errors: {},
-      isLoading: false,
+const Register = (props) => {
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     firstname: "",
+  //     lastname: "",
+  //     email: "",
+  //     phone: "",
+  //     password: "",
+  //     password2: "",
+  //     identification: "",
+  //     subject: "",
+  //     courses: [],
+  //     errors: {},
+  //     isLoading: false,
+  //   };
+  // }
+  const [isLogged, setIsLogged] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errors, setErrors] = useState({});
+  const [courses, setCourses] = useState();
+
+  const [lastname, setLastname] = useState();
+  const [firstname, setFirstName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [password2, setPassword2] = useState();
+  const [identification, setIdentification] = useState();
+  const [subject, setSubject] = useState();
+
+  const history = useHistory();
+
+  useEffect(() => {
+    setErrors(props.errors);
+    const checkLogget = async () => {
+      (await props.auth.isAuthenticated)
+        ? setIsLogged(true)
+        : setIsLogged(false);
     };
-  }
 
-  componentDidMount() {
-    console.log("here Register 68");
-
-    // If logged in and user navigates to Register page, should redirect them to dashboard
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+    const loadData = async () => {
+      try {
+        const courseData = await theApi.getCourses();
+        setCourses(courseData.data);
+        setIsLoading(false);
+      } catch (err) {
+        setIsLoading(false);
+      }
+      setIsLoading(false);
+    };
+    loadData();
+    checkLogget();
+    if (isLogged) {
+      history.push("/dashboard");
     }
-    theApi
-      .getCourses()
-      .then((res) => {
-        console.log(res.data);
-        console.log(`len: ${res.data.length}`);
-        this.setState({ courses: res.data });
-        // let course = [];
-        // let courseID = [];
-        // res.data.map((item) => {
-        //   course.push(item.courseName);
-        //   courseID.push(item._id);
-        // });
-        // this.setState({ courses: course });
-        // this.setState({ coursesID: courseID });
-      })
-      .catch((err) => console.log(`GET - ERROR: ${err}`));
-  }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors,
-      });
+    // isLogged ? history.push('/dashboard') : history.push('/login')
+  }, [props, isLogged, history]);
+
+  // componentDidMount() {
+  //   console.log("here Register 68");
+
+  //   // If logged in and user navigates to Register page, should redirect them to dashboard
+  //   if (this.props.auth.isAuthenticated) {
+  //     this.props.history.push("/dashboard");
+  //   }
+  //   theApi
+  //     .getCourses()
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       console.log(`len: ${res.data.length}`);
+  //       this.setState({ courses: res.data });
+  //     })
+  //     .catch((err) => console.log(`GET - ERROR: ${err}`));
+  // }
+
+  // concomponentWillReceiveProps(nextProps) {
+  //   if (nextProps.errors) {
+  //     this.setState({
+  //       errors: nextProps.errors,
+  //     });
+  //   }
+  // }
+  const onChange = (e) => {
+    switch (e.target.id) {
+      case "lastname":
+        setLastname(e.target.value);
+        break;
+      case "firstname":
+        setFirstName(e.target.value);
+        break;
+      case "email":
+        setEmail(e.target.value);
+        break;
+      case "password":
+        setPassword(e.target.value);
+        break;
+      case "password2":
+        setPassword2(e.target.value);
+        break;
+      case "identification":
+        setIdentification(e.target.value);
+        break;
+      case "subject":
+        setSubject(e.target.value);
+        break;
+      default:
+        break;
     }
-  }
-  onChange = (e) => {
-    this.setState({ [e.target.id]: e.target.value });
+    // this.setState({ [e.target.id]: e.target.value });
+    // console.log(e.target.value);
   };
-  onSubmit = async (e) => {
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    this.setState({ isLoading: true });
+    setIsLoading(true);
     try {
       const newUser = {
-        firstName: this.state.firstname,
-        lastName: this.state.lastname,
-        email: this.state.email,
-        password: this.state.password,
-        password2: this.state.password2,
-        identification: this.state.identification,
-        subject: this.state.subject,
+        firstName: firstname,
+        lastName: lastname,
+        email: email,
+        password: password,
+        password2: password2,
+        identification: identification,
+        subject: subject,
       };
-      await this.props.registerUser(newUser, this.props.history);
+      await props.registerUser(newUser, props.history);
+      setIsLoading(false);
     } catch (err) {
-      this.setState({ isLoading: false }); 
+      setIsLoading(false);
     }
-    this.setState({ isLoading: false });
   };
 
-  renderSubjects = () => {
-    console.log(this.state.courses);
-    let option = this.state.courses.map((item, k) => {
-      console.log(item.courseName);
-      return <option key={k}>{item.courseName}</option>;
-    });
-
-    return option;
+  const renderSubjects = () => {
+    if (courses) {
+      // console.log(courses);
+      let option = courses.map((item, k) => {
+        // console.log(item.courseName);
+        return <option key={k}>{item.courseName}</option>;
+      });
+      return option;
+    }
   };
-  inputChange = (e) => {
+
+  const inputChange = (e) => {
     e.preventDefault();
-
     const value = e.target.value;
-    console.log(`value: ${value}`);
 
-    this.state.courses.map((item) => {
+    courses.map((item) => {
       if (item.courseName === value) {
-        this.setState({ subject: item._id });
+        setSubject(item._id);
       }
       return null;
     });
   };
 
-  render() {
-    const { errors } = this.state;
-    return (
+  // const { errors } = this.state;
+  return (
+    <React.Fragment>
+      {isLoading && <LoadingSpinner asOverlay />}
       <div
         className="container"
         style={{
@@ -157,7 +218,7 @@ class Register extends Component {
           fontSize: "0.75em",
         }}
       >
-        {this.state.isLoading && <LoadingSpinner asOverlay />}
+        {isLoading && <LoadingSpinner asOverlay />}
         <div className="row">
           <div
             className="col-10 col-md-8 col-lg-6 mr-auto ml-auto mt-4"
@@ -177,12 +238,12 @@ class Register extends Component {
                 </Link>
               </p>
             </div>
-            <form noValidate onSubmit={this.onSubmit}>
+            <form noValidate onSubmit={onSubmit}>
               <div className="col-12 mr-auto ml-auto">
                 <input
                   style={inputSty}
-                  onChange={this.onChange}
-                  value={this.state.lastname}
+                  onChange={onChange}
+                  //value={lastname}
                   error={errors.lastName}
                   id="lastname"
                   type="text"
@@ -202,8 +263,8 @@ class Register extends Component {
               <div className="col-12 mr-auto ml-auto">
                 <input
                   style={inputSty}
-                  onChange={this.onChange}
-                  value={this.state.firstname}
+                  onChange={onChange}
+                  //value={firstname}
                   error={errors.firstName}
                   id="firstname"
                   type="text"
@@ -223,8 +284,8 @@ class Register extends Component {
               <div className="input-field col-12">
                 <input
                   style={inputSty}
-                  onChange={this.onChange}
-                  value={this.state.email}
+                  onChange={onChange}
+                  //value={email}
                   error={errors.email}
                   id="email"
                   type="email"
@@ -242,8 +303,8 @@ class Register extends Component {
               <div className="input-field col-12">
                 <input
                   style={inputSty}
-                  onChange={this.onChange}
-                  value={this.state.password}
+                  onChange={onChange}
+                  //value={password}
                   error={errors.password}
                   id="password"
                   type="password"
@@ -263,8 +324,8 @@ class Register extends Component {
               <div className="input-field col-12">
                 <input
                   style={inputSty}
-                  onChange={this.onChange}
-                  value={this.state.password2}
+                  onChange={onChange}
+                  //value={password2}
                   error={errors.password2}
                   id="password2"
                   type="password"
@@ -284,8 +345,8 @@ class Register extends Component {
               <div className="input-field col-12">
                 <input
                   style={inputSty}
-                  onChange={this.onChange}
-                  value={this.state.identification}
+                  onChange={onChange}
+                  //value={identification}
                   id="identification"
                   error={errors.identification}
                   // type="text"
@@ -304,7 +365,7 @@ class Register extends Component {
               </div>
               <div className="col-12">
                 <Input
-                  onChange={(event) => this.inputChange(event)}
+                  onChange={(event) => inputChange(event)}
                   type="select"
                   style={inputSty}
                   name="subject"
@@ -313,7 +374,7 @@ class Register extends Component {
                   <option defaultValue="selected">
                     {"Elija su asignatura"}
                   </option>
-                  {this.renderSubjects()}
+                  {renderSubjects()}
                 </Input>
               </div>
               <label style={labelSty} htmlFor="subject">
@@ -333,16 +394,17 @@ class Register extends Component {
                   <span role="img" aria-label="rocket">
                     {" "}
                     🚀
-                  </span>
+                  </span>{" "}
+                  {!isLoading ? "" : <Spinner type="grow" color="warning" />}
                 </button>
               </div>
             </form>
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </React.Fragment>
+  );
+};
 
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,

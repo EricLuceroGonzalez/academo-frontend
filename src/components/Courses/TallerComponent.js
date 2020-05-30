@@ -1,14 +1,15 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Button, Spinner } from "reactstrap";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import theApi from "../../api/index";
-import  LoadingSpinner  from "../UIElements/LoadingSpinner";
+import LoadingSpinner from "../UIElements/LoadingSpinner";
 // import CheckItems from "./CheckItems";
 import CheckItems from "../Courses/Estadistica/CheckItems";
 import { InlineMath } from "react-katex";
 import update from "immutability-helper";
+import { useHistory } from "react-router-dom";
 // // import parse from "html-react-parser";
 // import ReactHtmlParser, {
 //   processNodes,
@@ -19,39 +20,65 @@ import update from "immutability-helper";
 // window.MathJax = {
 //   loader: { load: ["input/tex", "output/chtml"] },
 // };
-class TallerComponent extends Component {
-  state = {
-    author: {
-      firstName: "",
-      lastName: "",
-    },
-    authorId: "",
-    test: "",
-    allAns: [],
-    ansQuest: [],
-    isLoading: false,
-  };
+const TallerComponent = (props) => {
+  // state = {
+  //   author: {
+  //     firstName: "",
+  //     lastName: "",
+  //   },
+  //   authorId: "",
+  //   test: "",
+  //   allAns: [],
+  //   ansQuest: [],
+  //   isLoading: false,
+  // };
 
-  componentDidMount() {
-    this.setState({
-      authorId: this.props.auth.user.id,
-      author: this.props.auth.user.name,
-    });
-    theApi
-      .getATest(this.props.match.params.Taller)
-      .then((res) => {
-        this.setState({ test: res.data });
-      })
-      .catch((err) => console.log(err));
-  }
+  const [author, setAuthor] = useState();
+  const [authorId, setAuthorId] = useState();
+  const [test, setTest] = useState("");
+  const [allAns, setAllAns] = useState([]);
+  const [goodAns, setGoodAns] = useState([]);
+  const [goodQuest, setGoodQuest] = useState([]);
+  const [allQuest, setAnsQuest] = useState([]);
+  const [allPts, setAllPts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const history  = useHistory()
 
-  renderInstrucciones = () => {
-    if (this.state.test === "") {
+  useEffect(() => {
+    setAuthorId(props.auth.user.id);
+    setAuthor(props.auth.user.name);
+
+    const getTest = async () => {
+      console.log("here");
+
+      try {
+        const data = await theApi.getATest(props.match.params.id);
+        setIsLoading(false);
+        setTest(data.data.test);
+      } catch (err) {
+        setIsLoading(false);
+      }
+    };
+    getTest();
+  }, [props]);
+
+  // const componentDidMount = async () => {
+  //   // this.setState({
+  //   //   authorId: this.props.auth.user.id,
+  //   //   author: this.props.auth.user.name,
+  //   // });
+  //   // console.log(this.props.match.params);
+  // };
+
+  const renderInstrucciones = () => {
+    if (!test) {
       return <Spinner color="primary" />;
     } else {
+      // console.log(test);
+
       return (
         <div className="instrucciones">
-          {this.state.test.instructions}
+          {test.instructions}
           <p className="shakeThatThing ">
             <span role="img" aria-label="star-dust">
               {" "}
@@ -63,85 +90,73 @@ class TallerComponent extends Component {
     }
   };
 
-  checkBoxClick = (e) => {
+  const checkBoxClick = (e) => {
     const name = e.target.attributes.name.value;
     const theAnswer = e.target.id;
     let theValue = e.target.value;
+    console.log(`name: ${name} \n ans: ${theAnswer} \n sel: ${theValue}`);
 
     // CHECK THE ANSWERS
-    this.setSelectedAnswer(name, theValue, theAnswer);
+    setSelectedAnswer(name, theValue, theAnswer);
   };
 
-  setSelectedAnswer = (question, selection, theAnswer) => {
-    this.state.test.questions.map((item, k) => {
-      if (item.questionName === question && theAnswer === selection) {
-        this.setState((prevState, props) =>
-          update(prevState, {
-            test: {
-              questions: {
-                $apply: (questions) =>
-                  questions.map((itemCopy, ii) => {
-                    if (ii !== k) {
-                      return itemCopy;
-                    } else {
-                      return {
-                        ...itemCopy,
-                        pts: itemCopy.value,
-                      };
-                    }
-                  }),
-              },
-            },
-          })
-        ); // Closing the setState
-      } else if (item.questionName === question && theAnswer !== selection) {
-        this.setState({
-          allAns: [...this.state.allAns, selection],
-          ansQuest: [...this.state.ansQuest, question],
-        });
+  const updatePts = async (value, index) => {
+    let ptsCopy = [...allPts];
+    ptsCopy[index] = value;
+    setAllPts(ptsCopy);
+  };
 
-        this.setState((prevState, props) =>
-          update(prevState, {
-            test: {
-              questions: {
-                $apply: (questions) =>
-                  questions.map((itemCopy, ii) => {
-                    if (ii !== k) {
-                      return itemCopy;
-                    } else {
-                      return {
-                        ...itemCopy,
-                        pts: 0,
-                      };
-                    }
-                  }),
-              },
-            },
-          })
-        ); // Closing the setState
+  const setSelectedAnswer = async (question, selection, theAnswer) => {
+    await test.questions.map((item, k) => {
+      if (item.questionName === question && theAnswer === selection) {
+        // Save the answer and question
+        const newQuest = [...goodQuest, question];
+        const newAns = [...goodAns, selection];
+
+        updatePts(item.value, k);
+        setGoodAns(newAns);
+        setGoodQuest(newQuest);
+
+        test.questions.map((item, ii) => {
+          if (ii === k) {
+            test.questions[k].pts = item.value;
+          }
+          return "";
+        });
+      } else if (item.questionName === question && theAnswer !== selection) {
+        const newQuest = [...allQuest, question];
+        const newAns = [...allAns, selection];
+        updatePts(0, k);
+        setAllAns(newAns);
+        setAnsQuest(newQuest);
+        test.questions.map((item, ii) => {
+          if (ii === k) {
+            test.questions[k].pts = 0;
+          }
+          return "";
+        });
       }
+      return "";
     });
   };
 
-  renderPuntaje = () => {
+  const renderPuntaje = () => {
     var acumPts = 0;
-    this.state.test.questions.map((item) => {
+    test.questions.map((item) => {
       acumPts = acumPts + item.pts;
       return acumPts;
     });
     return acumPts;
   };
 
-  renderCheckQuestions = () => {
-    if (this.state.test.length === 0) {
-      return <p>...</p>;
-    } else {
-      const checkQuestions = this.state.test.questions.map((item, k) => {
+  const renderCheckQuestions = () => {
+    if (test) {
+      const checkQuestions = test.questions.map((item, k) => {
         return (
           <CheckItems
             key={k}
             numberQuestion={k + 1}
-            wasClick={this.checkBoxClick}
+            wasClick={checkBoxClick}
             values={item.options}
             question={
               item.isEquation ? (
@@ -164,65 +179,74 @@ class TallerComponent extends Component {
     }
   };
 
-  sendForm = async () => {
-    let puntos = this.renderPuntaje();
+  const sendForm = async () => {
+    let puntos = renderPuntaje();
     let sumPts = [];
-    sumPts = this.state.test.questions.map((val, i) => (sumPts = val.value));
+    sumPts = test.questions.map((val, i) => (sumPts = val.value));
     let puntaje = sumPts.reduce((a, b) => {
       return a + b;
     });
 
     let grade = ((puntos / puntaje) * 100).toFixed(2);
+
     try {
-      this.setState({ isLoading: true });
+      setIsLoading(true);
       await theApi.postExam({
-        theName: this.props.auth.user.name,
-        theId: this.props.auth.user.id,
+        theName: author,
+        theId: authorId,
         totalPts: puntaje,
-        testId: this.state.test._id,
-        testName: this.state.test.testName,
+        testId: test._id,
+        testName: test.testName,
         grade: grade,
-        allAns: this.state.allAns,
-        ansQuest: this.state.ansQuest,
+        allAns: allAns,
+        allPts: allPts,
+        ansQuest: allQuest,
+        goodAns: goodAns,
+        goodQuest: goodQuest,
       });
-      this.setState({ isLoading: false });
-      this.props.history.push({
+      setIsLoading(false);
+      history.push({
         pathname: "/checkOut",
       });
-    } catch (err) {}
+    } catch (err) {
+      setIsLoading(false);
+    }
   };
-  render() {
-    const { user } = this.props.auth;
-    return (
-      <React.Fragment>
 
-        <div
-          style={{ margin: "0px auto 35px auto", padding: "55px 0px" }}
-          className="pb-2 col-10"
+  return (
+    <React.Fragment>
+      {isLoading && <LoadingSpinner asOverlay />}
+      <div
+        style={{ margin: "0px auto 35px auto", padding: "55px 0px" }}
+        className="pb-2 col-10"
+      >
+        <h3 className="theTitle">
+          {test ? test.testName : "cargando titulo..."}{" "}
+        </h3>
+        {renderInstrucciones()}
+        <p className="theTitle mt-4">
+          <b>Estudiante: </b>
+          {!author ? "..." : `${author.firstName} ${author.lastName}`}
+        </p>
+
+        <div>{renderCheckQuestions()}</div>
+
+        <Button
+          className="col-8 col-md-4 ml-auto mr-auto nextBtn mb-4"
+          onClick={sendForm}
         >
-        {this.state.isLoading && <LoadingSpinner asOverlay />}
-          <h3 className="theTitle">{this.state.test.testName} </h3>
-          {this.renderInstrucciones()}
-          <p className="theTitle mt-4">
-            <b>Estudiante: </b>
-            {`${this.state.author.firstName} ${this.state.author.lastName}`}
-          </p>
-          <div>{this.renderCheckQuestions()}</div>
-          <Button
-            className="col-8 col-md-4 ml-auto mr-auto nextBtn mb-4"
-            onClick={this.sendForm}
-          >
-            ENVIAR
-            <span role="img" aria-label="star-dust">
-              {" "}
-              🚀
-            </span>
-          </Button>
-        </div>
-      </React.Fragment>
-    );
-  }
-}
+          ENVIAR
+          <span role="img" aria-label="star-dust">
+            {" "}
+            🚀
+          </span>
+          {" "}
+          {!isLoading ? '':  <Spinner type="grow" color="warning"/>}
+        </Button>
+      </div>
+    </React.Fragment>
+  );
+};
 
 TallerComponent.propTypes = {
   logoutUser: PropTypes.func.isRequired,

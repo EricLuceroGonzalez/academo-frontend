@@ -17,7 +17,7 @@ class CheckItems extends Component {
     } else {
       const checks = this.props.values.map((item, k) => {
         return (
-          <div className="form-check form-check-inline checkOption" key={k}>
+          <div className="checkOption" key={k}>
             <input
               onClick={(e) => this.props.wasClick(e)}
               pts={this.props.pts}
@@ -27,15 +27,23 @@ class CheckItems extends Component {
               id={this.props.answer}
               value={item.isEquation ? item.equation : item.text}
             ></input>
-            <label className="form-check-label" htmlFor="inlineRadio2">
-              {item.isEquation ? (
-                <React.Fragment>
-                  {item.text} <InlineMath math={`${item.equation}`} />{" "}
-                </React.Fragment>
-              ) : (
-                item.text
-              )}
-            </label>
+            <div
+              style={{
+                margin: "3px 1px",
+                border: "1px solid rgba(100,100,100,0.1)",
+                padding: "3px 2px",
+              }}
+            >
+              <label className="ml-2 form-check-label" htmlFor="inlineRadio2">
+                {item.isEquation ? (
+                  <React.Fragment>
+                    {item.text} <InlineMath math={`${item.equation}`} />{" "}
+                  </React.Fragment>
+                ) : (
+                  item.text
+                )}
+              </label>
+            </div>
           </div>
         );
       });
@@ -44,15 +52,14 @@ class CheckItems extends Component {
   };
   render() {
     return (
-      <div className="checkBox col-12 col-sm-8 col-lg-6 col-md-6">
+      <div className="checkBox col-12 col-sm-10 col-lg-6 col-md-10">
         <p className="checkQuestion">
           <span className="theNumber">{this.props.numberQuestion}</span>
           {") "}
-          {this.props.question} 
-          {this.props.contents}
+          {this.props.question}
         </p>
         <div
-          className=" col-lg-6 col-10 col-md-8"
+          className="ml-2 col-12 col-md-12 col-lg-10"
           style={{ textAlign: "left" }}
         >
           {this.generateCheck()}

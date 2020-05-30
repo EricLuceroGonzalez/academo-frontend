@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
-
+import { Spinner } from "reactstrap";
 // Redux:
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -47,8 +47,7 @@ const labelSty = {
 
 const Login = (props) => {
   const [isLogged, setIsLogged] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [name, setName] = useState();
+  const [isLoading, setIsLoading] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [errors, setErrors] = useState({});
@@ -100,7 +99,6 @@ const Login = (props) => {
   // }
 
   const onChange = (e) => {
-    console.log(`id: ${e.target.id}`);
     setErrors(props.errors);
     // console.log(`pass: ${password}`);
     // console.log(`email: ${email}`);
@@ -122,13 +120,12 @@ const Login = (props) => {
       };
       props.loginUser(userData);
       // since we handle the redirect within our component, we don't need to pass in props.history as a parameter
-      setIsLoading(false);
       setIsLogged(true);
+      setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
     }
     history.push("/dashboard");
-    setIsLoading(false);
   };
 
   return (
@@ -215,6 +212,8 @@ const Login = (props) => {
                   {" "}
                   🚀
                 </span>
+                {" "}
+                {!isLoading ? '':  <Spinner type="grow" color="warning"/>}
               </button>
             </div>
           </form>

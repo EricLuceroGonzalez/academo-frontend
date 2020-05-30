@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+// import LoadingSpinner from "../UIElements/LoadingSpinner";
 
 const CheckOut = (props) => {
   const onLogoutClick = (e) => {
@@ -12,7 +13,7 @@ const CheckOut = (props) => {
 
   const [isLogged, setIsLogged] = useState(false);
   const [userName, setUserName] = useState();
-  const history = useHistory();
+  // const history = useHistory();
 
   useEffect(() => {
     props.auth.isAuthenticated ? setIsLogged(true) : setIsLogged(false);

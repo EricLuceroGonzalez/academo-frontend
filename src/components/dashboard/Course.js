@@ -16,12 +16,11 @@ class CourseDashboard extends Component {
   componentDidMount() {
     //   Bring this user courses:
     // console.log("    //   Bring this user courses:");
-    // console.log(this.props.auth.user);
+    // console.log(this.props);
 
     theApi
       .getCourseDash(this.props.auth.user.id)
       .then((res) => {
-        // console.log(res);
         this.setState({
           courses: res.data[0].courseName,
           tests: res.data[0].tests,
