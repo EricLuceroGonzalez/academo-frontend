@@ -17,7 +17,7 @@ class TestsComponent extends Component {
         to={`/${this.props.evaluation}/${this.props.theTitle}/${this.props.id}`}
         className="media col-10 col-md-10 col-lg-8 mr-auto ml-auto mt-4"
         // onClick={this.props.onClick}
-        onClick={() => this.props.handleClick(this.props.id)}
+        // onClick={() => this.props.handleClick(this.props.id)}
         style={courseStyle}
       >
         <div className="m-auto col-2 shakeThatThing">

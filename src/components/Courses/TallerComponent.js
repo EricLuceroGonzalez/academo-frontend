@@ -8,7 +8,6 @@ import LoadingSpinner from "../UIElements/LoadingSpinner";
 // import CheckItems from "./CheckItems";
 import CheckItems from "../Courses/Estadistica/CheckItems";
 import { InlineMath } from "react-katex";
-import update from "immutability-helper";
 import { useHistory } from "react-router-dom";
 // // import parse from "html-react-parser";
 // import ReactHtmlParser, {
@@ -39,10 +38,10 @@ const TallerComponent = (props) => {
   const [allAns, setAllAns] = useState([]);
   const [goodAns, setGoodAns] = useState([]);
   const [goodQuest, setGoodQuest] = useState([]);
-  const [allQuest, setAnsQuest] = useState([]);
+  const [allQuest, setAllQuest] = useState([]);
   const [allPts, setAllPts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const history  = useHistory()
+  const history = useHistory();
 
   useEffect(() => {
     setAuthorId(props.auth.user.id);
@@ -128,7 +127,7 @@ const TallerComponent = (props) => {
         const newAns = [...allAns, selection];
         updatePts(0, k);
         setAllAns(newAns);
-        setAnsQuest(newQuest);
+        setAllQuest(newQuest);
         test.questions.map((item, ii) => {
           if (ii === k) {
             test.questions[k].pts = 0;
@@ -239,9 +238,8 @@ const TallerComponent = (props) => {
           <span role="img" aria-label="star-dust">
             {" "}
             🚀
-          </span>
-          {" "}
-          {!isLoading ? '':  <Spinner type="grow" color="warning"/>}
+          </span>{" "}
+          {!isLoading ? "" : <Spinner type="grow" color="warning" />}
         </Button>
       </div>
     </React.Fragment>

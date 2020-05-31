@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, withRouter, useHistory } from "react-router-dom";
 import { Input, Spinner } from "reactstrap";
 // Redux:
@@ -62,7 +62,6 @@ const Register = (props) => {
   //     subject: "",
   //     courses: [],
   //     errors: {},
-  //     isLoading: false,
   //   };
   // }
   const [isLogged, setIsLogged] = useState(false);
@@ -86,6 +85,9 @@ const Register = (props) => {
       (await props.auth.isAuthenticated)
         ? setIsLogged(true)
         : setIsLogged(false);
+      if (isLogged) {
+        history.push("/dashboard");
+      }
     };
 
     const loadData = async () => {
@@ -100,10 +102,6 @@ const Register = (props) => {
     };
     loadData();
     checkLogget();
-    if (isLogged) {
-      history.push("/dashboard");
-    }
-
     // isLogged ? history.push('/dashboard') : history.push('/login')
   }, [props, isLogged, history]);
 
@@ -382,6 +380,7 @@ const Register = (props) => {
               </label>
               <div className="col-12" style={{ paddingLeft: "11.250px" }}>
                 <button
+                  disabled={isLoading}
                   style={{
                     borderRadius: "3px",
                     letterSpacing: "1.5px",

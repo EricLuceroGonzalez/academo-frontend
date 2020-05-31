@@ -6,6 +6,7 @@ import { logoutUser } from "../../actions/authActions";
 // import LoadingSpinner from "../UIElements/LoadingSpinner";
 
 const CheckOut = (props) => {
+  
   const onLogoutClick = (e) => {
     e.preventDefault();
     props.logoutUser();
