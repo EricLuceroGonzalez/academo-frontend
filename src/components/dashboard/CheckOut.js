@@ -6,7 +6,6 @@ import { logoutUser } from "../../actions/authActions";
 // import LoadingSpinner from "../UIElements/LoadingSpinner";
 
 const CheckOut = (props) => {
-  
   const onLogoutClick = (e) => {
     e.preventDefault();
     props.logoutUser();
@@ -30,15 +29,12 @@ const CheckOut = (props) => {
     <React.Fragment>
       <div
         style={{
-          marginTop: "56px",
-          paddingTop: "60px",
-          paddingBottom: "60px",
-          height: "99vh",
-          width: "100vw",
+          height: "90vh",
+          width: "99vw",
         }}
-        className="container valign-wrapper"
+        // className="container"
       >
-        <div className="row">
+        <div className="mb-5">
           <div className="col-12 col-lg-6 col-md-8 col-sm-10 center-align mr-auto ml-auto">
             <div className="shakeThatThing">
               <span
@@ -56,7 +52,10 @@ const CheckOut = (props) => {
                 {" "}
                 👍
               </span>
-              <p className="flow-text grey-text text-darken-1">
+              <p
+                className="flow-text grey-text text-darken-1"
+                style={{ fontSize: "0.6em" }}
+              >
                 Lo que llenaste ha sido enviado.{" "}
               </p>
               <p
@@ -68,20 +67,19 @@ const CheckOut = (props) => {
             </h4>
           </div>
         </div>
-      </div>
-      <div className="col-12 col-lg-6 col-md-8 col-sm-10 center-align mr-auto ml-auto">
-        <button
-          style={{
-            borderRadius: "3px",
-            letterSpacing: "1.5px",
-            // marginTop: "1rem",
-            bottom: "160px",
-          }}
-          onClick={onLogoutClick}
-          className="btn btn-large nextBtn col-10"
-        >
-          Salir
-        </button>
+        <div className="col-12 col-lg-4 col-md-6 col-sm-8 mr-auto ml-auto mt-5">
+          <button
+            style={{
+              borderRadius: "3px",
+              letterSpacing: "1.5px",
+              marginTop: "10rem",
+            }}
+            onClick={onLogoutClick}
+            className="btn btn-large nextBtn col-10"
+          >
+            Salir
+          </button>
+        </div>
       </div>
     </React.Fragment>
   );

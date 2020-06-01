@@ -7,6 +7,7 @@ import { Collapse, Navbar, NavbarToggler, Nav } from "reactstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { setCurrentUser, logoutUser } from "../../actions/authActions";
+import "./Navbar.css";
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,21 +23,31 @@ const NavBar = (props) => {
   }, [props]);
 
   const toggle = () => setIsOpen(!isOpen);
-  
+
   const logoutCourse = () => {
     props.logoutUser();
-    history.push('/')
+    history.push("/");
   };
 
   return (
-    <div className="mb-2">
-      <Navbar color="light" light expand="sm" fixed="top">
+    <div className="mb-2 pb-2">
+      <Navbar
+        color="light"
+        light
+        expand="xs"
+        fixed="top"
+        style={{ boxShadow: "2px 1px 2px black" }}
+      >
         <NabLink
           className="navThing"
           exact
           to={"/"}
           activeClassName="activeNavLink"
         >
+          <span role="img" aria-label="star-dust">
+            {" "}
+            🚀
+          </span>
           Academo
         </NabLink>
 
@@ -44,7 +55,7 @@ const NavBar = (props) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NabLink
-              className="navThing"
+              className="navThing link-text"
               activeClassName="activeNavLink"
               to="/dashboard"
             >
@@ -54,40 +65,41 @@ const NavBar = (props) => {
           {isLogged ? (
             <React.Fragment>
               <NabLink
-                className="navThing"
+                className="navThing link-text user-text"
                 to={"/register"}
                 activeClassName="activeNavLink"
               >
-                <span className="border blogoutUser order-success p-1">
+                <span className="blogoutUser order-success p-1">
                   {userName}
                 </span>
               </NabLink>
-              <NabLink
-                className="navThing"
+              <div
+                className="navThing link-text exit-text"
                 onClick={logoutCourse}
-                activeClassName="activeNavLink"
-                to={"/"}
+                // activeClassName="activeNavLink"
+                // to={"/"}
               >
-                <span className="border border-info p-1">salir </span>
-              </NabLink>
+                <span>salir </span>
+                <span role="img" aria-label="star-dust">
+                🚀
+              </span>
+              </div>
             </React.Fragment>
           ) : (
             <React.Fragment>
               <NabLink
-                className="navThing"
+                className="navThing link-text"
                 to={"/register"}
                 activeClassName="activeNavLink"
               >
-                <span className="border blogoutUser order-success p-1">
-                  registro
-                </span>
+                <span className="blogoutUser order-success p-1">registro</span>
               </NabLink>
               <NabLink
-                className="navThing"
+                className="navThing link-text"
                 to={"/login"}
                 activeClassName="activeNavLink"
               >
-                <span className="border border-info p-1">login </span>
+                <span className="p-1">login </span>
               </NabLink>
             </React.Fragment>
           )}

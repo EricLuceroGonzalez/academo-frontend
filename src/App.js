@@ -57,6 +57,7 @@ function App() {
         style={{
           // height: "100vh",
           top: "0px",
+          padding:'40px 0px',
           background:
             "linear-gradient(200deg, rgba(14,254,251,1) 0%, rgba(15,50,240,0.85) 100%)",
           textAlign: "center",
@@ -68,8 +69,6 @@ function App() {
             <Route exact path="/" component={About} />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
-            <Route exact path="/resources" component={CoursesComponent} />
-            <Route exact path="/resources/a" component={Login} />
             <Route path="/landing" component={Landing} />
             <Route path="/about" component={About} />
             <PrivateRoute exact path="/dashboard" component={Course} />

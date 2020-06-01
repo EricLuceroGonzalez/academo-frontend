@@ -10,7 +10,6 @@ const CourseDashboard = (props) => {
   const [courses, setCourses] = useState([]);
   const [tests, setTests] = useState([]);
   const [author, setAuthor] = useState();
-  // const [isLoadingData, setIsLoadingData] = useState(true);
 
   useEffect(() => {
     setAuthor(props.auth.user.name);
@@ -34,7 +33,12 @@ const CourseDashboard = (props) => {
 
   const renderDashboard = () => {
     if (courses.length === 0) {
-      return <Spinner style={{ width: '3rem', height: '3rem', color: 'rgb(116, 35, 153)' }} type="grow" />;
+      return (
+        <Spinner
+          style={{ width: "3rem", height: "3rem", color: "rgb(116, 35, 153)" }}
+          type="grow"
+        />
+      );
     } else {
       let a = tests.map((test, k) => {
         return (
@@ -42,6 +46,7 @@ const CourseDashboard = (props) => {
             key={k}
             // handleClick={handleClicks}
             id={test._id}
+            state={true}
             evaluation={test.evaluation}
             theTitle={test.testName}
             theText={test.description}
@@ -55,60 +60,54 @@ const CourseDashboard = (props) => {
 
   return (
     <React.Fragment>
-      {courses ? (
+
+        {courses ? (
+          <div className="mr-auto ml-auto navThing">{courses}</div>
+        ) : (
+          <Spinner size="sm" color="primary" />
+        )}
         <div
-          className="mr-auto ml-auto navThing"
+          className="container valign-wrapper"
           style={{
-            fontSize: "2em",
-            textShadow: "2px 3px 3px black",
-            paddingTop: "50px",
-            marginBottom: "57px",
+            // height: "99vh",
+            width: "100vw",
+            // marginTop: "56px",
+            // paddingTop: "60px",
+            // paddingBottom: "30px",
+            height: "100%",
           }}
         >
-          {courses}
-        </div>
-      ) : (
-        <Spinner size="sm" color="primary" />
-      )}
-      <div
-        className="container valign-wrapper"
-        style={{
-          height: "99vh",
-          width: "100vw",
-          // marginTop: "56px",
-          // paddingTop: "60px",
-          // paddingBottom: "30px",
-          // height: "100%",
-        }}
-      >
-        <div className="row">
-          <div className="col-12 col-lg-8 col-md-8 col-sm-10 center-align mr-auto ml-auto">
-            <h4>
-              <b>Hola,</b>{" "}
-              {!author ? <Spinner size="sm" color="primary" /> : `${author.firstName}`}
-              <span role="img" aria-label="star-dust">
-                {" "}
-                🚀
-              </span>
-            </h4>
-            <div>{renderDashboard()}</div>
+          <div className="row">
+            <div className="col-11 col-lg-8 col-md-8 col-sm-10 center-align mr-auto ml-auto">
+              <h4>
+                <b>Hola,</b>{" "}
+                {!author ? (
+                  <Spinner size="sm" color="primary" />
+                ) : (
+                  <span className="navThing">{author.firstName}</span>
+                )}
+                <span role="img" aria-label="star-dust">
+                  🚀
+                </span>
+              </h4>
+              <div>{renderDashboard()}</div>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="col-12 col-lg-8 col-md-8 col-sm-10 center-align mr-auto ml-auto">
-        <button
-          style={{
-            borderRadius: "3px",
-            letterSpacing: "1.5px",
-            // marginTop: "1rem",
-            bottom: "50px",
-          }}
-          onClick={onLogoutClick}
-          className="btn btn-large nextBtn col-10"
-        >
-          Cerrar sesión
-        </button>
-      </div>
+        <div className="col-12 col-lg-8 col-md-8 col-sm-10 center-align mr-auto ml-auto">
+          <button
+            style={{
+              borderRadius: "3px",
+              letterSpacing: "1.5px",
+              marginTop: "1rem",
+              // bottom: "50px",
+            }}
+            onClick={onLogoutClick}
+            className="btn btn-large nextBtn col-10"
+          >
+            Cerrar sesión
+          </button>
+        </div>
     </React.Fragment>
   );
 };

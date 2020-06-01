@@ -30,7 +30,8 @@ class CheckItems extends Component {
             <div
               style={{
                 margin: "3px 1px",
-                border: "1px solid rgba(100,100,100,0.1)",
+                borderRadius: "12px",
+                border: "1px solid rgba(100,100,100,0.2)",
                 padding: "3px 2px",
               }}
             >

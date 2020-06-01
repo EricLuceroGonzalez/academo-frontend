@@ -63,14 +63,7 @@
   /* text-shadow: 2px 2px 3px rgba(220,220,220,0.5); */
 }
 
-.navThing {
-  margin: 5px 8px;
-  font-family: Montserrat-ExtraBold;
-  color: rgb(116, 35, 153);
-}
-
 .lightThing {
-  margin: 5px 8px;
   font-family: Montserrat-Light;
   color: rgb(116, 35, 153);
 }
