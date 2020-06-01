@@ -48,7 +48,7 @@ const TallerComponent = (props) => {
     setAuthor(props.auth.user.name);
 
     const getTest = async () => {
-      console.log("here");
+      // console.log("here");
 
       try {
         const data = await theApi.getATest(props.match.params.id);
@@ -93,7 +93,7 @@ const TallerComponent = (props) => {
     const name = e.target.attributes.name.value;
     const theAnswer = e.target.id;
     let theValue = e.target.value;
-    console.log(`name: ${name} \n ans: ${theAnswer} \n sel: ${theValue}`);
+    // console.log(`name: ${name} \n ans: ${theAnswer} \n sel: ${theValue}`);
 
     // CHECK THE ANSWERS
     setSelectedAnswer(name, theValue, theAnswer);

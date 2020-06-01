@@ -10,9 +10,11 @@ const CourseDashboard = (props) => {
   const [courses, setCourses] = useState([]);
   const [tests, setTests] = useState([]);
   const [author, setAuthor] = useState();
-
+  const [authorId, setAuthorId] = useState();
   useEffect(() => {
     setAuthor(props.auth.user.name);
+    setAuthorId(props.auth.user.id);
+    
     const getData = async () => {
       try {
         const theData = await theApi.getCourseDash(props.auth.user.id);
@@ -45,7 +47,7 @@ const CourseDashboard = (props) => {
           <TestsComponent
             key={k}
             // handleClick={handleClicks}
-            id={test._id}
+            id={test._id} 
             state={true}
             evaluation={test.evaluation}
             theTitle={test.testName}
@@ -69,12 +71,12 @@ const CourseDashboard = (props) => {
         <div
           className="container valign-wrapper"
           style={{
-            // height: "99vh",
+            height: "80vh",
             width: "100vw",
             // marginTop: "56px",
             // paddingTop: "60px",
             // paddingBottom: "30px",
-            height: "100%",
+            // height: "100%",
           }}
         >
           <div className="row">

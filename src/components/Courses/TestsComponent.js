@@ -1,7 +1,14 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
+import "./Test.css";
+// import theApi from "../../api";
 
 const TestsComponent = (props) => {
+  // const [author, setAuthor] = useState();
+  // const [testId, setTestId] = useState();
   const history = useHistory();
 
   const goTo = () => {
@@ -13,36 +20,32 @@ const TestsComponent = (props) => {
       onClick={goTo}
       style={{
         boxShadow: "2px 3px 3px black",
-        backgroundColor: "rgba(240, 240, 240, 0.85)",
+        backgroundColor: "rgba(240, 240, 240, 0.95)",
         cursor: "pointer",
+        textAlign: "left",
       }}
     >
       <div
         className="col-12 mr-auto"
         style={{
-          backgroundColor: "rgba(116, 35, 153,0.5)",
+          backgroundColor: "rgba(116, 35, 153,0.95)",
           top: "0px",
-          border: "1px solid",
         }}
       >
-        {props.state ? (
-          <div className="mr-auto">
-            <span role="img" aria-label="cross-mark">
-              {" "}
-              ✔️
-            </span>
-            hecho
-          </div>
-        ) : (
-          <span role="img" aria-label="cross-mark">
-            {" "}
-            ❌
-          </span>
-        )}
+        <div className={`mr-auto  ${props.state ? "doneOk" : "doneNo"}`}>
+          <span className={`dot ${props.state ? "dot-ok" : "dot-no"}`}></span>
+          {`${props.state ? "" : ""}`}
+        </div>
       </div>
       <div className="row col-12 mr-auto ml-auto">
         <div className="m-auto col-2 shakeThatThing">
-          <span role="img" aria-label="star-dust">
+          <span
+            role="img"
+            aria-label="star-dust"
+            style={{
+              fontSize: "1.5em",
+            }}
+          >
             {" "}
             🚀
           </span>
@@ -51,8 +54,7 @@ const TestsComponent = (props) => {
         <div className="col-10">
           <h4 className="lightThing">{props.theTitle}</h4>
           <h6 className="lightThing">{props.theContent}</h6>
-          <div className="checkOption mt-2"
-          style={{fontSize: '0.75em'}}>
+          <div className="checkOption mt-2" style={{ fontSize: "0.75em" }}>
             <p>{props.theText}</p>
           </div>
         </div>
@@ -61,4 +63,11 @@ const TestsComponent = (props) => {
   );
 };
 
-export default TestsComponent;
+TestsComponent.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps, {  })(TestsComponent);

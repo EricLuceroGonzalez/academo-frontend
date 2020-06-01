@@ -1,0 +1,28 @@
+.doneOk {
+  font-family: monospace;
+  color: white;
+  font-size: 0.75em;
+}
+
+.doneNo {
+  font-family: monospace;
+  color: white;
+  font-size: 0.75em;
+}
+
+.dot {
+  height: 8px;
+  width: 8px;
+  margin-right: 4px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.dot-ok {
+  background-color: rgb(40, 210, 105);
+}
+
+.dot-no {
+  background-color: rgb(241, 68, 68);
+}

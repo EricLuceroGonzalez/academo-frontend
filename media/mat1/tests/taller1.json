@@ -730,13 +730,13 @@
                 },
                 {
                     "isEquation": true,
-                    "equation": "-1 \\leq x \\leq 1",
+                    "equation": "-1 \\geq x \\geq 1",
                     "text": "Todos los reales en el intervalo:"
                 }
             ],
             "answer": {
                 "isEquation": true,
-                "equation": "-1 \\leq x \\leq 1",
+                "equation": "-1 \\geq x \\geq 1",
                 "text": "Todos los reales en el intervalo:"
             },
             "pts": 0

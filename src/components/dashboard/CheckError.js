@@ -14,9 +14,6 @@ const CheckError = (props) => {
     props.auth.isAuthenticated
       ? setUserName(props.auth.user.name.firstName)
       : setUserName();
-    props.auth.isAuthenticated
-      ? console.log(props.auth.user)
-      : console.log("--");
   }, [props]);
 
   const onLogoutClick = (e) => {
@@ -28,7 +25,7 @@ const CheckError = (props) => {
     <React.Fragment>
       <div
         style={{
-          height: "90vh",
+          height: "89vh",
           width: "99vw",
         }}
       >

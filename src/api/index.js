@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://academo-backend.herokuapp.com/api"
-  // baseURL: "http://localhost:3001/api",
+  // baseURL: "https://academo-backend.herokuapp.com/api",
+  baseURL: "http://localhost:3001/api",
 });
 
 axios.defaults.headers.common = {
@@ -17,6 +17,7 @@ export const getGrades = () => api.get("/getAllGrades");
 export const getCourses = () => api.get("/getAllCourses");
 export const getCourseDash = (usr) => api.get(`/courseDashboard/${usr}`);
 export const getATest = (testId) => api.get(`/getATest/${testId}`);
+export const getUserTest = (usrId) => api.get(`/userTest/:${usrId}`);
 // api.get("/getGrades");
 const theApi = {
   postRegister,
@@ -25,7 +26,8 @@ const theApi = {
   getGrades,
   getCourses,
   getCourseDash,
-  getATest
+  getATest,
+  getUserTest,
 };
 
 // baseURL: "http://localhost:3000/api"
