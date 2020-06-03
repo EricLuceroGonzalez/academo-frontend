@@ -10,6 +10,7 @@ import classnames from "classnames";
 import "react-phone-number-input/style.css";
 import theApi from "../api";
 import LoadingSpinner from "../components/UIElements/LoadingSpinner";
+import "./Form.css";
 
 const formBg = {
   fontSize: "0.75em",
@@ -49,21 +50,6 @@ const labelSty = {
 };
 
 const Register = (props) => {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     firstname: "",
-  //     lastname: "",
-  //     email: "",
-  //     phone: "",
-  //     password: "",
-  //     password2: "",
-  //     identification: "",
-  //     subject: "",
-  //     courses: [],
-  //     errors: {},
-  //   };
-  // }
   const [isLogged, setIsLogged] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState({});
@@ -81,6 +67,7 @@ const Register = (props) => {
 
   useEffect(() => {
     setErrors(props.errors);
+
     const checkLogget = async () => {
       (await props.auth.isAuthenticated)
         ? setIsLogged(true)
@@ -102,33 +89,8 @@ const Register = (props) => {
     };
     loadData();
     checkLogget();
-    // isLogged ? history.push('/dashboard') : history.push('/login')
   }, [props, isLogged, history]);
 
-  // componentDidMount() {
-  //   console.log("here Register 68");
-
-  //   // If logged in and user navigates to Register page, should redirect them to dashboard
-  //   if (this.props.auth.isAuthenticated) {
-  //     this.props.history.push("/dashboard");
-  //   }
-  //   theApi
-  //     .getCourses()
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       console.log(`len: ${res.data.length}`);
-  //       this.setState({ courses: res.data });
-  //     })
-  //     .catch((err) => console.log(`GET - ERROR: ${err}`));
-  // }
-
-  // concomponentWillReceiveProps(nextProps) {
-  //   if (nextProps.errors) {
-  //     this.setState({
-  //       errors: nextProps.errors,
-  //     });
-  //   }
-  // }
   const onChange = (e) => {
     switch (e.target.id) {
       case "lastname":
@@ -155,8 +117,6 @@ const Register = (props) => {
       default:
         break;
     }
-    // this.setState({ [e.target.id]: e.target.value });
-    // console.log(e.target.value);
   };
 
   const onSubmit = async (e) => {
@@ -172,7 +132,7 @@ const Register = (props) => {
         identification: identification,
         subject: subject,
       };
-      await props.registerUser(newUser, props.history);
+      props.registerUser(newUser, props.history);
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
@@ -202,7 +162,6 @@ const Register = (props) => {
     });
   };
 
-  // const { errors } = this.state;
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner asOverlay />}
@@ -250,13 +209,12 @@ const Register = (props) => {
                   })}
                 />
                 <label style={labelSty} htmlFor="lastname">
-                  Apellido
+                  {errors.lastName ? (
+                    <span className="errorMsg">{errors.lastName}</span>
+                  ) : (
+                    "Apellido"
+                  )}
                 </label>
-                <span
-                  className={classnames("", { printError: errors.lastName })}
-                >
-                  {errors.lastName}
-                </span>
               </div>
               <div className="col-12 mr-auto ml-auto">
                 <input
@@ -271,13 +229,12 @@ const Register = (props) => {
                   })}
                 />
                 <label style={labelSty} htmlFor="firstname">
-                  Nombre
+                  {errors.firstName ? (
+                    <span className="errorMsg">{errors.firstName}</span>
+                  ) : (
+                    "Nombre"
+                  )}
                 </label>
-                <span
-                  className={classnames("", { printError: errors.firstName })}
-                >
-                  {errors.firstName}
-                </span>
               </div>
               <div className="input-field col-12">
                 <input
@@ -292,11 +249,12 @@ const Register = (props) => {
                   })}
                 />
                 <label style={labelSty} htmlFor="email">
-                  Email
+                  {errors.email ? (
+                    <span className="errorMsg">{errors.email}</span>
+                  ) : (
+                    "Email"
+                  )}
                 </label>
-                <span className={classnames("", { printError: errors.email })}>
-                  {errors.email}
-                </span>
               </div>
               <div className="input-field col-12">
                 <input
@@ -311,13 +269,12 @@ const Register = (props) => {
                   })}
                 />
                 <label style={labelSty} htmlFor="password">
-                  Password
+                  {errors.password ? (
+                    <span className="errorMsg">{errors.password}</span>
+                  ) : (
+                    "Password"
+                  )}
                 </label>
-                <span
-                  className={classnames("", { printError: errors.password })}
-                >
-                  {errors.password}
-                </span>
               </div>
               <div className="input-field col-12">
                 <input
@@ -332,13 +289,12 @@ const Register = (props) => {
                   })}
                 />
                 <label style={labelSty} htmlFor="password2">
-                  Confirma el password
+                  {errors.password2 ? (
+                    <span className="errorMsg">{errors.password2}</span>
+                  ) : (
+                    "Confirma el password"
+                  )}
                 </label>
-                <span
-                  className={classnames("", { printError: errors.password2 })}
-                >
-                  {errors.password2}
-                </span>
               </div>
               <div className="input-field col-12">
                 <input
@@ -352,14 +308,14 @@ const Register = (props) => {
                     invalid: errors.identification,
                   })}
                 />
-                <span
-                  className={classnames("", {
-                    printError: errors.identification,
-                  })}
-                >
-                  {errors.identification}
-                </span>
-                <label style={labelSty}>Cedula</label>
+
+                <label style={labelSty}>
+                  {errors.identification ? (
+                    <span className="errorMsg">{errors.identification}</span>
+                  ) : (
+                    "Cedula"
+                  )}
+                </label>
               </div>
               <div className="col-12">
                 <Input

@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { loginUser } from "../actions/authActions";
 import classnames from "classnames";
 import LoadingSpinner from "../components/UIElements/LoadingSpinner";
+import "./Form.css";
 
 const formBg = {
   background: "white",
@@ -52,15 +53,6 @@ const Login = (props) => {
   const [password, setPassword] = useState();
   const [errors, setErrors] = useState({});
   const history = useHistory();
-  // constructor() {
-  //   super();
-  //   state = {
-  //     email: "",
-  //     password: "",
-  //     errors: {},
-  //     isLoading: false,
-  //   };
-  // }
 
   useEffect(() => {
     setErrors(props.errors);
@@ -74,40 +66,14 @@ const Login = (props) => {
       history.push("/dashboard");
     }
     checkLogget();
-    // isLogged ? history.push('/dashboard') : history.push('/login')
   }, [props, isLogged, history]);
-
-  // componentDidMount() {
-  //   // If logged in and user navigates to Login page, should redirect them to dashboard
-  //   if (props.auth.isAuthenticated) {
-  //     props.history.push("/dashboard");
-  //   }
-  //   console.log(props);
-
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.auth.isAuthenticated) {
-  //     props.history.push("/dashboard");
-  // push user to dashboard when they login
-  //   }
-  //   if (nextProps.errors) {
-  //     setState({
-  //       errors: nextProps.errors,
-  //     });
-  //   }
-  // }
 
   const onChange = (e) => {
     setErrors(props.errors);
-    // console.log(`pass: ${password}`);
-    // console.log(`email: ${email}`);
 
     e.target.id === "password"
       ? setPassword(e.target.value)
       : setEmail(e.target.value);
-    // setState({ [e.target.id]: e.target.value });
-    // console.log(props);
   };
 
   const onSubmit = async (e) => {
@@ -121,16 +87,16 @@ const Login = (props) => {
       props.loginUser(userData);
       // since we handle the redirect within our component, we don't need to pass in props.history as a parameter
       setIsLogged(true);
-      setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
     }
     history.push("/dashboard");
+    setIsLoading(false);
   };
 
   return (
     <React.Fragment>
-    {isLoading && <LoadingSpinner asOverlay />}
+      {isLoading && <LoadingSpinner asOverlay />}
 
       <div
         className="container"
@@ -138,11 +104,11 @@ const Login = (props) => {
           height: "100vh",
           paddingTop: "66px",
           paddingBottom: "150px",
-          fontSize: "0.8em",
+          fontSize: "0.75em",
         }}
       >
         <div
-          className="col-10 col-md-8 col-lg-6 mr-auto ml-auto mt-4"
+          className="col-11 col-md-8 col-lg-6 mr-auto ml-auto mt-4"
           style={formBg}
         >
           <div className="col-12" style={{ paddingLeft: "11.250px" }}>
@@ -170,12 +136,15 @@ const Login = (props) => {
                 })}
               />
               <label style={labelSty} htmlFor="email">
-                Email
+                {props.errors.email ? (
+                  <span className="errorMsg">
+                    {errors.email}
+                    {errors.emailnotfound}
+                  </span>
+                ) : (
+                  "Email"
+                )}
               </label>
-              <span className="red-text">
-                {errors.email}
-                {errors.emailnotfound}
-              </span>
             </div>
             <div className="input-field col-12">
               <input
@@ -190,12 +159,15 @@ const Login = (props) => {
                 })}
               />
               <label style={labelSty} htmlFor="password">
-                Password
+                {props.errors.password ? (
+                  <span className="errorMsg">
+                    {errors.password}
+                    {errors.passwordincorrect}
+                  </span>
+                ) : (
+                  "Password"
+                )}
               </label>
-              <span className="red-text">
-                {errors.password}
-                {errors.passwordincorrect}
-              </span>
             </div>
             <div className="col-12" style={{ paddingLeft: "11.250px" }}>
               <button
@@ -211,9 +183,8 @@ const Login = (props) => {
                 <span role="img" aria-label="star-dust">
                   {" "}
                   🚀
-                </span>
-                {" "}
-                {!isLoading ? '':  <Spinner type="grow" color="warning"/>}
+                </span>{" "}
+                {!isLoading ? "" : <Spinner type="grow" color="warning" />}
               </button>
             </div>
           </form>
