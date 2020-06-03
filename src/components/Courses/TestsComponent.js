@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import "./Test.css";
+import ShowTestDone from "../dashboard/showTestDone";
 // import theApi from "../../api";
 
 const TestsComponent = (props) => {
@@ -32,9 +33,8 @@ const TestsComponent = (props) => {
           top: "0px",
         }}
       >
-        <div className={`mr-auto  ${props.state ? "doneOk" : "doneNo"}`}>
-          <span className={`dot ${props.state ? "dot-ok" : "dot-no"}`}></span>
-          {`${props.state ? "" : ""}`}
+        <div className='mr-auto done'>
+          <ShowTestDone grade={props.testGrade} done={props.done}></ShowTestDone>
         </div>
       </div>
       <div className="row col-12 mr-auto ml-auto">
@@ -70,4 +70,4 @@ TestsComponent.propTypes = {
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
-export default connect(mapStateToProps, {  })(TestsComponent);
+export default connect(mapStateToProps, {})(TestsComponent);

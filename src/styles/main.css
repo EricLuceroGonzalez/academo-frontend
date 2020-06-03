@@ -892,3 +892,7 @@ iframe {
   background-color: blue;
   box-shadow: 2px 2px 2px #3b5998;
 }
+
+.date-format{
+  color: red;
+}

@@ -66,7 +66,7 @@ const NavBar = (props) => {
             <React.Fragment>
               <NabLink
                 className="navThing link-text user-text"
-                to={"/register"}
+                to={"/notas"}
                 activeClassName="activeNavLink"
               >
                 <span className="blogoutUser order-success p-1">

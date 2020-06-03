@@ -51,6 +51,7 @@ class CheckItems extends Component {
       return checks;
     }
   };
+  
   render() {
     return (
       <div className="checkBox col-12 col-sm-10 col-lg-6 col-md-10">

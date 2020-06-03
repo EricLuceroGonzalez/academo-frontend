@@ -1,10 +1,4 @@
-.doneOk {
-  font-family: monospace;
-  color: white;
-  font-size: 0.75em;
-}
-
-.doneNo {
+.done {
   font-family: monospace;
   color: white;
   font-size: 0.75em;
@@ -17,7 +11,7 @@
   border-radius: 50%;
   display: inline-block;
   vertical-align: middle;
-}
+}                                                       
 
 .dot-ok {
   background-color: rgb(40, 210, 105);
