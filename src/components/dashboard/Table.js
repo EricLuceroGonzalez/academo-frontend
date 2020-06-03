@@ -24,99 +24,6 @@ const TableOfGrades = (props) => {
 
   const renderCSV = () => {};
 
-  const renderGrades = () => {
-    if (test.length === 0) {
-      return (
-        <table
-          className="table table-striped col-12 ml-auto mr-auto table-sm"
-          style={{
-            backgroundColor: "rgba(225,224,227,1)",
-            fontSize: "0.65em"
-          }}
-        >
-          <tr>
-            <td>
-              <Spinner
-                className="mr-auto ml-auto"
-                size="sm"
-                type="grow"
-                color="primary"
-              />
-            </td>
-            <td>
-              <Spinner
-                className="mr-auto ml-auto"
-                size="sm"
-                type="grow"
-                color="primary"
-              />
-            </td>
-            <td>
-              <Spinner
-                className="mr-auto ml-auto"
-                size="sm"
-                type="grow"
-                color="primary"
-              />
-            </td>
-            <td>
-              <Spinner
-                className="mr-auto ml-auto"
-                size="sm"
-                type="grow"
-                color="primary"
-              />
-            </td>
-          </tr>
-        </table>
-      );
-    } else {
-      const array = test.map((item, i) => {
-        console.log(item);
-        console.log(item.testName);
-        console.log(item.grade);
-        console.log(`${item.grade} de ${item.totalPts}`);
-        return (
-          <table
-            className="table table-striped col-12 ml-auto mr-auto table-sm"
-            style={{
-              backgroundColor: "rgba(225,224,227,1)",
-              fontSize: "0.65em",
-            }}
-            key={i}
-          >
-            <thead>
-              <tr
-                style={{
-                  backgroundColor: "rgba(155,74,177,1)",
-                  color: "white",
-                  fontFamily: "Montserrat-ExtraBold",
-                }}
-              >
-                <th>Nombre</th>
-                <th>Calificacion</th>
-                <th>Puntos totales</th>
-                <th>Fecha</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{item.testName}</td>
-                <td>{item.grade}</td>
-                <td>
-                  {item.pts}
-                  {item.totalPts}
-                </td>
-                <td>{moment(item.examDate).format("ll ll")}</td>
-              </tr>
-            </tbody>
-          </table>
-        );
-      });
-      return array;
-    }
-  };
-
   const renderAnswers = () => {
     if (test.length === 0) {
       return (
@@ -167,13 +74,9 @@ const TableOfGrades = (props) => {
       );
     } else {
       const array = test.map((item, i) => {
-        console.log(item);
-        console.log(item.testName);
-        console.log(item.grade);
-        console.log(`${item.grade} de ${item.totalPts}`);
         return (
           <React.Fragment>
-            <div className='mt-5'>
+            <div className="mt-5">
               <table
                 className="table table-striped col-12 ml-auto mr-auto table-sm"
                 style={{
@@ -197,14 +100,20 @@ const TableOfGrades = (props) => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr
+                    style={{
+                      color: "rgba(155,74,177,1)",
+                      fontFamily: "Montserrat-ExtraBold",
+                      fontSize:'1.15em'
+                    }}
+                  >
                     <td>{item.testName}</td>
                     <td>{item.grade}</td>
                     <td>
                       {item.pts}
                       {item.totalPts}
                     </td>
-                    <td>{moment(item.examDate).format("ll ll")}</td>
+                    <td>{moment(item.examDate).format("llll")}</td>
                   </tr>
                 </tbody>
               </table>
@@ -214,7 +123,7 @@ const TableOfGrades = (props) => {
               <table
                 className="table table-striped col-12 ml-auto mr-auto table-sm"
                 style={{
-                  backgroundColor: "rgba(225,224,227,1)",
+                  backgroundColor: "rgba(225,224,177,0.6)",
                   fontSize: "0.65em",
                 }}
                 key={i}
@@ -222,9 +131,8 @@ const TableOfGrades = (props) => {
                 <thead>
                   <tr
                     style={{
-                      backgroundColor: "rgba(155,174,177,1)",
-                      color: "white",
-                      fontFamily: "Montserrat-ExtraBold",
+                      backgroundColor: "rgba(155,74,177,0.75)",
+                      color: "white"
                     }}
                   >
                     <th>Item</th>
@@ -244,10 +152,6 @@ const TableOfGrades = (props) => {
   };
 
   const renderAns = (propy, indx) => {
-    console.log(`propy: ${propy}`);
-    console.log(propy.allPts);
-
-    console.log(`indx: ${indx}`);
     const ansArry = propy.allPts.map((item, ii) => {
       return (
         <tr
@@ -257,7 +161,7 @@ const TableOfGrades = (props) => {
           }}
         >
           <td>{ii + 1}</td>
-          <td> {item ? propy.goodAns : "-"}</td>
+          <td> {item ? propy.goodAns[ii] : "-"}</td>
           <td>
             {item ? item : "0"} {item > 1 ? " puntos" : "punto"}
           </td>

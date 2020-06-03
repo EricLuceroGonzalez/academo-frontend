@@ -27,7 +27,7 @@ const theApi = {
   getGrades,
   getCourses,
   getCourseDash,
-  getATest,
+  getATest, 
   getUserTest,
   getUserGrades,
 };
