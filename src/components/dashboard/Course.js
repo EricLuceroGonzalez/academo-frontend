@@ -7,6 +7,8 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import theApi from "../../api";
 import TestsComponent from "../Courses/TestsComponent";
+import "./Course.css";
+
 const CourseDashboard = (props) => {
   const [author, setAuthor] = useState();
   const [time, setTime] = useState();
@@ -45,10 +47,17 @@ const CourseDashboard = (props) => {
   const renderDashboard = () => {
     if (courses.length === 0) {
       return (
-        <Spinner
-          style={{ width: "3rem", height: "3rem", color: "rgb(116, 35, 153)" }}
-          type="grow"
-        />
+        <div style={{    height: "100vh"}}>
+          <Spinner
+            style={{
+              margin:'35% 35%',
+              width: "4rem",
+              height: "4rem",
+              color: "rgb(106, 35, 153)",
+            }}
+            type="grow"
+          />
+        </div>
       );
     } else {
       let a = tests.map((test, k) => {
@@ -82,6 +91,7 @@ const CourseDashboard = (props) => {
             );
           }
         }
+        return null;
       });
       return a;
     }
@@ -94,52 +104,49 @@ const CourseDashboard = (props) => {
       ) : (
         <Spinner size="sm" color="primary" />
       )}
-      <div
-        className="container valign-wrapper"
-        style={{
-          height: "80vh",
-          width: "100vw",
-        }}
-      >
-        <div className="row">
-          <div className="col-11 col-lg-8 col-md-8 col-sm-10 center-align mr-auto ml-auto">
-            <div
-              style={{
-                color: "gray",
-                fontFamily: "monospace",
-                textAlign: "center",
-                fontSize: "0.75em",
-              }}
-            >
-              <p>{time}</p>
+
+      <div className={!courses ? "isLoading" : "loaded"}>
+        <div className="container valign-wrapper">
+          <div className="row">
+            <div className="col-11 col-lg-8 col-md-8 col-sm-10 center-align mr-auto ml-auto">
+              <div
+                style={{
+                  color: "gray",
+                  fontFamily: "monospace",
+                  textAlign: "center",
+                  fontSize: "0.75em",
+                }}
+              >
+                <p>{time}</p>
+              </div>
+              <h4>
+                {!author ? (
+                  <Spinner size="sm" color="primary" />
+                ) : (
+                  <span className="navThing">{author.firstName}</span>
+                )}
+                <span role="img" aria-label="star-dust">
+                  🚀
+                </span>
+              </h4>
+              <div>{renderDashboard()}</div>
             </div>
-            <h4>
-              {!author ? (
-                <Spinner size="sm" color="primary" />
-              ) : (
-                <span className="navThing">{author.firstName}</span>
-              )}
-              <span role="img" aria-label="star-dust">
-                🚀
-              </span>
-            </h4>
-            <div>{renderDashboard()}</div>
           </div>
         </div>
-      </div>
-      <div className="col-12 col-lg-8 col-md-8 col-sm-10 center-align mr-auto ml-auto">
-        <button
-          style={{
-            borderRadius: "3px",
-            letterSpacing: "1.5px",
-            marginTop: "1rem",
-            // bottom: "50px",
-          }}
-          onClick={onLogoutClick}
-          className="btn btn-large nextBtn col-10"
-        >
-          Cerrar sesión
-        </button>
+        <div className="col-12 col-lg-8 col-md-8 col-sm-10 center-align mr-auto ml-auto">
+          <button
+            style={{
+              borderRadius: "3px",
+              letterSpacing: "1.5px",
+              marginTop: "1rem",
+              // bottom: "50px",
+            }}
+            onClick={onLogoutClick}
+            className="btn btn-large nextBtn col-10"
+          >
+            Cerrar sesión
+          </button>
+        </div>
       </div>
     </React.Fragment>
   );
