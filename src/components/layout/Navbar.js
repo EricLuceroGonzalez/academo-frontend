@@ -70,7 +70,7 @@ const NavBar = (props) => {
                 activeClassName="activeNavLink"
               >
                 <span className="blogoutUser order-success p-1">
-                  {userName}
+                  {userName.split(' ')[0]}
                 </span>
               </NabLink>
               <div
