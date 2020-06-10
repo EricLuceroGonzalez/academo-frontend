@@ -9,6 +9,7 @@ import theApi from "../../api";
 import TestsComponent from "../Courses/TestsComponent";
 const CourseDashboard = (props) => {
   const [author, setAuthor] = useState();
+  const [time, setTime] = useState();
   const [courses, setCourses] = useState([]);
   const [tests, setTests] = useState([]);
   const [userTests, setUserTests] = useState();
@@ -29,6 +30,12 @@ const CourseDashboard = (props) => {
     };
     getData();
   }, [props]);
+
+  useEffect(() => {
+    setInterval(() => {
+      setTime(moment().format("dddd, MMMM DD YYYY, h:mm:ss a"));
+    }, 1000);
+  }, []);
 
   const onLogoutClick = (e) => {
     e.preventDefault();
@@ -102,12 +109,9 @@ const CourseDashboard = (props) => {
                 fontFamily: "monospace",
                 textAlign: "center",
                 fontSize: "0.75em",
-                // right: "5px",
-                // top: "55px",
-                // position: "absolute",
               }}
             >
-              <p>{moment().format("llll")}</p>
+              <p>{time}</p>
             </div>
             <h4>
               {!author ? (

@@ -1,30 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
 import { InlineMath } from "react-katex";
-// import ReactHtmlParser, {
-//   processNodes,
-//   convertNodeToElement,
-//   htmlparser2,
-// } from "react-html-parser";
 
-class CheckItems extends Component {
-  state = {
-    answ: this.props.answer,
-  };
+const CheckItems = props => {
 
-  generateCheck = () => {
-    if (this.props.values.length === 0) {
+  const generateCheck = () => {
+    if (props.values.length === 0) {
       return <div>...</div>;
     } else {
-      const checks = this.props.values.map((item, k) => {
+      const checks = props.values.map((item, k) => {
         return (
           <div className="checkOption" key={k}>
             <input
-              onClick={(e) => this.props.wasClick(e)}
-              pts={this.props.pts}
+              onClick={(e) => props.wasClick(e)}
+              pts={props.pts}
               className="form-check-input"
               type="radio"
-              name={this.props.questionName}
-              id={this.props.answer}
+              name={props.questionName}
+              id={props.answer}
               value={item.isEquation ? item.equation : item.text}
             ></input>
             <div
@@ -51,24 +43,27 @@ class CheckItems extends Component {
       return checks;
     }
   };
-  
-  render() {
+
     return (
       <div className="checkBox col-12 col-sm-10 col-lg-6 col-md-10">
+        <div
+          className="pts col-3 ml-auto p-1"
+        >
+          {props.value > 1 ? `${props.value} puntos`: `${props.value} punto`}
+        </div>
         <p className="checkQuestion">
-          <span className="theNumber">{this.props.numberQuestion}</span>
+          <span className="theNumber">{props.numberQuestion}</span>
           {") "}
-          {this.props.question}
+          {props.question}
         </p>
         <div
           className="ml-2 col-12 col-md-12 col-lg-10"
           style={{ textAlign: "left" }}
         >
-          {this.generateCheck()}
+          {generateCheck()}
         </div>
       </div>
     );
   }
-}
 
 export default CheckItems;

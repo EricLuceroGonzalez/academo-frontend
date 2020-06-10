@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://academo-backend.herokuapp.com/api",
-  // baseURL: "http://localhost:3001/api",
+  baseURL: process.env.REACT_APP_HEROKU,
+  // baseURL: process.env.REACT_APP_LOCAL,
 });
 
 axios.defaults.headers.common = {
@@ -32,5 +32,4 @@ const theApi = {
   getUserGrades,
 };
 
-// baseURL: "http://localhost:3000/api"
 export default theApi;

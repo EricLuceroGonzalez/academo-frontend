@@ -80,7 +80,7 @@
   border: 1px solid gray;
 }
 .instrucciones{
-  font-size: 0.75em;
+  font-size: 0.85em;
   color: gray;
   font-family: Montserrat-Light;
 }
@@ -109,9 +109,9 @@
 }
 .checkBox {
   background-color: rgb(250, 250, 250);
-  box-shadow: 5px 8px 7px black;
-  margin: 17px auto;
-  padding: 20px 12px;
+  box-shadow: 5px 8px 10px rgb(32, 109, 119);
+  margin: 26px auto;
+  padding: 0px 10px 12px 10px;
 }
 .theTitle {
   color: gray;

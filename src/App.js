@@ -28,7 +28,6 @@ import CheckOut from "./components/dashboard/CheckOut";
 import About from "./components/layout/About";
 import NotFound from "./components/layout/NotFount";
 import CheckError from "./components/dashboard/CheckError";
-import GetGrades from "./components/dashboard/GetGrades";
 import Course from "./components/dashboard/Course";
 import TallerComponent from "./components/Courses/TallerComponent";
 import TableOfGrades from "./components/dashboard/Table";

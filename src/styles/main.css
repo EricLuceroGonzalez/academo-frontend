@@ -874,7 +874,7 @@ iframe {
     color: purple;
   }
   to {
-    background-color: red;
+    background-color: rgb(180, 169, 169);
     color: coral;
   }
 }

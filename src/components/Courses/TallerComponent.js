@@ -9,29 +9,8 @@ import LoadingSpinner from "../UIElements/LoadingSpinner";
 import CheckItems from "../Courses/Estadistica/CheckItems";
 import { InlineMath } from "react-katex";
 import { useHistory } from "react-router-dom";
-// // import parse from "html-react-parser";
-// import ReactHtmlParser, {
-//   processNodes,
-//   convertNodeToElement,
-//   htmlparser2,
-// } from "react-html-parser";
 
-// window.MathJax = {
-//   loader: { load: ["input/tex", "output/chtml"] },
-// };
 const TallerComponent = (props) => {
-  // state = {
-  //   author: {
-  //     firstName: "",
-  //     lastName: "",
-  //   },
-  //   authorId: "",
-  //   test: "",
-  //   allAns: [],
-  //   ansQuest: [],
-  //   isLoading: false,
-  // };
-
   const [author, setAuthor] = useState();
   const [authorId, setAuthorId] = useState();
   const [test, setTest] = useState("");
@@ -61,22 +40,12 @@ const TallerComponent = (props) => {
     getTest();
   }, [props]);
 
-  // const componentDidMount = async () => {
-  //   // this.setState({
-  //   //   authorId: this.props.auth.user.id,
-  //   //   author: this.props.auth.user.name,
-  //   // });
-  //   // console.log(this.props.match.params);
-  // };
-
   const renderInstrucciones = () => {
     if (!test) {
       return <Spinner color="primary" />;
     } else {
-      // console.log(test);
-
       return (
-        <div className="instrucciones">
+        <div className="instrucciones col-12 col-lg-6 col-md-10 mr-auto ml-auto">
           {test.instructions}
           <p className="shakeThatThing ">
             <span role="img" aria-label="star-dust">
@@ -93,7 +62,6 @@ const TallerComponent = (props) => {
     const name = e.target.attributes.name.value;
     const theAnswer = e.target.id;
     let theValue = e.target.value;
-    // console.log(`name: ${name} \n ans: ${theAnswer} \n sel: ${theValue}`);
 
     // CHECK THE ANSWERS
     setSelectedAnswer(name, theValue, theAnswer);
@@ -156,6 +124,7 @@ const TallerComponent = (props) => {
             key={k}
             numberQuestion={k + 1}
             wasClick={checkBoxClick}
+            value={item.value}
             values={item.options}
             question={
               item.isEquation ? (
@@ -222,6 +191,7 @@ const TallerComponent = (props) => {
         <h3 className="theTitle">
           {test ? test.testName : "cargando titulo..."}{" "}
         </h3>
+
         {renderInstrucciones()}
         <p className="theTitle mt-4">
           <b>Estudiante: </b>
