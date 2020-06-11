@@ -6,7 +6,7 @@ import { logoutUser } from "../../actions/authActions";
 import theApi from "../../api/index";
 import LoadingSpinner from "../UIElements/LoadingSpinner";
 // import CheckItems from "./CheckItems";
-import CheckItems from "../Courses/Estadistica/CheckItems";
+import CheckItems from '../dashboard/CheckItems';
 import { InlineMath } from "react-katex";
 import { useHistory } from "react-router-dom";
 

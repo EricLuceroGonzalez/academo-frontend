@@ -17,13 +17,10 @@ import { setCurrentUser, logoutUser } from "./actions/authActions";
 import NavBar from "./components/layout/Navbar";
 import FooterComponent from "./components/layout/Footer";
 // import HomeComponent from "./components/layout/Home";
-import Landing from "./components/layout/Landing";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
 // Private Routes
 import PrivateRoute from "./components/private-route/PrivateRoute";
-import CoursesComponent from "./components/Courses/CoursesComponent";
-import MathTwoComponent from "./components/Courses/MathB/MathTwoComponent";
 import CheckOut from "./components/dashboard/CheckOut";
 import About from "./components/layout/About";
 import NotFound from "./components/layout/NotFount";
@@ -31,6 +28,8 @@ import CheckError from "./components/dashboard/CheckError";
 import Course from "./components/dashboard/Course";
 import TallerComponent from "./components/Courses/TallerComponent";
 import TableOfGrades from "./components/dashboard/Table";
+import ShowImages from "./components/ShowImages";
+import ImageForm from "./components/ImageForm";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -55,7 +54,7 @@ function App() {
       <div
         className="App"
         style={{
-          // height: "100vh",
+          height: "100vh",
           top: "0px",
           padding:'40px 0px',
           background:
@@ -69,16 +68,10 @@ function App() {
             <Route exact path="/" component={About} />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
-            <Route path="/landing" component={Landing} />
+            <Route path='/images' component={ImageForm}/>
+            <Route path='/showImages' component={ShowImages}/>
             <Route path="/about" component={About} />
             <PrivateRoute exact path="/dashboard" component={Course} />
-            <Route exact path="/courses" component={CoursesComponent} />
-            <PrivateRoute
-              exact
-              path="/courses/mat2"
-              component={MathTwoComponent}
-            />
-
             <PrivateRoute
               exact
               path="/taller/:Taller/:id"

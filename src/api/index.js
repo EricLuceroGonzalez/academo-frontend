@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_HEROKU,
-  // baseURL: process.env.REACT_APP_LOCAL,
+  // baseURL: process.env.REACT_APP_HEROKU,
+  baseURL: process.env.REACT_APP_LOCAL,
 });
 
 axios.defaults.headers.common = {
@@ -19,15 +19,19 @@ export const getCourseDash = (usr) => api.get(`/courseDashboard/${usr}`);
 export const getATest = (testId) => api.get(`/getATest/${testId}`);
 export const getUserTest = (usrId) => api.get(`/userTest/${usrId}`);
 export const getUserGrades = (usrId) => api.get(`/getUserGrades/${usrId}`);
+export const getImages = () => api.get("/getImages");
+export const postImage = (imageData) => api.post("/sendImage", imageData);
 // api.get("/getGrades");
 const theApi = {
   postRegister,
   postLogin,
   postExam,
+  postImage,
+  getImages,
   getGrades,
   getCourses,
   getCourseDash,
-  getATest, 
+  getATest,
   getUserTest,
   getUserGrades,
 };

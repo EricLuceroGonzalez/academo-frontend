@@ -1,0 +1,25 @@
+/* IMAGE LIST STYLES */
+.image-card-container {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .image-card {
+    margin: 0 auto;
+    width: 33%;
+    height: auto;
+  }
+  
+  .main-image {
+    max-width: 100%;
+  }
+  
+  .image-title {
+    font-size: 2rem;
+    text-align: center;
+    background-color: teal;
+    color: white;
+    padding: 1.2rem;
+  }
+  
