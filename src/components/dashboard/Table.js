@@ -75,7 +75,7 @@ const TableOfGrades = (props) => {
     } else {
       const array = test.map((item, i) => {
         return (
-          <React.Fragment>
+          <React.Fragment key={i}>
             <div className="mt-5">
               <table
                 className="table table-striped col-12 ml-auto mr-auto table-sm"
@@ -94,6 +94,7 @@ const TableOfGrades = (props) => {
                     }}
                   >
                     <th>Nombre</th>
+                    <th>Correctas</th>
                     <th>Calificacion</th>
                     <th>Puntos totales</th>
                     <th>Fecha</th>
@@ -101,13 +102,15 @@ const TableOfGrades = (props) => {
                 </thead>
                 <tbody>
                   <tr
+                    key={i}
                     style={{
                       color: "rgba(155,74,177,1)",
                       fontFamily: "Montserrat-ExtraBold",
-                      fontSize:'1.15em'
+                      fontSize: "1.15em",
                     }}
                   >
                     <td>{item.testName}</td>
+                    <td>{item.goodAns.length}</td>
                     <td>{item.grade}</td>
                     <td>
                       {item.pts}
@@ -132,7 +135,7 @@ const TableOfGrades = (props) => {
                   <tr
                     style={{
                       backgroundColor: "rgba(155,74,177,0.75)",
-                      color: "white"
+                      color: "white",
                     }}
                   >
                     <th>Item</th>

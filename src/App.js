@@ -54,8 +54,8 @@ function App() {
       <div
         className="App"
         style={{
-          // height: "100vh",
-          top: "0px",
+          height: "100%",
+          top: "10px",
           padding:'40px 0px',
           background:
             "linear-gradient(200deg, rgba(14,254,251,1) 0%, rgba(15,50,240,0.85) 100%)",

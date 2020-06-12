@@ -15,6 +15,7 @@ const CourseDashboard = (props) => {
   const [courses, setCourses] = useState([]);
   const [tests, setTests] = useState([]);
   const [userTests, setUserTests] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     moment.locale("es");
@@ -26,6 +27,7 @@ const CourseDashboard = (props) => {
         setCourses(theData.data.allTests.courseName);
         setTests(theData.data.allTests.tests);
         setUserTests(theData.data.usrTests);
+        setIsLoading(false)
       } catch (err) {
         console.log(`Error at get: ${err}`);
       }
@@ -47,10 +49,10 @@ const CourseDashboard = (props) => {
   const renderDashboard = () => {
     if (courses.length === 0) {
       return (
-        <div style={{    height: "100vh"}}>
+        <div >
           <Spinner
             style={{
-              margin:'35% 35%',
+              margin: "35% 35%",
               width: "4rem",
               height: "4rem",
               color: "rgb(106, 35, 153)",
@@ -99,14 +101,14 @@ const CourseDashboard = (props) => {
 
   return (
     <React.Fragment>
-      {courses ? (
+      {!isLoading ? (
         <div className="mr-auto ml-auto navThing">{courses}</div>
       ) : (
         <Spinner size="sm" color="primary" />
       )}
 
-      <div className={!courses ? "isLoading" : "loaded"}>
-        <div className="container valign-wrapper">
+       <div className={isLoading ? "loading" : "loaded"}>
+        <div className="container">
           <div className="row">
             <div className="col-11 col-lg-8 col-md-8 col-sm-10 center-align mr-auto ml-auto">
               <div

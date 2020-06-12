@@ -6,8 +6,8 @@ import { logoutUser } from "../../actions/authActions";
 import theApi from "../../api/index";
 import LoadingSpinner from "../UIElements/LoadingSpinner";
 // import CheckItems from "./CheckItems";
-import CheckItems from '../dashboard/CheckItems';
-import { InlineMath } from "react-katex";
+import CheckItems from "../dashboard/CheckItems";
+import { InlineMath, BlockMath } from "react-katex";
 import { useHistory } from "react-router-dom";
 
 const TallerComponent = (props) => {
@@ -128,11 +128,17 @@ const TallerComponent = (props) => {
             values={item.options}
             question={
               item.isEquation ? (
-                <React.Fragment>
-                  {item.question} <InlineMath math={`${item.equation}`} />{" "}
-                </React.Fragment>
+                item.isInline ? (
+                  <React.Fragment>
+                    {item.question} <InlineMath math={`${item.equation}`} />{" "}
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    {item.question} <BlockMath math={`${item.equation}`} />{" "}
+                  </React.Fragment>
+                )
               ) : (
-                item.question
+                item.text
               )
             }
             questionName={item.questionName}
@@ -185,7 +191,11 @@ const TallerComponent = (props) => {
     <React.Fragment>
       {isLoading && <LoadingSpinner asOverlay />}
       <div
-        style={{ margin: "0px auto 35px auto", padding: "55px 0px", height: '100%' }}
+        style={{
+          margin: "0px auto 35px auto",
+          padding: "55px 0px",
+          height: "100%",
+        }}
         className="pb-2 col-10"
       >
         <h3 className="theTitle">

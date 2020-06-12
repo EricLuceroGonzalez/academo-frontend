@@ -1,9 +1,11 @@
-.isLoading {
-    height: "100vh";
-    width: "100vw";
-  }
-  
+.loading {
+  /* height: 150vh; */
+  width: 100vw;
+  border: 20x solid red;
+}
+
 .loaded {
-  height: "100%";
-  width: "100vw";
+  height: 120%;
+  width: 100vw;
+  border: 2x solid red;
 }

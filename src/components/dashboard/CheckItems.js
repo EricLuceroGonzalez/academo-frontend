@@ -1,8 +1,7 @@
 import React from "react";
-import { InlineMath } from "react-katex";
+import { InlineMath, BlockMath } from "react-katex";
 
-const CheckItems = props => {
-
+const CheckItems = (props) => {
   const generateCheck = () => {
     if (props.values.length === 0) {
       return <div>...</div>;
@@ -29,9 +28,15 @@ const CheckItems = props => {
             >
               <label className="ml-2 form-check-label" htmlFor="inlineRadio2">
                 {item.isEquation ? (
-                  <React.Fragment>
-                    {item.text} <InlineMath math={`${item.equation}`} />{" "}
-                  </React.Fragment>
+                  item.isInline ? (
+                    <React.Fragment>
+                      {item.text} <InlineMath math={`${item.equation}`} />{" "}
+                    </React.Fragment>
+                  ) : (
+                    <React.Fragment>
+                      {item.text} <BlockMath math={`${item.equation}`} />{" "}
+                    </React.Fragment>
+                  )
                 ) : (
                   item.text
                 )}
@@ -44,26 +49,24 @@ const CheckItems = props => {
     }
   };
 
-    return (
-      <div className="checkBox col-12 col-sm-10 col-lg-6 col-md-10">
-        <div
-          className="pts col-3 ml-auto p-1"
-        >
-          {props.value > 1 ? `${props.value} puntos`: `${props.value} punto`}
-        </div>
-        <p className="checkQuestion">
-          <span className="theNumber">{props.numberQuestion}</span>
-          {") "}
-          {props.question}
-        </p>
-        <div
-          className="ml-2 col-12 col-md-12 col-lg-10"
-          style={{ textAlign: "left" }}
-        >
-          {generateCheck()}
-        </div>
+  return (
+    <div className="checkBox col-12 col-sm-10 col-lg-6 col-md-10">
+      <div className="pts col-3 ml-auto p-1">
+        {props.value > 1 ? `${props.value} puntos` : `${props.value} punto`}
       </div>
-    );
-  }
+      <p className="checkQuestion">
+        <span className="theNumber">{props.numberQuestion}</span>
+        {") "}
+        {props.question}
+      </p>
+      <div
+        className="ml-2 col-12 col-md-12 col-lg-10"
+        style={{ textAlign: "left" }}
+      >
+        {generateCheck()}
+      </div>
+    </div>
+  );
+};
 
 export default CheckItems;
