@@ -125,26 +125,7 @@
         "questionName": "question5",
         "question": "La derivada de",
         "options": [
-          {
-            "isEquation": true,
-            "equation": "x^2 + 2x + \\frac{2}{x}",
-            "text": ""
-          },
-          {
-            "isEquation": true,
-            "equation": "x^2 + x",
-            "text": "Exa"
-          },
-          {
-            "isEquation": true,
-            "equation": "2x",
-            "text": "Res"
-          },
-          {
-            "isEquation": true,
-            "equation": "\\frac{2}{x} + \\cos(x) + \\sin^2(x)",
-            "text": ""
-          }
+         
         ],
         "answer": {
           "isEquation": true,

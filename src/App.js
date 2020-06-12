@@ -54,7 +54,7 @@ function App() {
       <div
         className="App"
         style={{
-          height: "100vh",
+          // height: "100vh",
           top: "0px",
           padding:'40px 0px',
           background:

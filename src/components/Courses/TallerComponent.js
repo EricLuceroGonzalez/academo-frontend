@@ -185,7 +185,7 @@ const TallerComponent = (props) => {
     <React.Fragment>
       {isLoading && <LoadingSpinner asOverlay />}
       <div
-        style={{ margin: "0px auto 35px auto", padding: "55px 0px" }}
+        style={{ margin: "0px auto 35px auto", padding: "55px 0px", height: '100%' }}
         className="pb-2 col-10"
       >
         <h3 className="theTitle">
