@@ -138,7 +138,7 @@ const TallerComponent = (props) => {
                   </React.Fragment>
                 )
               ) : (
-                item.text
+                item.question
               )
             }
             questionName={item.questionName}

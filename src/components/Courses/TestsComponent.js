@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import moment from "moment";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -11,6 +12,9 @@ const TestsComponent = (props) => {
   // const [author, setAuthor] = useState();
   // const [testId, setTestId] = useState();
   const history = useHistory();
+  useEffect(() => {
+    moment.locale("es");
+  }, []);
 
   const goTo = () => {
     history.push(`/${props.evaluation}/${props.theTitle}/${props.id}`);
@@ -30,11 +34,20 @@ const TestsComponent = (props) => {
         className="col-12 mr-auto"
         style={{
           backgroundColor: "rgba(116, 35, 153,0.95)",
+          padding: '0px 40px',
           top: "0px",
         }}
       >
-        <div className='mr-auto done'>
-          <ShowTestDone grade={props.testGrade} done={props.done}></ShowTestDone>
+        <div className="row">
+          <div className="mr-auto done">
+            <ShowTestDone
+              grade={props.testGrade}
+              done={props.done}
+            ></ShowTestDone>
+          </div>
+          <div className="ml-auto done">
+            {moment(props.uploadDate).startOf("hour").fromNow()}
+          </div>
         </div>
       </div>
       <div className="row col-12 mr-auto ml-auto">

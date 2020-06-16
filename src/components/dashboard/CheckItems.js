@@ -54,11 +54,11 @@ const CheckItems = (props) => {
       <div className="pts col-3 ml-auto p-1">
         {props.value > 1 ? `${props.value} puntos` : `${props.value} punto`}
       </div>
-      <p className="checkQuestion">
+      <div className="checkQuestion">
         <span className="theNumber">{props.numberQuestion}</span>
         {") "}
         {props.question}
-      </p>
+      </div>
       <div
         className="ml-2 col-12 col-md-12 col-lg-10"
         style={{ textAlign: "left" }}

@@ -76,6 +76,7 @@ const CourseDashboard = (props) => {
                 theTitle={test.testName}
                 theText={test.description}
                 theContent={test.contents}
+                uploadDate={test.uploadDate}
               ></TestsComponent>
             );
           } else {
@@ -89,6 +90,7 @@ const CourseDashboard = (props) => {
                 theTitle={test.testName}
                 theText={test.description}
                 theContent={test.contents}
+                uploadDate={test.uploadDate}
               ></TestsComponent>
             );
           }
