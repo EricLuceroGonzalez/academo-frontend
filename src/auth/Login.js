@@ -48,7 +48,7 @@ const labelSty = {
 
 const Login = (props) => {
   const [isLogged, setIsLogged] = useState(false);
-  const [isLoading, setIsLoading] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [errors, setErrors] = useState({});
