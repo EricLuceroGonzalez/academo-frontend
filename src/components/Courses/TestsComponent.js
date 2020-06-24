@@ -62,7 +62,7 @@ const TestsComponent = (props) => {
             {" "}
             🚀
           </span>
-        </        // style={{ margin: "10px 5px", fontFamily: "Poppins-Light" }}div>
+        </div>
 
         <div className="col-10">
           <h4 className="lightThing">{props.theTitle}</h4>
