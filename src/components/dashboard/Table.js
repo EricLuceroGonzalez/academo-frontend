@@ -9,16 +9,18 @@ import { CSVLink } from "react-csv";
 
 import theApi from "./../../api/index";
 import { Spinner } from "reactstrap";
+import { InlineMath } from "react-katex";
 
 const TableOfGrades = (props) => {
   const [test, setTest] = useState([]);
+  const [allAnswers, setAllAnswers] = useState([]);
 
   useEffect(() => {
     const getGradesData = async () => {
       const getData = await theApi.getUserGrades(props.auth.user.id);
-      setTest(getData.data.response);
+      setTest(getData.data.testInfo);
+      setAllAnswers(getData.data.testAnswers);
     };
-
     getGradesData();
   }, [props]);
 
@@ -93,7 +95,7 @@ const TableOfGrades = (props) => {
                       fontFamily: "Montserrat-ExtraBold",
                     }}
                   >
-                    <th>Nombre</th>
+                    <th> </th>
                     <th>Correctas</th>
                     <th>Calificacion</th>
                     <th>Puntos totales</th>
@@ -116,7 +118,9 @@ const TableOfGrades = (props) => {
                       {item.pts}
                       {item.totalPts}
                     </td>
-                    <td>{moment(item.examDate).format("llll")}</td>
+                    <td style={{ fontSize: "0.65em" }}>
+                      {moment(item.examDate).format("llll")}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -155,25 +159,73 @@ const TableOfGrades = (props) => {
   };
 
   const renderAns = (propy, indx) => {
-    const ansArry = propy.allPts.map((item, ii) => {
-      return (
-        <tr
-          key={ii}
-          style={{
-            backgroundColor: !item ? "#ffdce0" : "#dcffe4",
-          }}
-        >
-          <td>{ii + 1}</td>
-          <td> {item ? propy.goodAns[ii] : "-"}</td>
-          <td>
-            {item ? item : "0"} {item > 1 ? " puntos" : "punto"}
-          </td>
-        </tr>
-      );
+    let testAns;
+    let ansArry = [];
 
-      //   });
-    });
-    return ansArry;
+    if (allAnswers[indx]) {
+      testAns = allAnswers[indx];
+
+      for (let i = 0; i < testAns.amount; i++) {
+
+        if (propy.allPts[i]) {
+
+          ansArry.push(
+            <tr
+              key={i}
+              style={{
+                backgroundColor: "#dcffe4",
+              }}
+            >
+              <td>{i + 1}</td>
+              {testAns.answers[i].isEquation ? (
+                <td>
+                  {testAns.answers[i].text}{" "}
+                  <InlineMath math={`${testAns.answers[i].equation}`} />{" "}
+                </td>
+              ) : (
+                <td> </td>
+              )}
+              <td>
+                {propy.allPts[i] ? propy.allPts[i] : "0"}{" "}
+                {propy.allPts[i] > 1 ? " puntos" : "punto"}
+              </td>
+            </tr>
+          );
+        } else {
+          ansArry.push(
+            <tr
+              key={i}
+              style={{
+                backgroundColor: "#ffdce0",
+              }}
+            >
+              <td>{i + 1}</td>
+              <td> - </td>
+              <td>0 puntos</td>
+            </tr>
+          );
+        }
+      }
+      // const ansArry = propy.allPts.map((item, ii) => {
+      //   return (
+      //     <tr
+      //       key={ii}
+      //       style={{
+      //         backgroundColor: !item ? "#ffdce0" : "#dcffe4",
+      //       }}
+      //     >
+      //       <td>{ii + 1}</td>
+      //       <td> {item ? propy.goodAns[ii] : "-"}</td>
+      //       <td>
+      //         {item ? item : "0"} {item > 1 ? " puntos" : "punto"}
+      //       </td>
+      //     </tr>
+      //   );
+
+      // });
+      // });
+      return ansArry;
+    }
   };
   return (
     <div
@@ -184,7 +236,7 @@ const TableOfGrades = (props) => {
       }}
       className="container valign-wrapper"
     >
-      <h1 className="navThing">Notas</h1>
+      <h3 className="navThing">Notas</h3>
       <div
         className="table-responsive ml-auto mr-auto col-12"
         style={{ margin: "10px 5px", fontFamily: "Poppins-Light" }}

@@ -32,7 +32,7 @@ const TallerComponent = (props) => {
       try {
         const data = await theApi.getATest(props.match.params.id);
         setIsLoading(false);
-        setTest(data.data.test);
+        setTest(data.data.test);        
       } catch (err) {
         setIsLoading(false);
       }
