@@ -221,7 +221,7 @@ const TableOfGrades = (props) => {
       <h3 className="navThing">Notas</h3>
       <div
         className="table-responsive ml-auto mr-auto col-12"
-        // style={{ margin: "10px 5px", fontFamily: "Poppins-Light" }}
+        style={{ margin: "10px 5px", fontFamily: "Poppins-Light" }}
       >
         {renderAnswers()}
       </div>
