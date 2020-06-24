@@ -183,7 +183,7 @@ const TableOfGrades = (props) => {
                   <InlineMath math={`${testAns.answers[i].equation}`} />{" "}
                 </td>
               ) : (
-                <td> </td>
+                <td> {testAns.answers[i].text}</td>
               )}
               <td>
                 {propy.allPts[i] ? propy.allPts[i] : "0"}{" "}
