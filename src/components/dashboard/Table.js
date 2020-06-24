@@ -187,7 +187,7 @@ const TableOfGrades = (props) => {
               )}
               <td>
                 {propy.allPts[i] ? propy.allPts[i] : "0"}{" "}
-                {propy.allPts[i] > 1 ? " puntos" : "punto"}
+                {propy.allPts[i] > 1 ? " puntos" :"punto"}
               </td>
             </tr>
           );
