@@ -206,24 +206,6 @@ const TableOfGrades = (props) => {
           );
         }
       }
-      // const ansArry = propy.allPts.map((item, ii) => {
-      //   return (
-      //     <tr
-      //       key={ii}
-      //       style={{
-      //         backgroundColor: !item ? "#ffdce0" : "#dcffe4",
-      //       }}
-      //     >
-      //       <td>{ii + 1}</td>
-      //       <td> {item ? propy.goodAns[ii] : "-"}</td>
-      //       <td>
-      //         {item ? item : "0"} {item > 1 ? " puntos" : "punto"}
-      //       </td>
-      //     </tr>
-      //   );
-
-      // });
-      // });
       return ansArry;
     }
   };
