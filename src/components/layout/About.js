@@ -20,7 +20,7 @@ const About = (props) => {
           <span className="navThing">Academo</span> es un sitio que lleva la
           educación virtual de manera personalizada.
         </div>
-        Sitio creado y desarrollado para uso público.
+        Sitio creado y desarrollado para uso público
         <FontAwesomeIcon
           style={{ color: "red" }}
           className="shakeThatLittleThing"

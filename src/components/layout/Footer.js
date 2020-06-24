@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCodeBranch } from "@fortawesome/free-solid-svg-icons";
 
 // import { faHome, faRegistered, faTrademark } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,7 +25,9 @@ class FooterComponent extends Component {
         }}
       >
         creado para fines academicos
-          por <span className="foot"><Link to='/getGrades' style={{color: 'white'}}>Eric Lucero G.</Link></span>
+          por <span className="foot"><Link to='/' style={{color: 'white'}}>Eric Lucero G.</Link>
+          <FontAwesomeIcon icon={faCodeBranch}></FontAwesomeIcon>
+          </span>
         <div>contacto: ericlucero501@gmail.com</div>
       </div>
     );
