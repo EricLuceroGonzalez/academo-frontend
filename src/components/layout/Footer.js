@@ -25,7 +25,7 @@ class FooterComponent extends Component {
         }}
       >
         creado para fines academicos
-          por <span className="foot"><Link to='/' style={{color: 'white'}}>Eric Lucero G. {" "}</Link>
+          por <span className="foot"><Link to='/' style={{color: 'white'}}>Eric Lucero G. {"  "}</Link>
           <FontAwesomeIcon icon={faCodeBranch}></FontAwesomeIcon>
           </span>
         <div>contacto: ericlucero501@gmail.com</div>
