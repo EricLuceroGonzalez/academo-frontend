@@ -20,6 +20,7 @@ const TableOfGrades = (props) => {
       const getData = await theApi.getUserGrades(props.auth.user.id);
       setTest(getData.data.testInfo);
       setAllAnswers(getData.data.testAnswers);
+      
     };
     getGradesData();
   }, [props]);
@@ -97,7 +98,7 @@ const TableOfGrades = (props) => {
                   >
                     <th> </th>
                     <th>Correctas</th>
-                    <th>Calificacion</th>
+                    <th>Calificación</th>
                     <th>Puntos totales</th>
                     <th>Fecha</th>
                   </tr>
@@ -162,7 +163,7 @@ const TableOfGrades = (props) => {
     let testAns;
     let ansArry = [];
 
-    if (allAnswers[indx]) {
+    if (allAnswers[indx] && allAnswers[indx].name === propy.testName) {
       testAns = allAnswers[indx];
 
       for (let i = 0; i < testAns.amount; i++) {
