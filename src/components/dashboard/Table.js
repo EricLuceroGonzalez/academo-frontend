@@ -10,6 +10,8 @@ import { CSVLink } from "react-csv";
 import theApi from "./../../api/index";
 import { Spinner } from "reactstrap";
 import { InlineMath } from "react-katex";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const TableOfGrades = (props) => {
   const [test, setTest] = useState([]);
@@ -20,7 +22,6 @@ const TableOfGrades = (props) => {
       const getData = await theApi.getUserGrades(props.auth.user.id);
       setTest(getData.data.testInfo);
       setAllAnswers(getData.data.testAnswers);
-      
     };
     getGradesData();
   }, [props]);
@@ -76,140 +77,264 @@ const TableOfGrades = (props) => {
         </table>
       );
     } else {
-      const array = test.map((item, i) => {
-        return (
-          <React.Fragment key={i}>
-            <div className="mt-5">
-              <table
-                className="table table-striped col-12 ml-auto mr-auto table-sm"
-                style={{
-                  backgroundColor: "rgba(225,224,227,1)",
-                  fontSize: "0.65em",
-                }}
-                key={i}
-              >
-                <thead>
-                  <tr
-                    style={{
-                      backgroundColor: "rgba(155,74,177,1)",
-                      color: "white",
-                      fontFamily: "Montserrat-ExtraBold",
-                    }}
-                  >
-                    <th> </th>
-                    <th>Correctas</th>
-                    <th>Calificación</th>
-                    <th>Puntos totales</th>
-                    <th>Fecha</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    key={i}
-                    style={{
-                      color: "rgba(155,74,177,1)",
-                      fontFamily: "Montserrat-ExtraBold",
-                      fontSize: "1.15em",
-                    }}
-                  >
-                    <td>{item.testName}</td>
-                    <td>{item.goodAns.length}</td>
-                    <td>{item.grade}</td>
-                    <td>
-                      {item.pts}
-                      {item.totalPts}
-                    </td>
-                    <td style={{ fontSize: "0.65em" }}>
-                      {moment(item.examDate).format("llll")}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+      return (
+        <React.Fragment>
+          <div className="mt-5">
+            <table
+              className="table table-striped col-12 ml-auto mr-auto table-sm"
+              style={{
+                backgroundColor: "rgba(225,224,227,1)",
+                fontSize: "0.65em",
+              }}
+            >
+              <thead>
+                <tr
+                  style={{
+                    backgroundColor: "rgba(155,74,177,1)",
+                    color: "white",
+                    fontFamily: "Montserrat-ExtraBold",
+                  }}
+                >
+                  <th> </th>
+                  <th>Correctas</th>
+                  <th>Calificación</th>
+                  <th>Puntos totales</th>
+                  <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody>{renderAllTest()}</tbody>
+            </table>
+          </div>
+        </React.Fragment>
+      );
+    }
+    // return array;
+  };
 
-            <div>
-              <table
-                className="table table-striped col-12 ml-auto mr-auto table-sm"
-                style={{
-                  backgroundColor: "rgba(225,224,177,0.6)",
-                  fontSize: "0.65em",
-                }}
-                key={i}
-              >
-                <thead>
-                  <tr
-                    style={{
-                      backgroundColor: "rgba(155,74,177,0.75)",
-                      color: "white",
-                    }}
-                  >
-                    <th>Item</th>
-                    <th>Respuesta</th>
-                    <th>Puntos totales</th>
-                  </tr>
-                </thead>
-                <tbody>{renderAns(item, i)}</tbody>
-              </table>
-            </div>
-          </React.Fragment>
+  const renderAllTest = () => {
+    const array = test.map((item, i) => {
+      return (
+        <tr
+          key={i}
+          style={{
+            color: "rgba(155,74,177,1)",
+            fontFamily: "Montserrat-ExtraBold",
+            fontSize: "1.15em",
+          }}
+        >
+          <td>{item.testName}</td>
+          <td>{item.goodAns.length}</td>
+          <td>{item.grade}</td>
+          <td>
+            {item.pts}
+            {item.totalPts}
+          </td>
+          <td style={{ fontSize: "0.65em" }}>
+            {moment(item.examDate).format("llll")}
+          </td>
+        </tr>
+      );
+    });
+    return array;
+  };
+
+  const renderTableAnswers = () => {
+    if (allAnswers.length > 0) {
+      let thisMap = test.map((item, indx) => {
+        return (
+          <div key={indx}>
+            <h4
+              style={{
+                marginTop: "80px",
+                fontFamily: "Poppins-ExtraBold",
+                backgroundColor: "rgba(155,74,177,0.5)",
+                color: "white",
+              }}
+            >
+              {item.testName}
+            </h4>
+            <table
+              className="table table-striped col-12 ml-auto mr-auto table-sm"
+              key={indx + 2}
+            >
+              <thead>
+                <tr
+                  style={{
+                    backgroundColor: "rgba(155,74,177,0.75)",
+                    color: "white",
+                    fontFamily: "Poppins-ExtraBold",
+                  }}
+                >
+                  <th></th>
+                  <th>Item</th>
+                  <th>Respuesta</th>
+                  <th>Puntos totales</th>
+                </tr>
+              </thead>
+              {renderAns(indx)}
+            </table>
+          </div>
         );
       });
-
-      return array;
+      return thisMap;
+    } else {
+      return (
+        <div>
+          <table className="table table-striped col-12 ml-auto mr-auto table-sm">
+            <thead>
+              <tr
+                style={{
+                  backgroundColor: "rgba(155,74,177,0.75)",
+                  color: "white",
+                  fontFamily: "Poppins-ExtraBold",
+                }}
+              >
+                <th></th>
+                <th>Item</th>
+                <th>Respuesta</th>
+                <th>Puntos totales</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <Spinner className="mr-auto ml-auto" size="md" type="grow" />
+                </td>
+                <td>
+                  <Spinner className="mr-auto ml-auto" size="md" type="grow" />
+                </td>
+                <td>
+                  <Spinner className="mr-auto ml-auto" size="md" type="grow" />
+                </td>
+                <td>
+                <Spinner className="mr-auto ml-auto" size="md" type="grow" />
+              </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      );
     }
   };
 
-  const renderAns = (propy, indx) => {
+  const renderAns = (index) => {
     let testAns;
-    let ansArry = [];
+    // let thisMap = test.map((item, index) => {
+    // console.log(`\n\n **** ${index}`);
 
-    if (allAnswers[indx] && allAnswers[indx].name === propy.testName) {
-      testAns = allAnswers[indx];
+    testAns = allAnswers[index];
+    let userPoints = test[index].allPts;
 
-      for (let i = 0; i < testAns.amount; i++) {
+    let thisShit = testAns.answers.map((itm, k) => {
 
-        if (propy.allPts[i]) {
-
-          ansArry.push(
+      if (userPoints[k]) {
+        return (
+          <tbody>
             <tr
-              key={i}
+              key={k}
               style={{
                 backgroundColor: "#dcffe4",
+                fontFamily: "Poppins-Light",
               }}
             >
-              <td>{i + 1}</td>
-              {testAns.answers[i].isEquation ? (
+              <td>
+                {" "}
+                <FontAwesomeIcon
+                  style={{ color: "#99ffb1" }}
+                  icon={faCheck}
+                ></FontAwesomeIcon>{" "}
+              </td>
+              <td>{k + 1}</td>
+              {testAns.answers[k].isEquation ? (
                 <td>
-                  {testAns.answers[i].text}{" "}
-                  <InlineMath math={`${testAns.answers[i].equation}`} />{" "}
+                  {testAns.answers[k].text}{" "}
+                  <InlineMath math={`${testAns.answers[k].equation}`} />{" "}
                 </td>
               ) : (
-                <td> {testAns.answers[i].text}</td>
+                <td> {testAns.answers[k].text}</td>
               )}
               <td>
-                {propy.allPts[i] ? propy.allPts[i] : "0"}{" "}
-                {propy.allPts[i] > 1 ? " puntos" :"punto"}
+                {userPoints[k] ? userPoints[k] : "0"}{" "}
+                {userPoints[k] > 1 ? " puntos" : "punto"}
               </td>
             </tr>
-          );
-        } else {
-          ansArry.push(
+          </tbody>
+        );
+      } else {
+        return (
+          <tbody>
             <tr
-              key={i}
+              key={k}
               style={{
                 backgroundColor: "#ffdce0",
+                fontFamily: "Poppins-Light",
               }}
             >
-              <td>{i + 1}</td>
+              <td>
+                {" "}
+                <FontAwesomeIcon
+                  style={{ color: "#ff99a5" }}
+                  icon={faTimes}
+                ></FontAwesomeIcon>{" "}
+              </td>
+              <td>{k + 1}</td>
               <td> - </td>
               <td>0 puntos</td>
             </tr>
-          );
-        }
+          </tbody>
+        );
       }
-      return ansArry;
-    }
+    });
+    return thisShit;
+    // });
+    // console.log(thisMap);
+
+    // return thisMap;
   };
+
+  // for (let i = 0; i < testAns.amount; i++) {
+
+  //         if (test.allPts[i]) {
+  //           ansArry.push(
+  //             <tr
+  //               key={i}
+  //               style={{
+  //                 backgroundColor: "#dcffe4",
+  //               }}
+  //             >
+  //               <td>{i + 1}</td>
+  //               {testAns.answers[i].isEquation ? (
+  //                 <td>
+  //                   {testAns.answers[i].text}{" "}
+  //                   <InlineMath math={`${testAns.answers[i].equation}`} />{" "}
+  //                 </td>
+  //               ) : (
+  //                 <td> {testAns.answers[i].text}</td>
+  //               )}
+  //               <td>
+  //                 {/**
+  //                   {propy.allPts[i] ? propy.allPts[i] : "0"}{" "}
+  //                 {propy.allPts[i] > 1 ? " puntos" : "punto"}
+  //  */}
+  //               </td>
+  //             </tr>
+  //           );
+  //         } else {
+  //           ansArry.push(
+  //             <tr
+  //               key={i}
+  //               style={{
+  //                 backgroundColor: "#ffdce0",
+  //               }}
+  //             >
+  //               <td>{i + 1}</td>
+  //               <td> - </td>
+  //               <td>0 puntos</td>
+  //             </tr>
+  //           );
+  //         }
+  // }
+
   return (
     <div
       style={{
@@ -225,6 +350,9 @@ const TableOfGrades = (props) => {
         style={{ margin: "10px 5px", fontFamily: "Poppins-Light" }}
       >
         {renderAnswers()}
+      </div>
+      <div className="table-responsive ml-auto mr-auto col-12">
+        {renderTableAnswers()}
       </div>
       {renderCSV()}
     </div>
