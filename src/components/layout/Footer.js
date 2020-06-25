@@ -24,7 +24,7 @@ class FooterComponent extends Component {
           fontFamily: "Montserrat-Light"
         }}
       >
-        creado para fines academicos
+        creado para fines académicos
           por <span className="foot"><Link to='/' style={{color: 'white'}}>Eric Lucero G. {"  "}</Link>
           <FontAwesomeIcon icon={faCodeBranch}></FontAwesomeIcon>
           </span>

@@ -22,6 +22,7 @@ const TableOfGrades = (props) => {
       const getData = await theApi.getUserGrades(props.auth.user.id);
       setTest(getData.data.testInfo);
       setAllAnswers(getData.data.testAnswers);
+      console.log(getData.data);
     };
     getGradesData();
   }, [props]);
@@ -138,9 +139,9 @@ const TableOfGrades = (props) => {
     return array;
   };
 
-  const renderTableAnswers = () => {
+  const renderTableAnswers =  () => {
     if (allAnswers.length > 0) {
-      let thisMap = test.map((item, indx) => {
+      let thisMap = test.map( (item, indx) => {
         return (
           <div key={indx}>
             <h4
@@ -151,7 +152,7 @@ const TableOfGrades = (props) => {
                 color: "white",
               }}
             >
-              {item.testName}
+              {allAnswers[indx].name}
             </h4>
             <table
               className="table table-striped col-12 ml-auto mr-auto table-sm"
@@ -171,7 +172,7 @@ const TableOfGrades = (props) => {
                   <th>Puntos totales</th>
                 </tr>
               </thead>
-              {renderAns(indx)}
+              <tbody>{renderAns(indx)}</tbody>
             </table>
           </div>
         );
@@ -207,8 +208,8 @@ const TableOfGrades = (props) => {
                   <Spinner className="mr-auto ml-auto" size="md" type="grow" />
                 </td>
                 <td>
-                <Spinner className="mr-auto ml-auto" size="md" type="grow" />
-              </td>
+                  <Spinner className="mr-auto ml-auto" size="md" type="grow" />
+                </td>
               </tr>
             </tbody>
           </table>
@@ -219,121 +220,96 @@ const TableOfGrades = (props) => {
 
   const renderAns = (index) => {
     let testAns;
-    // let thisMap = test.map((item, index) => {
-    // console.log(`\n\n **** ${index}`);
+    console.log(`index: ${index}`);
 
     testAns = allAnswers[index];
     let userPoints = test[index].allPts;
-
+    let userAnswer = test[index].allAns;
     let thisShit = testAns.answers.map((itm, k) => {
-
       if (userPoints[k]) {
         return (
-          <tbody>
-            <tr
-              key={k}
-              style={{
-                backgroundColor: "#dcffe4",
-                fontFamily: "Poppins-Light",
-              }}
-            >
+          <tr
+            key={k}
+            style={{
+              backgroundColor: "#dcffe4",
+              fontFamily: "Poppins-Light",
+            }}
+          >
+            <td>
+              {" "}
+              <FontAwesomeIcon
+                style={{ color: "#99ffb1" }}
+                icon={faCheck}
+              ></FontAwesomeIcon>{" "}
+            </td>
+            <td>{k + 1}</td>
+            {testAns.answers[k].isEquation ? (
               <td>
-                {" "}
-                <FontAwesomeIcon
-                  style={{ color: "#99ffb1" }}
-                  icon={faCheck}
-                ></FontAwesomeIcon>{" "}
+                {testAns.answers[k].text}{" "}
+                <InlineMath math={`${testAns.answers[k].equation}`} />{" "}
               </td>
-              <td>{k + 1}</td>
-              {testAns.answers[k].isEquation ? (
-                <td>
-                  {testAns.answers[k].text}{" "}
-                  <InlineMath math={`${testAns.answers[k].equation}`} />{" "}
-                </td>
-              ) : (
-                <td> {testAns.answers[k].text}</td>
-              )}
+            ) : (
+              <td> {testAns.answers[k].text}</td>
+            )}
+            <td>
+              {userPoints[k] ? userPoints[k] : "0"}{" "}
+              {userPoints[k] > 1 ? " puntos" : "punto"}
+            </td>
+          </tr>
+        );
+      }
+      if (userPoints[k] === 0) {
+        return (
+          <tr
+            key={k}
+            style={{
+              backgroundColor: "#ffdce0",
+              fontFamily: "Poppins-Light",
+            }}
+          >
+            <td>
+              {" "}
+              <FontAwesomeIcon
+                style={{ color: "#ff99a5" }}
+                icon={faTimes}
+              ></FontAwesomeIcon>{" "}
+            </td>
+            <td>{k + 1}</td>
+            {testAns.answers[k].isEquation ? (
               <td>
-                {userPoints[k] ? userPoints[k] : "0"}{" "}
-                {userPoints[k] > 1 ? " puntos" : "punto"}
+                <InlineMath math={`${userAnswer.shift()}`} />
               </td>
-            </tr>
-          </tbody>
+            ) : (
+              <td> {userAnswer.shift()}</td>
+            )}
+            <td>0 puntos</td>
+          </tr>
         );
       } else {
         return (
-          <tbody>
-            <tr
-              key={k}
-              style={{
-                backgroundColor: "#ffdce0",
-                fontFamily: "Poppins-Light",
-              }}
-            >
-              <td>
-                {" "}
-                <FontAwesomeIcon
-                  style={{ color: "#ff99a5" }}
-                  icon={faTimes}
-                ></FontAwesomeIcon>{" "}
-              </td>
-              <td>{k + 1}</td>
-              <td> - </td>
-              <td>0 puntos</td>
-            </tr>
-          </tbody>
+          <tr
+            key={k}
+            style={{
+              backgroundColor: "#ffdce0",
+              fontFamily: "Poppins-Light",
+            }}
+          >
+            <td>
+              {" "}
+              <FontAwesomeIcon
+                style={{ color: "#ff99a5" }}
+                icon={faTimes}
+              ></FontAwesomeIcon>{" "}
+            </td>
+            <td>{k + 1}</td>
+            <td> -- </td>
+            <td>0 puntos</td>
+          </tr>
         );
       }
     });
     return thisShit;
-    // });
-    // console.log(thisMap);
-
-    // return thisMap;
   };
-
-  // for (let i = 0; i < testAns.amount; i++) {
-
-  //         if (test.allPts[i]) {
-  //           ansArry.push(
-  //             <tr
-  //               key={i}
-  //               style={{
-  //                 backgroundColor: "#dcffe4",
-  //               }}
-  //             >
-  //               <td>{i + 1}</td>
-  //               {testAns.answers[i].isEquation ? (
-  //                 <td>
-  //                   {testAns.answers[i].text}{" "}
-  //                   <InlineMath math={`${testAns.answers[i].equation}`} />{" "}
-  //                 </td>
-  //               ) : (
-  //                 <td> {testAns.answers[i].text}</td>
-  //               )}
-  //               <td>
-  //                 {/**
-  //                   {propy.allPts[i] ? propy.allPts[i] : "0"}{" "}
-  //                 {propy.allPts[i] > 1 ? " puntos" : "punto"}
-  //  */}
-  //               </td>
-  //             </tr>
-  //           );
-  //         } else {
-  //           ansArry.push(
-  //             <tr
-  //               key={i}
-  //               style={{
-  //                 backgroundColor: "#ffdce0",
-  //               }}
-  //             >
-  //               <td>{i + 1}</td>
-  //               <td> - </td>
-  //               <td>0 puntos</td>
-  //             </tr>
-  //           );
-  //         }
-  // }
 
   return (
     <div
@@ -351,7 +327,10 @@ const TableOfGrades = (props) => {
       >
         {renderAnswers()}
       </div>
-      <div className="table-responsive ml-auto mr-auto col-12">
+      <div
+        className="table-responsive ml-auto mr-auto col-12"
+        style={{ fontSize: "0.65em" }}
+      >
         {renderTableAnswers()}
       </div>
       {renderCSV()}
