@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_HEROKU,
-  // baseURL: process.env.REACT_APP_LOCAL,
+  // baseURL: process.env.REACT_APP_HEROKU,
+  baseURL: process.env.REACT_APP_LOCAL,
 });
 
 axios.defaults.headers.common = {

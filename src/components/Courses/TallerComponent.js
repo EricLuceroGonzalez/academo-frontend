@@ -122,6 +122,7 @@ const TallerComponent = (props) => {
         return (
           <CheckItems
             key={k}
+            image={item.image}
             numberQuestion={k + 1}
             wasClick={checkBoxClick}
             value={item.value}

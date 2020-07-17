@@ -1,6 +1,8 @@
 import React from "react";
 import { InlineMath, BlockMath } from "react-katex";
 
+import "./ImageCard.css";
+
 const CheckItems = (props) => {
   const generateCheck = () => {
     if (props.values.length === 0) {
@@ -48,12 +50,23 @@ const CheckItems = (props) => {
       return checks;
     }
   };
-
   return (
     <div className="checkBox col-12 col-sm-10 col-lg-6 col-md-10">
       <div className="pts col-3 ml-auto p-1">
         {props.value > 1 ? `${props.value} puntos` : `${props.value} punto`}
       </div>
+
+      {!!props.image && (
+        <div className="image-card-container">
+          <div className="col-12">
+            <img
+              className="main-image"
+              src={props.image}
+              alt="This is a terrible description!"
+            />
+          </div>
+        </div>
+      )}
       <div className="checkQuestion">
         <span className="theNumber">{props.numberQuestion}</span>
         {") "}

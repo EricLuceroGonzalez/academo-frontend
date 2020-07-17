@@ -14,14 +14,14 @@ class FooterComponent extends Component {
         className="col-12 p-2"
         style={{
           //   marginTop: "150px",
-          height: '6%',
+          height: '4%',
           color: "white",
           background:"rgba(75,20,90,0.97)",
           position: "fixed",
           bottom: "0px",
           fontSize: "0.5em",
-          padding: '5px 2px',
-          fontFamily: "Montserrat-Light"
+          padding: '4px 2px',
+          fontFamily: "monospace"
         }}
       >
         creado para fines académicos
