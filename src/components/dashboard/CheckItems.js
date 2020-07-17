@@ -55,10 +55,9 @@ const CheckItems = (props) => {
       <div className="pts col-3 ml-auto p-1">
         {props.value > 1 ? `${props.value} puntos` : `${props.value} punto`}
       </div>
-
       {!!props.image && (
         <div className="image-card-container">
-          <div className="col-12">
+          <div className="col-10">
             <img
               className="main-image"
               src={props.image}
