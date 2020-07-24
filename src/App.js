@@ -30,6 +30,7 @@ import TallerComponent from "./components/Courses/TallerComponent";
 import TableOfGrades from "./components/dashboard/Table";
 import ShowImages from "./components/ShowImages";
 import ImageForm from "./components/ImageForm";
+import AllGrades from "./components/dashboard/AllGrades";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -91,6 +92,11 @@ function App() {
               exact
               path="/notas"
               component={TableOfGrades}
+            ></PrivateRoute>
+            <PrivateRoute
+              exact
+              path="/getAllGrades"
+              component={AllGrades}
             ></PrivateRoute>
             <Route component={NotFound}></Route>
           </Switch>

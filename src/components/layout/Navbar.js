@@ -13,13 +13,23 @@ const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [userName, setUserName] = useState();
+  const [userId, setUserId] = useState();
   const history = useHistory();
 
   useEffect(() => {
     props.auth.isAuthenticated ? setIsLogged(true) : setIsLogged(false);
-    props.auth.isAuthenticated
-      ? setUserName(props.auth.user.name.firstName)
-      : setUserName();
+
+    if (props.auth.isAuthenticated) {
+      setUserName(props.auth.user.name.firstName);
+    } else {
+      setUserName("");
+    }
+
+    if (props.auth.isAuthenticated && props.auth.user.id === "5ee903459cd388000465c5a7") {
+      console.log(`Hello: ${props.auth.user.name.firstName}`);
+
+      setUserId(props.auth.user.id);
+    }
   }, [props]);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -62,6 +72,18 @@ const NavBar = (props) => {
               Cursos
             </NabLink>
           </Nav>
+          {userId === "5ee903459cd388000465c5a7" ? (
+            <NabLink
+              className="navThing link-text user-text"
+              to={"/getAllGrades"}
+              activeClassName="activeNavLink"
+            >
+              <span className="blogoutUser order-success p-1">ver notas</span>
+            </NabLink>
+          ) : (
+            ""
+          )}
+
           {isLogged ? (
             <React.Fragment>
               <NabLink
@@ -70,7 +92,7 @@ const NavBar = (props) => {
                 activeClassName="activeNavLink"
               >
                 <span className="blogoutUser order-success p-1">
-                  {userName.split(' ')[0]}
+                  {userName.split(" ")[0]}
                 </span>
               </NabLink>
               <div
@@ -81,8 +103,8 @@ const NavBar = (props) => {
               >
                 <span>salir </span>
                 <span role="img" aria-label="star-dust">
-                🚀
-              </span>
+                  🚀
+                </span>
               </div>
             </React.Fragment>
           ) : (
