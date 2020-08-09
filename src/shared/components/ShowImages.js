@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
 
 import LoadingSpinner from "../components/UIElements/LoadingSpinner";
-import { getAllImages } from "../actions/imageActions";
-import theApi from "../api/index";
 import "./images-styles.css";
 
 const AllImages = (props) => {
@@ -13,9 +10,9 @@ const AllImages = (props) => {
   useEffect(() => {
     const getTest = async () => {
       try {
-        const data = await theApi.getImages();
-        setImages(data.data);
-        setIsLoading(false);
+        // const data = await theApi.getImages();
+        // setImages(data.data);
+        // setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
       }

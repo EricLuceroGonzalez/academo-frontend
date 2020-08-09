@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
 import "moment/locale/es";
-import PropTypes from "prop-types";
 import { Spinner } from "reactstrap";
-import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
-import theApi from "../../api";
+import { AuthContext } from "../../context/auth-context";
 import TestsComponent from "../Courses/TestsComponent";
 import "./Course.css";
 
 const CourseDashboard = (props) => {
+  const auth = useContext(AuthContext);
   const [author, setAuthor] = useState();
   const [time, setTime] = useState();
   const [courses, setCourses] = useState([]);
@@ -19,21 +17,19 @@ const CourseDashboard = (props) => {
 
   useEffect(() => {
     moment.locale("es");
-    setAuthor(props.auth.user.name);
-
     const getData = async () => {
       try {
-        const theData = await theApi.getCourseDash(props.auth.user.id);
-        setCourses(theData.data.allTests.courseName);
-        setTests(theData.data.allTests.tests);
-        setUserTests(theData.data.usrTests);
-        setIsLoading(false)
+        //   const theData = await theApi.getCourseDash(props.auth.user.id);
+        //   setCourses(theData.data.allTests.courseName);
+        //   setTests(theData.data.allTests.tests);
+        //   setUserTests(theData.data.usrTests);
+        //   setIsLoading(false)
       } catch (err) {
         console.log(`Error at get: ${err}`);
       }
     };
-    getData();
-  }, [props]);
+    // getData();
+  }, []);
 
   useEffect(() => {
     setInterval(() => {
@@ -49,7 +45,7 @@ const CourseDashboard = (props) => {
   const renderDashboard = () => {
     if (courses.length === 0) {
       return (
-        <div >
+        <div>
           <Spinner
             style={{
               margin: "35% 35%",
@@ -109,7 +105,7 @@ const CourseDashboard = (props) => {
         <Spinner size="sm" color="primary" />
       )}
 
-       <div className={isLoading ? "loading" : "loaded"}>
+      <div className={isLoading ? "loading" : "loaded"}>
         <div className="container">
           <div className="row">
             <div className="col-11 col-lg-8 col-md-8 col-sm-10 center-align mr-auto ml-auto">
@@ -124,10 +120,10 @@ const CourseDashboard = (props) => {
                 <p>{time}</p>
               </div>
               <h4>
-                {!author ? (
+                {!auth.userName ? (
                   <Spinner size="sm" color="primary" />
                 ) : (
-                  <span className="navThing">{author.firstName}</span>
+                  <span className="navThing">{auth.userName}</span>
                 )}
                 <span role="img" aria-label="star-dust">
                   🚀
@@ -156,11 +152,4 @@ const CourseDashboard = (props) => {
   );
 };
 
-CourseDashboard.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-};
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-export default connect(mapStateToProps, { logoutUser })(CourseDashboard);
+export default CourseDashboard;

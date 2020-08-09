@@ -9,7 +9,7 @@ import classnames from "classnames";
 // The react Phone
 import "react-phone-number-input/style.css";
 import theApi from "../api";
-import LoadingSpinner from "../components/UIElements/LoadingSpinner";
+import LoadingSpinner from "../shared/components/UIElements/LoadingSpinner";
 import "./Form.css";
 
 const formBg = {

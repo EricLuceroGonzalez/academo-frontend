@@ -1,0 +1,27 @@
+.auth-title {
+  color: #0411a3;
+  font-family: Montserrat-ExtraBold;
+  border-bottom: 3px solid #510077;
+}
+.authentication__header {
+  color: white;
+  text-align: center;
+}
+
+.authentication {
+  width: 90%;
+  max-width: 33rem;
+  margin: 1rem auto;
+  text-align: center;
+  box-shadow: 2px 4px 9px gray;
+}
+
+.authentication form {
+  margin-bottom: 1rem;
+}
+.auth-view {
+  color: red;
+  min-height: 100vh;
+  padding: 10% 0;
+  border: 1px solid red;
+}

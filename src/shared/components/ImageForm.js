@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-
-import { addImage } from "../actions/imageActions";
 
 const ImageForm = (props) => {
   const [title, setTitle] = useState('');
@@ -48,4 +45,4 @@ const ImageForm = (props) => {
   );
 };
 
-export default connect(null, { addImage })(ImageForm);
+export default ImageForm;

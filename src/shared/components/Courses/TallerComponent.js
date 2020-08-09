@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { Button, Spinner } from "reactstrap";
-import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions";
-import theApi from "../../api/index";
+// import { connect } from "react-redux";
+// import { logoutUser } from "../../actions/authActions";
 import LoadingSpinner from "../UIElements/LoadingSpinner";
 // import CheckItems from "./CheckItems";
 import CheckItems from "../dashboard/CheckItems";
@@ -30,9 +28,9 @@ const TallerComponent = (props) => {
       // console.log("here");
 
       try {
-        const data = await theApi.getATest(props.match.params.id);
-        setIsLoading(false);
-        setTest(data.data.test);        
+        // const data = await theApi.getATest(props.match.params.id);
+        // setIsLoading(false);
+        // setTest(data.data.test);
       } catch (err) {
         setIsLoading(false);
       }
@@ -166,19 +164,19 @@ const TallerComponent = (props) => {
 
     try {
       setIsLoading(true);
-      await theApi.postExam({
-        theName: author,
-        theId: authorId,
-        totalPts: puntaje,
-        testId: test._id,
-        testName: test.testName,
-        grade: grade,
-        allAns: allAns,
-        allPts: allPts,
-        ansQuest: allQuest,
-        goodAns: goodAns,
-        goodQuest: goodQuest,
-      });
+      // await theApi.postExam({
+      //   theName: author,
+      //   theId: authorId,
+      //   totalPts: puntaje,
+      //   testId: test._id,
+      //   testName: test.testName,
+      //   grade: grade,
+      //   allAns: allAns,
+      //   allPts: allPts,
+      //   ansQuest: allQuest,
+      //   goodAns: goodAns,
+      //   goodQuest: goodQuest,
+      // });
       setIsLoading(false);
       history.push({
         pathname: "/checkOut",
@@ -227,11 +225,4 @@ const TallerComponent = (props) => {
   );
 };
 
-TallerComponent.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-};
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-export default connect(mapStateToProps, { logoutUser })(TallerComponent);
+export default TallerComponent;

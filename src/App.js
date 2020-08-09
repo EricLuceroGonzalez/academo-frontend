@@ -1,109 +1,109 @@
-import React from "react";
+import React, { Suspense } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "katex/dist/katex.min.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "./App.css";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
-// The Redux
-import { Provider } from "react-redux";
-import store from "./store";
-
-// Auth
-import jwt_decode from "jwt-decode";
-import setAuthToken from "./utils/setAuthToken";
-import { setCurrentUser, logoutUser } from "./actions/authActions";
-
+import { AuthContext } from "./shared/context/auth-context";
+import { useAuth } from "./shared/hooks/auth-hook";
 // Components
-import NavBar from "./components/layout/Navbar";
-import FooterComponent from "./components/layout/Footer";
-// import HomeComponent from "./components/layout/Home";
-import Register from "./auth/Register";
-import Login from "./auth/Login";
-// Private Routes
-import PrivateRoute from "./components/private-route/PrivateRoute";
-import CheckOut from "./components/dashboard/CheckOut";
-import About from "./components/layout/About";
-import NotFound from "./components/layout/NotFount";
-import CheckError from "./components/dashboard/CheckError";
-import Course from "./components/dashboard/Course";
-import TallerComponent from "./components/Courses/TallerComponent";
-import TableOfGrades from "./components/dashboard/Table";
-import ShowImages from "./components/ShowImages";
-import ImageForm from "./components/ImageForm";
-import AllGrades from "./components/dashboard/AllGrades";
+import NavBar from "./shared/components/layout/Navbar";
+import FooterComponent from "./shared/components/layout/Footer";
+// import HomeComponent from "./shared/components/layout/Home";
+import About from "./shared/components/layout/About";
+import NotFound from "./shared/components/layout/NotFount";
+import "./App.css";
+// import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
+import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
+import Auth from "./auth/Auth";
+import Survey from "./shared/components/dashboard/Survey";
 
-// Check for token to keep user logged in
-if (localStorage.jwtToken) {
-  // Set auth token header auth
-  const token = localStorage.jwtToken;
-  setAuthToken(token);
-  // Decode token and get user info and exp
-  const decoded = jwt_decode(token);
-  // Set user and isAuthenticated
-  store.dispatch(setCurrentUser(decoded)); // Check for expired token
-  const currentTime = Date.now() / 1000; // to get in milliseconds
-  if (decoded.exp < currentTime) {
-    // Logout user
-    store.dispatch(logoutUser()); // Redirect to login
-    window.location.href = "./login";
-  }
-}
+const TallerComponent = React.lazy(() =>
+  import("./shared/components/Courses/TallerComponent")
+);
+const Dashboard = React.lazy(() =>
+  import("./shared/components/dashboard/Dashboard")
+);
+
+const CheckOut = React.lazy(() =>
+  import("./shared/components/dashboard/CheckOut")
+);
+const CheckError = React.lazy(() =>
+  import("./shared/components/dashboard/CheckError")
+);
+const TableOfGrades = React.lazy(() =>
+  import("./shared/components/dashboard/Table")
+);
+const AllGrades = React.lazy(() =>
+  import("./shared/components/dashboard/AllGrades")
+);
 
 function App() {
+  const { userName, userId, token, login, logout } = useAuth();
+  let routes;
+  if (token) {
+    routes = (
+      <Switch>
+        <Route exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/encuesta" component={Survey} />
+        <Route exact path="/taller/:Taller/:id" component={TallerComponent} />
+        <Route exact path="/checkOut" component={CheckOut}></Route>
+        <Route exact path="/checkError" component={CheckError}></Route>
+        <Route exact path="/notas" component={TableOfGrades}></Route>
+        <Route exact path="/getAllGrades" component={AllGrades}></Route>
+        <Route path="/login" component={Auth} />
+        <Route path="/about" component={About} />
+        <Route exact path="/" component={Dashboard} />
+        <Route component={NotFound}></Route>
+      </Switch>
+    );
+  } else {
+    routes = (
+      <Switch>
+        <Route exact path="/" component={About} />
+        <Route path="/login" component={Auth} />
+        <Route path="/about" component={About} />
+        <Redirect to="."></Redirect>
+        <Route component={NotFound}></Route>
+      </Switch>
+    );
+  }
+
   return (
-    <Provider store={store}>
-      <div
-        className="App"
-        style={{
-          height: "100%",
-          top: "10px",
-          padding:'40px 0px',
-          background:
-            "linear-gradient(200deg, rgba(14,254,251,1) 0%, rgba(15,50,240,0.85) 100%)",
-          textAlign: "center",
-        }}
-      >
-        <Router>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn: !!token,
+        userName: userName,
+        userId: userId,
+        token: token,
+        login: login,
+        logout: logout,
+      }}
+    >
+      <Router>
+        <div className="App-div">
           <NavBar></NavBar>
-          <Switch>
-            <Route exact path="/" component={About} />
-            <Route path="/register" component={Register} />
-            <Route path="/login" component={Login} />
-            <Route path='/images' component={ImageForm}/>
-            <Route path='/showImages' component={ShowImages}/>
-            <Route path="/about" component={About} />
-            <PrivateRoute exact path="/dashboard" component={Course} />
-            <PrivateRoute
-              exact
-              path="/taller/:Taller/:id"
-              component={TallerComponent}
-            />
-            <PrivateRoute
-              exact
-              path="/checkOut"
-              component={CheckOut}
-            ></PrivateRoute>
-            <PrivateRoute
-              exact
-              path="/checkError"
-              component={CheckError}
-            ></PrivateRoute>
-            <PrivateRoute
-              exact
-              path="/notas"
-              component={TableOfGrades}
-            ></PrivateRoute>
-            <PrivateRoute
-              exact
-              path="/getAllGrades"
-              component={AllGrades}
-            ></PrivateRoute>
-            <Route component={NotFound}></Route>
-          </Switch>
-          <FooterComponent></FooterComponent>
-        </Router>
-      </div>
-    </Provider>
+          <main className="main">
+            <Suspense
+              fallback={
+                <div className="center">
+                  <LoadingSpinner />
+                </div>
+              }
+            >
+              {routes}
+            </Suspense>
+          </main>
+          <footer>
+            <FooterComponent />
+          </footer>
+        </div>
+      </Router>
+    </AuthContext.Provider>
   );
 }
 

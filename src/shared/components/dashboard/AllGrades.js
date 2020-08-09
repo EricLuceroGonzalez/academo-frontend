@@ -1,25 +1,22 @@
 import React, { useState, useEffect } from "react";
 // Redux:
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { registerUser } from "../../actions/authActions";
+// import PropTypes from "prop-types";
+// import { connect } from "react-redux";
+// import { registerUser } from "../../actions/authActions";
 
 import moment from "moment";
 import { CSVLink } from "react-csv";
 
-import theApi from "./../../api/index";
 import LoadingSpinner from "../UIElements/LoadingSpinner";
 import { Button } from "reactstrap";
-
 
 const headers = [
   { label: "Correo", key: "email" },
   { label: "Nombre", key: "name.firstName" },
   { label: "Apellido", key: "name.lastName" },
   { label: "Correo", key: "email" },
-  { label: "Fecha", key: "testInfo[0].examDate" }
+  { label: "Fecha", key: "testInfo[0].examDate" },
 ];
-
 
 const AllGrades = (props) => {
   const [test, setTest] = useState([]);
@@ -33,7 +30,7 @@ const AllGrades = (props) => {
     console.log(`subjectId: ${subjectId.length}`);
   }, [subjectId]);
 
-  const renderCSV =() => {
+  const renderCSV = () => {
     if (courseRoll.length === 0) {
       return <div>Nothing</div>;
     } else {
@@ -55,29 +52,29 @@ const AllGrades = (props) => {
         </div>
       );
     }
-  }
+  };
 
   const getGradesData = async (subjectName) => {
     setIsLoading(true);
     let thisSubject;
     let subject;
     try {
-      const getData = await theApi.getAllGrades();
+      // const getData = await theApi.getAllGrades();
 
-      if (subjectName === "Matematica0") {
-        subject = await theApi.getACourse("5ed12f21fe88dd3e7a06b31e");
-        setSubjectId(subject.data.tests);
+      // if (subjectName === "Matematica0") {
+      //   subject = await theApi.getACourse("5ed12f21fe88dd3e7a06b31e");
+      //   setSubjectId(subject.data.tests);
 
-        thisSubject = getData.data.filter(
-          (item) => item.subject === "5ed12f21fe88dd3e7a06b31e"
-        );
-      } else {
-        subject = await theApi.getACourse("5ed12ebcfe88dd3e7a06b31d ");
-        setSubjectId(subject.data.tests);
-        thisSubject = getData.data.filter(
-          (item) => item.subject === "5ed12ebcfe88dd3e7a06b31d"
-        );
-      }
+      //   thisSubject = getData.data.filter(
+      //     (item) => item.subject === "5ed12f21fe88dd3e7a06b31e"
+      //   );
+      // } else {
+      //   subject = await theApi.getACourse("5ed12ebcfe88dd3e7a06b31d ");
+      //   setSubjectId(subject.data.tests);
+      //   thisSubject = getData.data.filter(
+      //     (item) => item.subject === "5ed12ebcfe88dd3e7a06b31d"
+      //   );
+      // }
 
       setCourseRoll(thisSubject);
       setIsLoading(false);
@@ -188,12 +185,4 @@ const AllGrades = (props) => {
   );
 };
 
-AllGrades.propTypes = {
-  registerUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-export default connect(mapStateToProps, { registerUser })(AllGrades);
+export default AllGrades;

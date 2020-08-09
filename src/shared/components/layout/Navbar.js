@@ -1,43 +1,22 @@
 // import React, { Component } from "react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory, NavLink as NabLink } from "react-router-dom";
 import { Collapse, Navbar, NavbarToggler, Nav } from "reactstrap";
-// import { faBars } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { setCurrentUser, logoutUser } from "../../actions/authActions";
+import { useAuth } from "../../hooks/auth-hook";
 import "./Navbar.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignInAlt, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../../context/auth-context";
 
 const NavBar = (props) => {
+  const auth = useContext(AuthContext);
+  const { token, login, logout, userId } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [userName, setUserName] = useState();
-  const [userId, setUserId] = useState();
   const history = useHistory();
 
-  useEffect(() => {
-    props.auth.isAuthenticated ? setIsLogged(true) : setIsLogged(false);
-
-    if (props.auth.isAuthenticated) {
-      setUserName(props.auth.user.name.firstName);
-    } else {
-      setUserName("");
-    }
-
-    if (props.auth.isAuthenticated && props.auth.user.id === "5ee903459cd388000465c5a7") {
-      console.log(`Hello: ${props.auth.user.name.firstName}`);
-
-      setUserId(props.auth.user.id);
-    }
-  }, [props]);
-
   const toggle = () => setIsOpen(!isOpen);
-
-  const logoutCourse = () => {
-    props.logoutUser();
-    history.push("/");
-  };
 
   return (
     <div className="mb-2 pb-2">
@@ -63,15 +42,6 @@ const NavBar = (props) => {
 
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            <NabLink
-              className="navThing link-text"
-              activeClassName="activeNavLink"
-              to="/dashboard"
-            >
-              Cursos
-            </NabLink>
-          </Nav>
           {userId === "5ee903459cd388000465c5a7" ? (
             <NabLink
               className="navThing link-text user-text"
@@ -84,44 +54,55 @@ const NavBar = (props) => {
             ""
           )}
 
-          {isLogged ? (
+          {auth.isLoggedIn ? (
             <React.Fragment>
+              <NabLink
+                className="ml-auto navThing link-text user-text"
+                to={"/dashboard"}
+                activeClassName="activeNavLink"
+              >
+                <span className="blogoutUser order-success p-1">
+                  Mi cuenta
+                </span>
+              </NabLink>
               <NabLink
                 className="navThing link-text user-text"
                 to={"/notas"}
                 activeClassName="activeNavLink"
               >
-                <span className="blogoutUser order-success p-1">
-                  {userName.split(" ")[0]}
+                <span className="nav-username order-success p-1">
+                  {auth.userName}
                 </span>
               </NabLink>
               <div
                 className="navThing link-text exit-text"
-                onClick={logoutCourse}
-                // activeClassName="activeNavLink"
-                // to={"/"}
+                onClick={auth.logout}
               >
                 <span>salir </span>
-                <span role="img" aria-label="star-dust">
-                  🚀
-                </span>
+                <FontAwesomeIcon icon={faSignInAlt} />
               </div>
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <NabLink
-                className="navThing link-text"
-                to={"/register"}
-                activeClassName="activeNavLink"
-              >
-                <span className="blogoutUser order-success p-1">registro</span>
-              </NabLink>
+            <NabLink
+            className="ml-auto navThing link-text"
+            to={"/login"}
+            activeClassName="activeNavLink"
+          >
+          <FontAwesomeIcon className='icon-color' icon={faQuestionCircle} />
+            <span className="blogoutUser order-success p-1">
+            ¿Qué es Academo?
+            </span>
+          </NabLink>
               <NabLink
                 className="navThing link-text"
                 to={"/login"}
                 activeClassName="activeNavLink"
               >
-                <span className="p-1">login </span>
+                <FontAwesomeIcon className='icon-color' icon={faSignInAlt} />
+                <span className="blogoutUser order-success p-1">
+                  Iniciar sesión
+                </span>
               </NabLink>
             </React.Fragment>
           )}
@@ -131,12 +112,5 @@ const NavBar = (props) => {
   );
 };
 
-// export default NavBar;
-NavBar.propTypes = {
-  auth: PropTypes.object.isRequired,
-};
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-export default connect(mapStateToProps, { setCurrentUser, logoutUser })(NavBar);
+export default NavBar;
 //

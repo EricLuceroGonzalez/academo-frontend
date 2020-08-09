@@ -1,0 +1,52 @@
+.form-control {
+  margin: 2.2rem 0;
+  border: none;
+  background-color: rgba(220, 220, 220, 0.1);
+  font-size: 0.75rem;
+}
+
+.form-control label,
+.form-control input,
+.form-control textarea {
+  display: block;
+}
+
+
+.form-control label {
+  background-color: none;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  color: #0411a3;
+  font-family: Montserrat-ExtraBold;
+}
+
+.form-control input,
+.form-control select,
+.form-control option,
+.form-control textarea {
+  width: 100%;
+  font: inherit;
+  border: 1px solid #ccc;
+  padding: 0.15rem 0.25rem;
+  font-family: Montserrat-Bold;
+}
+
+.form-control input:focus,
+.form-control textarea:focus {
+  outline: none;
+  background: #ebebeb;
+  border-color: #510077;
+}
+
+.form-control--invalid label,
+.form-control--invalid p {
+  color: #e92c42;
+  font-size: 0.65rem;
+  font-family: Montserrat-Bold;
+}
+
+.form-control--invalid input,
+.form-control--invalid textarea {
+  border-color: #ff7787;
+  background: #ffd1d1;
+}

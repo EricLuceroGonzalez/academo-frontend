@@ -1,0 +1,29 @@
+.dashboard-container {
+  text-align: left;
+  padding: 6rem 2rem;
+  height: 90vh;
+  background-color: white;
+  font-family: Montserrat-Bold;
+  font-size: 0.75rem;
+}
+
+.dashboard-button {
+  position: absolute;
+  bottom: 100px;
+  left: 33px;
+  margin: 0px auto;
+}
+
+.date-format {
+  color: gray;
+  font-size: 0.65rem;
+  font-family: monospace;
+}
+.survey-box {
+  margin-top: 2rem;
+  text-align: center;
+  padding: 1rem 12px;
+  border-color: #ff7787;
+  background: #ffd1d1;
+  color: #f34b5f;
+}

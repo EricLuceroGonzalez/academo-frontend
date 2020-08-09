@@ -1,0 +1,24 @@
+.card {
+  position: relative;
+  margin: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 6px;
+  padding: 1rem;
+  overflow: hidden;
+  background: rgb(231, 231, 231);
+  background: -moz-linear-gradient(
+    330deg,
+    rgba(231, 231, 231, 1) 6%,
+    rgba(252, 252, 252, 1) 79%
+  );
+  background: -webkit-linear-gradient(
+    330deg,
+    rgba(231, 231, 231, 1) 6%,
+    rgba(252, 252, 252, 1) 79%
+  );
+  background: linear-gradient(
+    330deg,
+    rgba(231, 231, 231, 1) 6%,
+    rgba(252, 252, 252, 1) 79%
+  );
+}

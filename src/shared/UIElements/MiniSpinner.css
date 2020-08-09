@@ -1,0 +1,26 @@
+.mini-lds-dual-ring {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+  }
+  
+  .mini-lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 17px;
+    height: 17px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 2px solid #7070eb;
+    border-color: #06d6a2 transparent #7070eb transparent;
+    animation: loading-ring 1.2s linear infinite;
+  }
+
+  @keyframes loading-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

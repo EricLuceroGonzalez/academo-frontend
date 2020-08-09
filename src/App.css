@@ -1,3 +1,182 @@
+.App-div {
+  height: 100%;
+  /* top: 10px; */
+  /* padding: 40px 0px; */
+  background: linear-gradient(
+    200deg,
+    rgba(14, 254, 251, 1) 0%,
+    rgba(15, 50, 240, 0.85) 100%
+  );
+  text-align: center;
+}
+
+.App {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.4);
+  min-height: 100vh;
+}
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+.main {
+  margin-top: 25px;
+  margin-bottom: 20px;
+  height: auto;
+  min-height: 90%;
+  min-width: 100%;
+  /* padding: 0 0 80px; */
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.lightThing {
+  font-family: Montserrat-Light;
+  color: rgb(116, 35, 153);
+}
+
+.bordeB {
+  border: 2px solid gray;
+}
+.instrucciones {
+  font-size: 0.85em;
+  color: gray;
+  font-family: Montserrat-Light;
+}
+
+.bordeA {
+  border: 1px solid blue;
+}
+
+.testBorder-r {
+  border: 1px solid blue;
+}
+.checkQuestion {
+  color: rgb(116, 35, 153);
+  font-size: 0.75em;
+  font-family: Montserrat-ExtraBold;
+}
+.checkOption {
+  color: rgb(74, 17, 100);
+  font-size: 0.75em;
+  font-family: Montserrat-Bold;
+}
+
+.theNumber {
+  color: black;
+  font-family: Montserrat-Bold;
+}
+.checkBox {
+  background-color: rgb(250, 250, 250);
+  box-shadow: 5px 8px 10px rgb(32, 109, 119);
+  margin: 26px auto;
+  padding: 0px 10px 12px 10px;
+}
+.theTitle {
+  color: gray;
+  font-family: Montserrat-ExtraBold;
+}
+
+.nextBtn {
+  background-color: rgb(40, 210, 105);
+  margin: 22px auto;
+  color: white;
+  font-family: Montserrat-ExtraBold;
+  text-transform: uppercase;
+  border: none;
+  padding: 7px 12px;
+  box-shadow: 2px 2px 3px black;
+}
+
+.shakeThatThing {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 0.5s;
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 4px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 5px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+.shakeThatLittleThing {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 1.25s;
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  20% {
+    transform: translate(-1px, 1px) rotate(1deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  60% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  100% {
+    transform: translate(1px, -1px) rotate(-1deg);
+  }
+}
+
+.floatCSV {
+  position: fixed;
+  bottom: 45px;
+  right: 10px;
+  color: white;
+  background-color: rgb(40, 210, 105);
+  font-family: "Montserrat-ExtraBold";
+  text-align: center;
+  box-shadow: 2px 2px 3px #999;
+}
+
+
 @font-face {
   font-family: Poppins-Regular;
   src: url(./styles/fonts/poppins/Poppins-Regular.ttf);
@@ -45,136 +224,8 @@
   /* src: url('../fonts/poppins/Poppins-Regular.ttf');  */
 }
 
-
 @font-face {
   font-family: Montserrat-Light;
   src: url(./styles/fonts/montserrat/Montserrat-Light.ttf);
   /* src: url('../fonts/poppins/Poppins-Regular.ttf');  */
-}
-
-.foot {
-  color: white;
-  font-family: Montserrat-ExtraBold;
-}
-
-.activeNavLink {
-  color: white;
-  /* text-shadow: 2px 2px 3px rgba(220,220,220,0.5); */
-}
-
-.lightThing {
-  font-family: Montserrat-Light;
-  color: rgb(116, 35, 153);
-}
-
-.printError {
-  color: white;
-  font-size: 0.5em;
-  background-color: red;
-  padding: 5px 10px;
-  font-family: Montserrat-ExtraBoldItalic;
-}
-
-.testBorder-g {
-  border: 1px solid gray;
-}
-.instrucciones{
-  font-size: 0.85em;
-  color: gray;
-  font-family: Montserrat-Light;
-}
-
-.testBorder-b {
-  border: 1px solid blue;
-}
-
-.testBorder-r {
-  border: 1px solid blue;
-}
-.checkQuestion {
-  color: rgb(116, 35, 153);
-  font-size: 0.75em;
-  font-family: Montserrat-ExtraBold;
-}
-.checkOption {
-  color: rgb(74, 17, 100);;
-  font-size: 0.75em;
-  font-family: Montserrat-Bold;
-}
-
-.theNumber {
-  color: black;
-  font-family: Montserrat-Bold;
-}
-.checkBox {
-  background-color: rgb(250, 250, 250);
-  box-shadow: 5px 8px 10px rgb(32, 109, 119);
-  margin: 26px auto;
-  padding: 0px 10px 12px 10px;
-}
-.theTitle {
-  color: gray;
-  font-family: Montserrat-ExtraBold;
-}
-
-.nextBtn {
-  background-color: rgb(40, 210, 105);
-  margin: 22px auto;
-  color: white;
-  font-family: Montserrat-ExtraBold;
-  text-transform: uppercase;
-  border: none;
-  padding: 7px 12px;
-  box-shadow: 2px 2px 3px black;
-}
-
-
-/* Rocket Animation */
-
-.shakeThatThing {
-  /* Start the shake animation and make the animation last for 0.5 seconds */
-  animation: shake 0.5s;
-  /* When the animation is finished, start again */
-  animation-iteration-count: infinite;
-}
-
-@keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 4px) rotate(-1deg); }
-  60% { transform: translate(-3px, 5px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
-
-.shakeThatLittleThing {
-  /* Start the shake animation and make the animation last for 0.5 seconds */
-  animation: shake 1.25s;
-  /* When the animation is finished, start again */
-  animation-iteration-count: infinite;
-}
-
-@keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  20% { transform: translate(-1px, 1px) rotate(1deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  60% { transform: translate(-1px, 2px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  100% { transform: translate(1px, -1px) rotate(-1deg); }
-}
-
-.floatCSV{
-  position:fixed;
-	bottom:45px;
-	right:10px;
-  color: white;
-  background-color: rgb(40,210,105);
-  font-family: "Montserrat-ExtraBold";
-	text-align:center;
-	box-shadow: 2px 2px 3px #999;
 }

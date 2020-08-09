@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
-// Redux:
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { registerUser } from "../../actions/authActions";
-
 import moment from "moment";
 import { CSVLink } from "react-csv";
 
-import theApi from "./../../api/index";
 import { Spinner } from "reactstrap";
 import { InlineMath } from "react-katex";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,10 +13,10 @@ const TableOfGrades = (props) => {
 
   useEffect(() => {
     const getGradesData = async () => {
-      const getData = await theApi.getUserGrades(props.auth.user.id);
-      setTest(getData.data.testInfo);
-      setAllAnswers(getData.data.testAnswers);
-      console.log(getData.data);
+      // const getData = await theApi.getUserGrades(props.auth.user.id);
+      // setTest(getData.data.testInfo);
+      // setAllAnswers(getData.data.testAnswers);
+      // console.log(getData.data);
     };
     getGradesData();
   }, [props]);
@@ -139,9 +133,9 @@ const TableOfGrades = (props) => {
     return array;
   };
 
-  const renderTableAnswers =  () => {
+  const renderTableAnswers = () => {
     if (allAnswers.length > 0) {
-      let thisMap = test.map( (item, indx) => {
+      let thisMap = test.map((item, indx) => {
         return (
           <div key={indx}>
             <h4
@@ -338,12 +332,4 @@ const TableOfGrades = (props) => {
   );
 };
 
-TableOfGrades.propTypes = {
-  registerUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-export default connect(mapStateToProps, { registerUser })(TableOfGrades);
+export default TableOfGrades;
