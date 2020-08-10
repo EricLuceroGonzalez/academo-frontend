@@ -1,11 +1,11 @@
 .navThing {
   margin: 7px 2px;
   font-family: Montserrat-ExtraBold;
-  color: rgb(116, 35, 153);
+  color: #7070eb;
 }
 
 .nav-username{
-  color: rgb(15, 50, 240);  
+  color: #7070eb;
 }
 .navThing:hover {
   color: rgb(15, 50, 240);
@@ -18,11 +18,11 @@
 
 .activeNavLink {
   /* color: rgba(116, 35, 153, 0.6); */
-  border-bottom: 1px solid rgb(116, 35, 153);
+  border-bottom: 1px solid #7070eb;
 }
 
 .user-text {
-  color: rgb(80, 220, 130);
+  color: #38dfb1;
 }
 
 .exit-text {

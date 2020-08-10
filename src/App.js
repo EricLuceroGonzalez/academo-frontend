@@ -20,8 +20,10 @@ import "./App.css";
 // import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
 import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
 import Auth from "./auth/Auth";
-import Survey from "./shared/components/dashboard/Survey";
 
+const Survey = React.lazy(() =>
+  import("./shared/components/dashboard/Survey")
+);
 const TallerComponent = React.lazy(() =>
   import("./shared/components/Courses/TallerComponent")
 );
@@ -38,9 +40,9 @@ const CheckError = React.lazy(() =>
 const TableOfGrades = React.lazy(() =>
   import("./shared/components/dashboard/Table")
 );
-const AllGrades = React.lazy(() =>
-  import("./shared/components/dashboard/AllGrades")
-);
+// const AllGrades = React.lazy(() =>
+//   import("./shared/components/dashboard/AllGrades")
+// );
 
 function App() {
   const { userName, userId, token, login, logout } = useAuth();
@@ -54,7 +56,6 @@ function App() {
         <Route exact path="/checkOut" component={CheckOut}></Route>
         <Route exact path="/checkError" component={CheckError}></Route>
         <Route exact path="/notas" component={TableOfGrades}></Route>
-        <Route exact path="/getAllGrades" component={AllGrades}></Route>
         <Route path="/login" component={Auth} />
         <Route path="/about" component={About} />
         <Route exact path="/" component={Dashboard} />
@@ -67,7 +68,7 @@ function App() {
         <Route exact path="/" component={About} />
         <Route path="/login" component={Auth} />
         <Route path="/about" component={About} />
-        <Redirect to="."></Redirect>
+        <Redirect to="/login"></Redirect>
         <Route component={NotFound}></Route>
       </Switch>
     );

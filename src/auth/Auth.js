@@ -35,8 +35,6 @@ const Auth = () => {
   );
 
   const switchModeHandler = () => {
-    console.log(`isLoginMode: ${isLoginMode}`);
-
     //   If we are on SIGNUP, add the name field and data to STATE
     if (!isLoginMode) {
       setFormData(
@@ -88,12 +86,9 @@ const Auth = () => {
         auth.login(responseData.name, responseData.userId, responseData.token);
         history.push("/dashboard");
       } catch (err) {
-        console.log(`some Error: ${err}`);
+
       }
     } else {
-      // HTTP Request: fetch()
-      console.log(`${process.env.REACT_APP_BACKEND_URL}/user/signup`);
-
       try {
         const registerData = {
           firstName: formState.inputs.firstName.value,
@@ -112,10 +107,9 @@ const Auth = () => {
           { "Content-Type": "application/json" }
         );
         // Change the state of Context
-        auth.login(responseData.userId, responseData.token);
+        auth.login(responseData.name, responseData.userId, responseData.token);
         history.push("/dashboard");
       } catch (err) {
-        console.log(`Signup error: ${err}`);
       }
     }
   };
@@ -141,7 +135,7 @@ const Auth = () => {
                 type="text"
                 label="Apellido"
                 validators={[VALIDATOR_REQUIRE()]}
-                errorText="Introduce un nombre"
+                errorText="Introduce al menos un apellido"
                 onInput={inputHandler}
               />
             )}
@@ -152,7 +146,7 @@ const Auth = () => {
                 type="text"
                 label="Nombre"
                 validators={[VALIDATOR_REQUIRE()]}
-                errorText="Introduce un apellido"
+                errorText="Introduce al menos un nombre"
                 onInput={inputHandler}
               />
             )}
@@ -163,7 +157,7 @@ const Auth = () => {
                 type="text"
                 label="Cedula"
                 validators={[VALIDATOR_REQUIRE()]}
-                errorText="Introduce tu numero de identificación"
+                errorText="Introduce tu cédula o pasaporte"
                 onInput={inputHandler}
               />
             )}
@@ -173,7 +167,7 @@ const Auth = () => {
               type="email"
               label="E-Mail"
               validators={[VALIDATOR_EMAIL()]}
-              errorText="Has introducido valores incorrectos"
+              errorText="Correo incorrecto"
               onInput={inputHandler}
             ></Input>
             <Input
@@ -182,7 +176,7 @@ const Auth = () => {
               type="password"
               label="Password"
               validators={[VALIDATOR_MINLENGTH(6)]}
-              errorText="La contraseña debe tener al menos 6 caracteres."
+              errorText="Debe tener al menos 6 caracteres."
               onInput={inputHandler}
             ></Input>
             {!isLoginMode && (
@@ -192,7 +186,7 @@ const Auth = () => {
                 type="password"
                 label="Confirmar Password"
                 validators={[VALIDATOR_MINLENGTH(6)]}
-                errorText="La contraseña debe tener al menos 6 caracteres."
+                errorText="Debe tener al menos 6 caracteres."
                 onInput={inputHandler}
               ></Input>
             )}

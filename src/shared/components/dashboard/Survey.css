@@ -1,23 +1,27 @@
+h2{
+  color: #0411a3;
+  font-family: Montserrat-ExtraBold;
+}
 .allquestion {
     padding-top: 3rem;
     padding-bottom: 3rem;
     background-color: whitesmoke;
   }
   .info-logo {
-  margin: auto 0px;
-  font-size: 1rem;
-  vertical-align: middle;
+  margin: 5px auto;
+  font-size: 1.75rem;
+
 }
 .info-box {
   margin: 2rem auto;
   box-shadow: 5px 4px 4px gainsboro;
   background-color: #dcffe4;
   color: #28a745;
-  text-align: justify;
 }
 .info-text {
   font-size: 0.65rem;
   font-family: Poppins-Light;
+    text-align: justify;
 }
 .questionOption {
   margin: 2rem auto;
@@ -28,7 +32,7 @@
 .questionBox {
   font-family: Montserrat-Bold;
   cursor: pointer;
-  font-size: 0.7rem;
+  font-size: 70%;
   margin: 1px auto;
   border: 1px solid #0411a3;
   vertical-align: middle;

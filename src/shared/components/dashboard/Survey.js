@@ -4,20 +4,24 @@ import ls from "local-storage";
 import "./Survey.css";
 import {
   faInfoCircle,
-  faListOl,
-  faUserSecret,
-  faHourglassHalf,
   faPaperPlane,
+  faChevronCircleRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../../UIElements/Button";
 import ErrorModal from "../../UIElements/ErrorModal";
+import { useAuth } from "../../hooks/auth-hook";
+import { AuthContext } from "../../context/auth-context";
+import { useHistory } from "react-router-dom";
+import LoadingSpinner from "../UIElements/LoadingSpinner";
 
 const Survey = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const auth = useAuth(AuthContext);
   const [toggleSurvey, setToggleSurvey] = useState(false);
   const [buttonDisable, setButtonDisable] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const history = useHistory();
   const [personal, setPersonal] = useState(
     ls.get("personal") || {
       genre: "",
@@ -98,12 +102,61 @@ const Survey = () => {
     } else {
       setButtonDisable(false);
     }
-    console.log("hi");
 
-    // build model
-    // set fetch state
-    // sendData
-    // receive, depurate save
+    try {
+      // Clean localStorage
+      ls.remove("academic");
+      ls.remove("family");
+      ls.remove("homeConnection");
+      ls.remove("personal");
+      const surveyData = {
+        filledBy: auth.userId,
+        personal: {
+          genre: personal.genre,
+          ageRange: personal.ageRange,
+        },
+        academic: {
+          firstSemester: {
+            subjects: academic.firstSemester.subjects,
+            failed: academic.firstSemester.failed,
+            approvedPre: academic.firstSemester.approvedPre,
+          },
+          secondSemester: {
+            subjects: academic.secondSemester.subjects,
+            firstTime: academic.secondSemester.firstTime,
+          },
+        },
+        homeConnection: {
+          conectionType: {
+            data: homeConnection.conectionType.data,
+            wifi: homeConnection.conectionType.wifi,
+            mixed: homeConnection.conectionType.mixed,
+          },
+          equipmentAmount: homeConnection.equipmentAmount,
+          equipmentUsers: homeConnection.equipmentUsers,
+        },
+        family: {
+          students: family.students,
+          habitants: family.habitants,
+          telejob: family.telejob,
+          bonosolidario: family.bonosolidario,
+          water: family.water,
+          covid: family.covid,
+        },
+      };
+      setButtonDisable(true);
+      await sendRequest(
+        process.env.REACT_APP_BACKEND_URL + "/user/postSurvey",
+        "POST",
+        JSON.stringify(surveyData),
+        { "Content-Type": "application/json" }
+      );
+      history.push("/dashboard");
+    } catch (err) {
+      setButtonDisable(false);
+      setErrorMessage(err);
+    }
+    history.push("/dashboard");
   };
 
   const errorHandler = () => {
@@ -113,19 +166,28 @@ const Survey = () => {
   return (
     <div className="col-12 col-sm-8 col-md-6 mr-auto ml-auto allquestion">
       <ErrorModal error={error || errorMessage} onClear={errorHandler} />
+      {isLoading && <LoadingSpinner asOverlay />}
       <div>
         <h2>Encuesta</h2>
         <div className="info-box col-12 row d-flex align-items-middle">
-          <div className="col-2 info-logo">
+          <div className="col-12 info-logo">
             <FontAwesomeIcon icon={faInfoCircle} />{" "}
           </div>
-          <div className="col-10 info-text">
+          <div className="col-12 mr-auto ml-auto info-text">
             La siguiente encuesta es aplicada con el fin de conocer a los
             estudiantes del curso y su situación actual, que claramente influye
             en su desempeño en el mismo.
             <br></br>
             La encuesta tiene la características que se numeran a continuación:
             <ol>
+              <li>
+                <span className="underscore-question">
+                  SOLO LA PUEDES LLENAR UNA VEZ
+                </span>
+                <span role="img" aria-label="star-dust">
+                  ☝️
+                </span>
+              </li>
               <li>
                 Son 18 preguntas de selección
                 <span role="img" aria-label="star-dust">
@@ -138,6 +200,13 @@ const Survey = () => {
                 <span role="img" aria-label="star-dust">
                   {" "}
                   🕵️
+                </span>
+              </li>
+              <li>
+                Usa la honestidad, para reflejar datos verdaderos.
+                <span role="img" aria-label="star-dust">
+                  {" "}
+                  🙂
                 </span>
               </li>
               <li>
@@ -183,7 +252,7 @@ const Survey = () => {
       {!toggleSurvey && (
         <div>
           <Button inverse onClick={() => setToggleSurvey(true)}>
-            VER ENCUESTA
+            VER ENCUESTA <FontAwesomeIcon icon={faChevronCircleRight} />
           </Button>
         </div>
       )}
@@ -195,7 +264,7 @@ const Survey = () => {
               <p>Selecciones su género</p>
             </div>
             <div
-              className={`col-2 questionBox ${
+              className={`col-4 questionBox ${
                 personal.genre === "hombre" ? "question-selected" : ""
               }`}
               onClick={() => {
@@ -208,7 +277,7 @@ const Survey = () => {
               hombre
             </div>
             <div
-              className={`col-2 questionBox
+              className={`col-4 questionBox
           ${personal.genre === "mujer" ? "question-selected" : ""}`}
               onClick={() => {
                 setPersonal((prevState) => ({
@@ -368,15 +437,13 @@ const Survey = () => {
             <div
               className={`col-2 questionBox
           ${
-            academic.firstSemester.subjects === "mas de 6"
-              ? "question-selected"
-              : ""
+            academic.firstSemester.subjects === "6+" ? "question-selected" : ""
           }`}
               onClick={() => {
                 setAcademic((prevState) => ({
                   ...prevState,
                   firstSemester: {
-                    subjects: "mas de 6",
+                    subjects: "6+",
                     failed: academic.firstSemester.failed,
                     approvedPre: academic.firstSemester.approvedPre,
                   },
@@ -384,7 +451,7 @@ const Survey = () => {
                 }));
               }}
             >
-              mas de 6
+              6+
             </div>
           </div>
           <div className="row d-flex col-12 justify-content-around mt-1 questionOption">
@@ -469,24 +536,20 @@ const Survey = () => {
             </div>
             <div
               className={`col-2 questionBox
-          ${
-            academic.firstSemester.failed === "mas de 6"
-              ? "question-selected"
-              : ""
-          }`}
+          ${academic.firstSemester.failed === "6+" ? "question-selected" : ""}`}
               onClick={() => {
                 setAcademic((prevState) => ({
                   ...prevState,
                   firstSemester: {
                     subjects: academic.firstSemester.subjects,
-                    failed: "mas de 6",
+                    failed: "6+",
                     approvedPre: academic.firstSemester.approvedPre,
                   },
                   secondSemester: academic.secondSemester,
                 }));
               }}
             >
-              mas de 6
+              6+
             </div>
           </div>
           <div className="row d-flex col-12 justify-content-around mt-1 questionOption">
@@ -639,22 +702,20 @@ const Survey = () => {
             <div
               className={`col-2 questionBox
           ${
-            academic.secondSemester.subjects === "mas de 6"
-              ? "question-selected"
-              : ""
+            academic.secondSemester.subjects === "6+" ? "question-selected" : ""
           }`}
               onClick={() => {
                 setAcademic((prevState) => ({
                   ...prevState,
                   firstSemester: academic.firstSemester,
                   secondSemester: {
-                    subjects: "mas de 6",
+                    subjects: "6+",
                     firstTime: academic.secondSemester.firstTime,
                   },
                 }));
               }}
             >
-              mas de 6
+              6+
             </div>
           </div>
           <div className="row d-flex col-12 justify-content-around mt-1 questionOption">
@@ -675,7 +736,7 @@ const Survey = () => {
               </p>
             </div>
             <div
-              className={`col-2 questionBox
+              className={`col-3 questionBox
           ${
             homeConnection.conectionType.data === "casi nunca"
               ? "question-selected"
@@ -695,7 +756,7 @@ const Survey = () => {
               casi nunca
             </div>
             <div
-              className={`col-2 questionBox
+              className={`col-3 questionBox
           ${
             homeConnection.conectionType.data === "algunas veces"
               ? "question-selected"
@@ -715,7 +776,7 @@ const Survey = () => {
               algunas veces
             </div>
             <div
-              className={`col-2 questionBox
+              className={`col-3 questionBox
           ${
             homeConnection.conectionType.data === "casi siempre"
               ? "question-selected"
@@ -735,7 +796,7 @@ const Survey = () => {
               casi siempre
             </div>
             <div
-              className={`col-2 questionBox
+              className={`col-3 questionBox
           ${
             homeConnection.conectionType.data === "siempre"
               ? "question-selected"
@@ -769,7 +830,7 @@ const Survey = () => {
               </p>
             </div>
             <div
-              className={`col-2 questionBox
+              className={`col-3 questionBox
           ${
             homeConnection.conectionType.wifi === "casi nunca"
               ? "question-selected"
@@ -789,7 +850,7 @@ const Survey = () => {
               casi nunca
             </div>
             <div
-              className={`col-2 questionBox
+              className={`col-3 questionBox
           ${
             homeConnection.conectionType.wifi === "algunas veces"
               ? "question-selected"
@@ -809,7 +870,7 @@ const Survey = () => {
               algunas veces
             </div>
             <div
-              className={`col-2 questionBox
+              className={`col-3 questionBox
           ${
             homeConnection.conectionType.wifi === "casi siempre"
               ? "question-selected"
@@ -829,7 +890,7 @@ const Survey = () => {
               casi siempre
             </div>
             <div
-              className={`col-2 questionBox
+              className={`col-3 questionBox
           ${
             homeConnection.conectionType.wifi === "siempre"
               ? "question-selected"
@@ -870,7 +931,7 @@ const Survey = () => {
               </p>
             </div>
             <div
-              className={`col-2 questionBox
+              className={`col-3 questionBox
           ${
             homeConnection.conectionType.mixed === "casi nunca"
               ? "question-selected"
@@ -890,7 +951,7 @@ const Survey = () => {
               casi nunca
             </div>
             <div
-              className={`col-2 questionBox
+              className={`col-3 questionBox
           ${
             homeConnection.conectionType.mixed === "algunas veces"
               ? "question-selected"
@@ -910,7 +971,7 @@ const Survey = () => {
               algunas veces
             </div>
             <div
-              className={`col-2 questionBox
+              className={`col-3 questionBox
           ${
             homeConnection.conectionType.mixed === "casi siempre"
               ? "question-selected"
@@ -930,7 +991,7 @@ const Survey = () => {
               casi siempre
             </div>
             <div
-              className={`col-2 questionBox
+              className={`col-3 questionBox
           ${
             homeConnection.conectionType.mixed === "siempre"
               ? "question-selected"

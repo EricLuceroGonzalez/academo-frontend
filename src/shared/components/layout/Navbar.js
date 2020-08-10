@@ -1,20 +1,15 @@
 // import React, { Component } from "react";
-import React, { useState, useEffect, useContext } from "react";
-import { useHistory, NavLink as NabLink } from "react-router-dom";
-import { Collapse, Navbar, NavbarToggler, Nav } from "reactstrap";
-import { useAuth } from "../../hooks/auth-hook";
+import React, { useState, useContext } from "react";
+import { NavLink as NabLink } from "react-router-dom";
+import { Collapse, Navbar, NavbarToggler } from "reactstrap";
 import "./Navbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignInAlt, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../context/auth-context";
 
-const NavBar = (props) => {
+const NavBar = () => {
   const auth = useContext(AuthContext);
-  const { token, login, logout, userId } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
-  const [isLogged, setIsLogged] = useState(false);
-  const [userName, setUserName] = useState();
-  const history = useHistory();
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -42,7 +37,7 @@ const NavBar = (props) => {
 
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          {userId === "5ee903459cd388000465c5a7" ? (
+          {auth.userId === "5ee903459cd388000465c5a7" ? (
             <NabLink
               className="navThing link-text user-text"
               to={"/getAllGrades"}
@@ -61,30 +56,31 @@ const NavBar = (props) => {
                 to={"/dashboard"}
                 activeClassName="activeNavLink"
               >
-                <span className="blogoutUser order-success p-1">
-                  Mi cuenta
-                </span>
+                <span className="blogoutUser order-success p-1">Mi cuenta</span>
               </NabLink>
               <NabLink
                 className="navThing link-text user-text"
-                to={"/notas"}
+                to={"/dashboard"}
                 activeClassName="activeNavLink"
               >
                 <span className="nav-username order-success p-1">
                   {auth.userName}
                 </span>
               </NabLink>
-              <div
+              {/**
+                <div
                 className="navThing link-text exit-text"
                 onClick={auth.logout}
               >
                 <span>salir </span>
                 <FontAwesomeIcon icon={faSignInAlt} />
               </div>
+               */}
             </React.Fragment>
           ) : (
             <React.Fragment>
-            <NabLink
+              {/**
+              <NabLink
             className="ml-auto navThing link-text"
             to={"/login"}
             activeClassName="activeNavLink"
@@ -94,15 +90,16 @@ const NavBar = (props) => {
             ¿Qué es Academo?
             </span>
           </NabLink>
+             */}
               <NabLink
-                className="navThing link-text"
+                className="ml-auto navThing link-text"
                 to={"/login"}
                 activeClassName="activeNavLink"
               >
-                <FontAwesomeIcon className='icon-color' icon={faSignInAlt} />
                 <span className="blogoutUser order-success p-1">
                   Iniciar sesión
                 </span>
+                <FontAwesomeIcon className="icon-color" icon={faSignInAlt} />
               </NabLink>
             </React.Fragment>
           )}

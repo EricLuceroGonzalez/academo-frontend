@@ -1,34 +1,41 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCodeBranch } from "@fortawesome/free-solid-svg-icons";
+import { faCodeBranch, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
-// import { faHome, faRegistered, faTrademark } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import logo from "./media/logo01.png";
+import "./Footer.css";
+
 class FooterComponent extends Component {
   state = {};
   render() {
     return (
-      <div
-        className="col-12 p-2"
-        style={{
-          //   marginTop: "150px",
-          height: '4%',
-          color: "white",
-          background:"rgba(75,20,90,0.97)",
-          position: "fixed",
-          bottom: "0px",
-          fontSize: "0.5em",
-          padding: '4px 2px',
-          fontFamily: "monospace"
-        }}
-      >
-        creado para fines académicos
-          por <span className="foot"><Link to='/' style={{color: 'white'}}>Eric Lucero G. {"  "}</Link>
-          <FontAwesomeIcon icon={faCodeBranch}></FontAwesomeIcon>
-          </span>
-        <div>contacto: ericlucero501@gmail.com</div>
+      <div className="col-12 footer-basic">
+        <div className="row d-flex">
+          <div className="col-6 col-md-6 footer-brand mr-auto">
+          <span role="img" aria-label="star-dust">
+          {" "}
+          🚀
+        </span>Academo.xyz</div>
+          <div className="col-6 col-md-6">  
+            creado para fines académicos por{" "}
+            <Link to="/">Eric Lucero G. {"  "}</Link>
+            <FontAwesomeIcon
+              className="footer-icon"
+              icon={faCodeBranch}
+            ></FontAwesomeIcon>
+          </div>
+          {/**
+          <div className='col-12 col-md-4'>
+          <a
+            href="mailto: ericlucero501@gmail.com"
+            alt="a mail button to ericlucero501@gmail.com"
+          >
+            ericlucero501@gmail.com
+          </a>
+          <FontAwesomeIcon className='footer-icon ml-1' icon={faEnvelope} />
+        </div>
+ */}
+        </div>
       </div>
     );
   }
@@ -36,7 +43,7 @@ class FooterComponent extends Component {
 
 export default FooterComponent;
 
-// 
+//
 // #8f3985
 // #b6a39e
 // #efd9ce

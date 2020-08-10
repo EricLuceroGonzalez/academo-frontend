@@ -3,7 +3,8 @@ import React from "react";
 import Modal from "./Modal";
 import Button from "../UIElements/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBackward } from "@fortawesome/free-solid-svg-icons";
+import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
+// import './ErrorModal.css'
 
 const ErrorModal = (props) => {
 
@@ -14,7 +15,7 @@ const ErrorModal = (props) => {
       show={!!props.error}
       footer={
         <Button onClick={props.onClear}>
-          <FontAwesomeIcon icon={faBackward} />
+          <FontAwesomeIcon icon={faChevronCircleLeft} />
           {" "}REGRESAR
         </Button>
       }

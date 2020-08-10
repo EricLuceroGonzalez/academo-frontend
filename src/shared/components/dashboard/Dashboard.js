@@ -8,15 +8,20 @@ import Button from "../../UIElements/Button";
 import "./Dashboard.css";
 import { useHttpClient } from "../../hooks/http-hook";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faExclamationCircle,
+  faTimesCircle,
+  faCheckCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import LoadingSpinner from "../../UIElements/LoadingSpinner";
+import ErrorModal from "../../UIElements/ErrorModal";
 
 const Dashboard = (props) => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState({});
   const [time, setTime] = useState();
-  const [theInterval, setTheInterval] = useState();
   const [isMounted, setIsMounted] = useState(true);
 
   useEffect(() => {
@@ -48,64 +53,88 @@ const Dashboard = (props) => {
       clearInterval(intervalTime);
     };
   }, []);
-
+  const errorHandler = () => {
+    clearError();
+  };
   return (
     <React.Fragment>
+      {isLoading && <LoadingSpinner asOverlay />}
+      <ErrorModal error={error } onClear={errorHandler} />
       <div className="dashboard-container">
-        <div className="row d-flex col-12 col-lg-6 bordeB">
-          <h4>Bienvenido</h4>
-          <div className="col-12 bordeA">
-            Usuario:{" "}
-            <span className="navThing">
-              {userInfo.name
-                ? `${userInfo.name.firstName} ${userInfo.name.lastName}`
-                : auth.userName}
-            </span>
-          </div>
-          <div className="col-12 bordeA">
-            Correo:{" "}
-            <span className="date-format">
-              {userInfo.email ? userInfo.email : <MiniSpinner />}
-            </span>
-          </div>
-          <div className="col-12 bordeA date-format">
-            {time ? time : <MiniSpinner />}
-          </div>
-          <div className="col-12 bordeA">
-            Visitas:{" "}
-            <span className="date-format">
-              {userInfo.visits ? userInfo.visits : <MiniSpinner />}
-            </span>
-          </div>
-          <div className="col-12 bordeA">
-            Ultima conexión:{" "}
-            <span className="date-format">
-              {userInfo.lastEntry ? (
-                moment(userInfo.lastEntry).calendar()
-              ) : (
-                <MiniSpinner />
-              )}
-            </span>
-          </div>
-          <div className="col-12 bordeA">
-            Parciales realizados: <span className="date-format">(?/3)</span>
-          </div>
-          <div className="col-12 bordeA">
-            Exámenes realizados: <span className="date-format">(?/3)</span>
-          </div>
-          {!userInfo.submitSurvey && (
-            <React.Fragment>
-              <div className="col-12 survey-box">
+        <h4>Dashboard</h4>
+        <div className="col-12 dashboard-content">
+          Usuario:{" "}
+          <span>
+            {userInfo.name
+              ? `${userInfo.name.firstName} ${userInfo.name.lastName}`
+              : auth.userName}
+          </span>
+        </div>
+        <div className="col-12 dashboard-content">
+          Correo:{" "}
+          <span className="date-format">
+            {userInfo.email ? userInfo.email : <MiniSpinner />}
+          </span>
+        </div>
+        <div className="col-12 dashboard-content date-format">
+          {time ? time : <MiniSpinner />}
+        </div>
+        <div className="col-12 dashboard-content">
+          Visitas:{" "}
+          <span className="date-format">
+            {userInfo.visits ? userInfo.visits : <MiniSpinner />}
+          </span>
+        </div>
+        <div className="col-12 dashboard-content">
+          Ultima conexión:{" "}
+          <span className="date-format">
+            {userInfo.lastEntry ? (
+              moment(userInfo.lastEntry).calendar()
+            ) : (
+              <MiniSpinner />
+            )}
+          </span>
+        </div>
+        <div className="col-12 dashboard-content">
+          {userInfo.submitSurvey ? "Ya ha" : "No ha"} llenado la encuesta{" "}
+          <span className="date-format">
+            {userInfo.submitSurvey ? (
+              <FontAwesomeIcon className="good-check" icon={faCheckCircle} />
+            ) : (
+              <FontAwesomeIcon className="bad-check" icon={faTimesCircle} />
+            )}
+          </span>
+        </div>
+        <div className="col-12 dashboard-content">
+          Parciales realizados: <span className="date-format">(?/3)</span>
+        </div>
+        <div className="col-12 dashboard-content">
+          Exámenes realizados: <span className="date-format">(?/3)</span>
+        </div>
+        {!userInfo.submitSurvey && (
+          <React.Fragment>
+            <div className="row d-flex col-12 col-md-6 survey-box">
+              <FontAwesomeIcon
+                className="col-12"
+                style={{ fontSize: "1.25rem" }}
+                icon={faExclamationCircle}
+              />{" "}
+              <div className="col-12">
+                {" "}
                 Llena la encuesta para poder acceder{" "}
-                <FontAwesomeIcon icon={faExclamationCircle} />{" "}
+              </div>
+              <div className="col-12">
+                {" "}
                 <Link to={"/encuesta"}>
-                <Button size={"small"} inverse>
-                  Ir a la encuesta
-                </Button>
+                  <Button size={"small"} inverse>
+                    Ir a la encuesta
+                  </Button>
                 </Link>
               </div>
-            </React.Fragment>
-          )}
+            </div>
+          </React.Fragment>
+        )}
+        {userInfo.submitSurvey && (
           <div className="mt-5">
             <div className="col-12 mt-2">
               <Button size={"small"} inverse onClick={auth.logout}>
@@ -123,8 +152,8 @@ const Dashboard = (props) => {
               </Button>
             </div>
           </div>
-        </div>
-        <div className="dashboard-button mr-auto ml-auto">
+        )}
+        <div className="col-12 mt-3">
           <Button size={"small"} inverse onClick={auth.logout}>
             Cerrar sesión
           </Button>

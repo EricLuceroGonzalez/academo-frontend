@@ -1,27 +1,29 @@
 .mymodal {
   z-index: 1000;
-  position: fixed;
-  /* top: 70px; */
-  left: 5%;
-  margin: 5% auto;
-  max-height: 85%;
-  max-width: 85%;
-  min-width: 65%;
+  max-height: 95%;
+  max-width:90%;
+  min-width: 75%;
   background: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 8px;
-  font-family: Montserrat-SemiBold;
+  font-family: Montserrat-Bold;
   overflow-y: auto;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: loadModal 0.7s ease-in 1;
 }
 
 .modal__header {
   width: 100%;
   padding: 0.5rem 0.25rem;
   /* background: #0411a3; */
-  color: #06d6a2;
-  font-size: 0.6rem;
+  color: #7070eb;
+  font-size: 1.25rem;
 }
 .modal__content {
+  border-top: 2px solid #7070eb;
   padding: 0.75rem 0.5rem;
   overflow-y: auto;
 }
@@ -59,4 +61,16 @@
   transform: translateY(-10rem);
   opacity: 0;
   transition: all 200ms;
+}
+
+
+
+@keyframes loadModal{
+  0%{
+    opacity: 0;
+  }
+  80%{
+    opacity: 1;
+  }
+
 }

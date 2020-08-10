@@ -137,7 +137,7 @@ const Input = (props) => {
         onChange={changeHandler}
         value={inputState.value}
       >
-        <option>Selecciones su asignatura</option>
+        <option>Seleccione su asignatura</option>
         <option>Matemática II</option>
       </select>
     );

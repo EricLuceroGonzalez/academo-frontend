@@ -33,7 +33,7 @@ const About = (props) => {
           style={{
             fontFamily: "Montserrat-ExtraBold",
             color: "white",
-            backgroundColor: "rgb(116, 35, 153)",
+            backgroundColor: "#7070eb",
             marginTop: "55px",
             padding: "7px 12px",
             boxShadow: "2px 2px 3px black",

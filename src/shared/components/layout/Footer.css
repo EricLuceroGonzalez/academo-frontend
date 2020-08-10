@@ -1,0 +1,30 @@
+.footer-basic{
+    height:36px;
+    color:white;
+    background:#7070eb;
+    position:fixed;
+    bottom:0px;
+    font-size:0.5em;
+    padding:4px 12px;
+    width: 100%;
+    font-family:Montserrat-Bold;
+}
+
+.footer-brand{
+    font-size: 0.95rem;
+    border-right: 1px solid #38dfb1;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+
+a:hover{
+    text-decoration: none;
+    color: white;
+}
+
+.footer-icon{
+font-size: 0.7rem;
+color: #38dfb1;
+}
