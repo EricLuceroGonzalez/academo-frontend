@@ -21,7 +21,7 @@ const Dashboard = (props) => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState({});
-  const [errorMsg, setErrorMsg] = useState()
+  const [errorMsg, setErrorMsg] = useState();
   const [time, setTime] = useState();
   const [isMounted, setIsMounted] = useState(true);
 
@@ -34,7 +34,7 @@ const Dashboard = (props) => {
         "GET"
       );
 
-      await setUserInfo(userRequest);
+      setUserInfo(userRequest);
     };
     if (isMounted) {
       requestUser();
@@ -56,6 +56,7 @@ const Dashboard = (props) => {
   }, []);
   const errorHandler = () => {
     clearError();
+    setErrorMsg(false)
   };
   return (
     <React.Fragment>
@@ -138,17 +139,35 @@ const Dashboard = (props) => {
         {userInfo.submitSurvey && (
           <div className="mt-5">
             <div className="col-12 mt-2">
-              <Button size={"small"} inverse onClick={setErrorMsg('Por el momento no hay actividades.')}>
+              <Button
+                size={"small"}
+                inverse
+                onClick={() =>
+                  setErrorMsg("Por el momento no hay actividades.")
+                }
+              >
                 Ir a exámenes
               </Button>
             </div>
             <div className="col-12 mt-2">
-              <Button size={"small"} inverse onClick={setErrorMsg('Por el momento no hay actividades.')}>
+              <Button
+                size={"small"}
+                inverse
+                onClick={() =>
+                  setErrorMsg("Por el momento no hay actividades.")
+                }
+              >
                 Ir a los talleres
               </Button>
             </div>
             <div className="col-12 mt-2">
-              <Button size={"small"} inverse onClick={setErrorMsg('Por el momento no hay actividades.')}>
+              <Button
+                size={"small"}
+                inverse
+                onClick={() =>
+                  setErrorMsg("Por el momento no hay actividades.")
+                }
+              >
                 Mis soluciones
               </Button>
             </div>
