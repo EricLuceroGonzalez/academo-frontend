@@ -21,6 +21,7 @@ const Dashboard = (props) => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState({});
+  const [errorMsg, setErrorMsg] = useState()
   const [time, setTime] = useState();
   const [isMounted, setIsMounted] = useState(true);
 
@@ -59,7 +60,7 @@ const Dashboard = (props) => {
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner asOverlay />}
-      <ErrorModal error={error } onClear={errorHandler} />
+      <ErrorModal error={error || errorMsg} onClear={errorHandler} />
       <div className="dashboard-container">
         <h4>Dashboard</h4>
         <div className="col-12 dashboard-content">
@@ -106,7 +107,7 @@ const Dashboard = (props) => {
           </span>
         </div>
         <div className="col-12 dashboard-content">
-          Parciales realizados: <span className="date-format">(?/3)</span>
+          Talleres realizados: <span className="date-format">(?/3)</span>
         </div>
         <div className="col-12 dashboard-content">
           Exámenes realizados: <span className="date-format">(?/3)</span>
@@ -137,17 +138,17 @@ const Dashboard = (props) => {
         {userInfo.submitSurvey && (
           <div className="mt-5">
             <div className="col-12 mt-2">
-              <Button size={"small"} inverse onClick={auth.logout}>
+              <Button size={"small"} inverse onClick={setErrorMsg('Por el momento no hay actividades.')}>
                 Ir a exámenes
               </Button>
             </div>
             <div className="col-12 mt-2">
-              <Button size={"small"} inverse onClick={auth.logout}>
+              <Button size={"small"} inverse onClick={setErrorMsg('Por el momento no hay actividades.')}>
                 Ir a los talleres
               </Button>
             </div>
             <div className="col-12 mt-2">
-              <Button size={"small"} inverse onClick={auth.logout}>
+              <Button size={"small"} inverse onClick={setErrorMsg('Por el momento no hay actividades.')}>
                 Mis soluciones
               </Button>
             </div>
