@@ -12,18 +12,22 @@ import {
   faExclamationCircle,
   faTimesCircle,
   faCheckCircle,
+  faUserEdit,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "../../UIElements/LoadingSpinner";
 import ErrorModal from "../../UIElements/ErrorModal";
+import EditModal from "../../UIElements/EditModal";
+import { VALIDATOR_MINLENGTH } from "../../utils/validators";
 
 const Dashboard = (props) => {
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [userInfo, setUserInfo] = useState({});
   const [errorMsg, setErrorMsg] = useState();
   const [time, setTime] = useState();
   const [isMounted, setIsMounted] = useState(true);
+  const [editInfo, setEditInfo] = useState(false);
 
   useEffect(() => {
     moment.locale("es");
@@ -56,12 +60,22 @@ const Dashboard = (props) => {
   }, []);
   const errorHandler = () => {
     clearError();
-    setErrorMsg(false)
+    setErrorMsg(false);
+  };
+
+  const editShow = () => {
+    setEditInfo(!editInfo);
   };
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner asOverlay />}
       <ErrorModal error={error || errorMsg} onClear={errorHandler} />
+      <EditModal
+        show={editInfo}
+        onClear={editShow}
+        user={auth.userId}
+        request={editInfo}
+      />
       <div className="dashboard-container">
         <h4>Dashboard</h4>
         <div className="col-12 dashboard-content">
@@ -173,6 +187,11 @@ const Dashboard = (props) => {
             </div>
           </div>
         )}
+        <div className="col-12 mt-3">
+          <Button size={"small"} inverse onClick={editShow}>
+            Editar <FontAwesomeIcon icon={faUserEdit} />
+          </Button>
+        </div>
         <div className="col-12 mt-3">
           <Button size={"small"} inverse onClick={auth.logout}>
             Cerrar sesión

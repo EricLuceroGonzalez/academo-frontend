@@ -1,0 +1,25 @@
+.dancingmessage {
+    vertical-align: middle;
+    margin: auto;
+    animation: floatBtn 0.65s ease 1;
+    color: #06d6a2;
+    border: #0411a3;
+    font-family: Montserrat-ExtraBold;
+    font-size: 2em;
+  }
+  
+  @keyframes floatBtn {
+    0% {
+      transform: translate(0, 0);
+    }
+  
+    90% {
+      opacity: 0.45;
+      border-bottom-color: #06d6a2;
+      transform: translate(0, 1rem);
+    }
+    100% {
+      transform: translate(0, 0.9rem);
+    }
+  }
+  
