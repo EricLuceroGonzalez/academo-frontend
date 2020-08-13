@@ -19,6 +19,7 @@ import LoadingSpinner from "../../UIElements/LoadingSpinner";
 import ErrorModal from "../../UIElements/ErrorModal";
 import EditModal from "../../UIElements/EditModal";
 import { VALIDATOR_MINLENGTH } from "../../utils/validators";
+import { Helmet } from "react-helmet";
 
 const Dashboard = (props) => {
   const auth = useContext(AuthContext);
@@ -68,6 +69,12 @@ const Dashboard = (props) => {
   };
   return (
     <React.Fragment>
+    <Helmet>
+    <title>
+    {" "}
+    Academo | {auth.userName}
+  </title>
+    </Helmet>
       {isLoading && <LoadingSpinner asOverlay />}
       <ErrorModal error={error || errorMsg} onClear={errorHandler} />
       <EditModal
