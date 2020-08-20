@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "katex/dist/katex.min.css";
 import {
@@ -21,9 +21,7 @@ import "./App.css";
 import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
 import Auth from "./auth/Auth";
 
-const Survey = React.lazy(() =>
-  import("./shared/components/dashboard/Survey")
-);
+const Survey = React.lazy(() => import("./shared/components/dashboard/Survey"));
 const TallerComponent = React.lazy(() =>
   import("./shared/components/Courses/TallerComponent")
 );
@@ -40,6 +38,11 @@ const CheckError = React.lazy(() =>
 const TableOfGrades = React.lazy(() =>
   import("./shared/components/dashboard/Table")
 );
+
+const SurveyResults = React.lazy(() =>
+  import("./shared/components/dashboard/SurveyResults")
+);
+
 // const AllGrades = React.lazy(() =>
 //   import("./shared/components/dashboard/AllGrades")
 // );
@@ -50,15 +53,24 @@ function App() {
   if (token) {
     routes = (
       <Switch>
+        {userId === process.env.REACT_APP_DB_id ? (
+          <Route exact path="/survey">
+            <SurveyResults />
+          </Route>
+        ) : (
+          ""
+        )}
+        
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/encuesta" component={Survey} />
         <Route exact path="/taller/:Taller/:id" component={TallerComponent} />
         <Route exact path="/checkOut" component={CheckOut}></Route>
         <Route exact path="/checkError" component={CheckError}></Route>
         <Route exact path="/notas" component={TableOfGrades}></Route>
-        <Route path="/login" component={Auth} />
         <Route path="/about" component={About} />
+        <Route path="/login" component={Auth} />
         <Route exact path="/" component={Dashboard} />
+
         <Route component={NotFound}></Route>
       </Switch>
     );

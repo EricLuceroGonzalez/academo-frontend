@@ -1,9 +1,13 @@
+:root {
+  --mor-fg: #7d64ff;
+  --mor-hover: #4934B3;
+}
 .button {
   font: inherit;
   padding: 0.25rem 1.5rem;
-  border: 1px solid #7070eb;
+  border: 1px solid var(--mor-fg);
   border-radius: 4px;
-  background: #7070eb;
+  background: var(--mor-fg);
   color: white;
   cursor: pointer;
   margin-right: 1rem;
@@ -18,8 +22,8 @@
 
 .button:hover,
 .button:active {
-  background: #0411a3;
-  border-color: #0411a3;
+  background: var(--mor-hover);
+  border-color: var(--mor-fg);
 }
 
 .button--inverse {
@@ -30,7 +34,7 @@
 .button--inverse:hover,
 .button--inverse:active {
   color: white;
-  background: #7070eb;
+  background: var(--mor-fg);
 }
 
 .button--danger {
@@ -77,7 +81,7 @@
   animation: nudge 3s ease infinite;
 }
 
-.button--float{
+.button--float {
   cursor: pointer;
 }
 
@@ -94,7 +98,6 @@
   50% {
     transform: translate(2rem, 0);
   }
-
 }
 
 @keyframes danceBtn {
@@ -104,6 +107,6 @@
   }
   50% {
     opacity: 1;
-    background: #0411a3;
+    background: var(--mor-fg);
   }
 }

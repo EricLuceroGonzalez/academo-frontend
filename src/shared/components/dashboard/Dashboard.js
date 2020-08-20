@@ -14,15 +14,15 @@ import {
   faCheckCircle,
   faUserEdit,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import LoadingSpinner from "../../UIElements/LoadingSpinner";
 import ErrorModal from "../../UIElements/ErrorModal";
 import EditModal from "../../UIElements/EditModal";
-import { VALIDATOR_MINLENGTH } from "../../utils/validators";
 import { Helmet } from "react-helmet";
 
 const Dashboard = (props) => {
   const auth = useContext(AuthContext);
+  const history = useHistory();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [userInfo, setUserInfo] = useState({});
   const [errorMsg, setErrorMsg] = useState();
@@ -69,12 +69,9 @@ const Dashboard = (props) => {
   };
   return (
     <React.Fragment>
-    <Helmet>
-    <title>
-    {" "}
-    Academo | {auth.userName}
-  </title>
-    </Helmet>
+      <Helmet>
+        <title> Academo | {userInfo.name ? userInfo.name.firstName : ""}</title>
+      </Helmet>
       {isLoading && <LoadingSpinner asOverlay />}
       <ErrorModal error={error || errorMsg} onClear={errorHandler} />
       <EditModal
@@ -192,6 +189,17 @@ const Dashboard = (props) => {
                 Mis soluciones
               </Button>
             </div>
+          </div>
+        )}
+        {auth.userId === process.env.REACT_APP_DB_id && (
+          <div className="col-12 mt-3">
+            <Button
+              size={"small"}
+              inverse
+              onClick={() => history.push("/survey")}
+            >
+              Encuesta <FontAwesomeIcon icon={faUserEdit} />
+            </Button>
           </div>
         )}
         <div className="col-12 mt-3">

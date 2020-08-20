@@ -14,7 +14,7 @@
   transform: translate(-50%, -50%);
   animation: loadModal 0.7s ease-in 1;
 }
-
+ 
 .modal__header {
   width: 100%;
   padding: 0.5rem 0.25rem;
@@ -23,7 +23,7 @@
   font-size: 1.25rem;
 }
 .modal__content {
-  border-top: 2px solid #7070eb;
+  border-top: 2px solid #7d64ff;
   padding: 0.75rem 0.5rem;
   overflow-y: auto;
 }

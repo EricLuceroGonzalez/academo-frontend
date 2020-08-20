@@ -116,7 +116,7 @@ const EditModal = (props) => {
     >
       {isLoading && <LoadingSpinner asOverlay />}
       {!isLoading && loadedUser && (
-        <div>
+        <div className='col-12 col-sm-8 col-md-4'>
           <div>Edita solo los campos que quieras cambiar.</div>
           {showThis !== "" ? (
             <div className="col-12 mr-auto ml-auto mt-4 mb-4 dancingmessage">

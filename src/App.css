@@ -1,5 +1,5 @@
 .App-div {
-  min-height: 100%;
+  /* min-height: 100%; */
   /* top: 10px; */
   /* padding: 40px 0px; */
   text-align: center;
@@ -32,6 +32,12 @@
 html,
 body {
   height: 100%;
+  background-color: whitesmoke;
+  --mor-bg: #7d64ff;
+  margin-top: 20px;
+}
+:root{
+  --mor-bg: #7d64ff;
 }
 
 body {
@@ -52,7 +58,7 @@ body {
 
 .lightThing {
   font-family: Montserrat-Light;
-  color: rgb(116, 35, 153);
+  color: var(--mor-bg);
 }
 
 .bordeB {
@@ -72,12 +78,12 @@ body {
   border: 1px solid blue;
 }
 .checkQuestion {
-  color: rgb(116, 35, 153);
+  color: var(--mor-bg);
   font-size: 0.75em;
   font-family: Montserrat-ExtraBold;
 }
 .checkOption {
-  color: rgb(74, 17, 100);
+  color: var(--mor-bg);
   font-size: 0.75em;
   font-family: Montserrat-Bold;
 }
@@ -98,7 +104,7 @@ body {
 }
 
 .nextBtn {
-  background-color: rgb(40, 210, 105);
+  background-color: #57FFB3;
   margin: 22px auto;
   color: white;
   font-family: Montserrat-ExtraBold;
@@ -184,7 +190,7 @@ body {
   bottom: 45px;
   right: 10px;
   color: white;
-  background-color: rgb(40, 210, 105);
+  background-color: #57FFB3;
   font-family: "Montserrat-ExtraBold";
   text-align: center;
   box-shadow: 2px 2px 3px #999;

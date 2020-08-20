@@ -1,3 +1,11 @@
+:root {
+  --color-fg: #7d64ff;
+  --color-hover: #4934B3;
+  --color-peach:#FF8F7D;
+  --color-yellow:#FFE94A;
+  --color-green:#57FFB3;
+}
+
 .form-control {
   margin: 2.2rem 0;
   border: none;
@@ -16,7 +24,7 @@
   background-color: none;
   font-weight: bold;
   margin-bottom: 0.25rem;
-  color: #0411a3;
+  color: var(--color-fg);
   font-family: Montserrat-ExtraBold;
 }
 
@@ -26,27 +34,31 @@
 .form-control textarea {
   width: 100%;
   font: inherit;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-yellow);
   padding: 0.15rem 0.25rem;
+  background-color: white;
+  box-shadow: inset 0 2px 4px 0 hsla(0, 0%, 0%, 0.08);
+  color: var(--color-fg);
   font-family: Montserrat-Bold;
 }
 
 .form-control input:focus,
 .form-control textarea:focus {
   outline: none;
-  background: #ebebeb;
-  border-color: #510077;
+  background: white;
+  border-color: var(--color-fg);
+  color: var(--color-hover);
 }
 
 .form-control--invalid label,
 .form-control--invalid p {
-  color: #e92c42;
+  color: #FF8F7D;
   font-size: 0.65rem;
   font-family: Montserrat-Bold;
 }
 
 .form-control--invalid input,
 .form-control--invalid textarea {
-  border-color: #ff7787;
+  border-color: #FF8F7D;
   background: #ffd1d1;
 }

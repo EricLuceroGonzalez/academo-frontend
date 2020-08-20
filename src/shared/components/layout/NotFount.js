@@ -18,7 +18,7 @@ const NotFound = () => {
             <span role="img" aria-label="star-dust" style={{ fontSize: "5em" }}>
               🐉
             </span>
-            <div className="navThing"> Direccion no encontrada</div>
+            <div className="navThing"> Dirección no encontrada</div>
           </div>
         </div>
         <div className="mt-5 p-0">

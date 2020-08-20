@@ -1,14 +1,22 @@
+:root {
+  --color-fg: #7d64ff;
+  --color-hover: #4934B3;
+  --color-peach:#FF8F7D;
+  --color-yellow:#FFE94A;
+  --color-green:#57FFB3;
+}
+
 .navThing {
   margin: 7px 2px;
   font-family: Montserrat-ExtraBold;
-  color: #7070eb;
+  color: #7d64ff;
 }
 
 .nav-username{
-  color: #7070eb;
+  color: var(--color-fg);
 }
 .navThing:hover {
-  color: rgb(15, 50, 240);
+  color: var(--color-hover);
   text-decoration: none;
 }
 
@@ -18,7 +26,7 @@
 
 .activeNavLink {
   /* color: rgba(116, 35, 153, 0.6); */
-  border-bottom: 1px solid #7070eb;
+  border-bottom: 1px solid var(--color-fg);
 }
 
 .user-text {
@@ -26,7 +34,7 @@
 }
 
 .exit-text {
-  color: rgb(36, 179, 86);
+  color: var(--color-green);
   font-size: 0.65em;
   cursor: pointer;
 }

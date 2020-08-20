@@ -1,3 +1,12 @@
+:root {
+  --color-fg: #7d64ff;
+  --color-hover: #4934B3;
+  --color-peach:#FF8F7D;
+  --color-yellow:#FFE94A;
+  --color-green:#57FFB3;
+}
+
+
 .lds-dual-ring {
     display: inline-block;
     width: 164px;
@@ -11,8 +20,8 @@
     height: 146px;
     margin: 1px;
     border-radius: 50%;
-    border: 12px solid #7070eb;
-    border-color: #06d6a2 transparent #7070eb transparent;
+    border: 12px solid var(--color-fg);
+    border-color: var(--color-green) transparent var(--color-fg) transparent;
     animation: lds-dual-ring 1.2s linear infinite;
   }
   
