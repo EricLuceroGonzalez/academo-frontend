@@ -192,6 +192,7 @@ const Dashboard = (props) => {
             </div>
           </div>
         )}
+
         {auth.userId === process.env.REACT_APP_DB_id && (
           <div className="col-12 mt-3">
             <Button
@@ -203,6 +204,7 @@ const Dashboard = (props) => {
             </Button>
           </div>
         )}
+        
         <div className="col-12 mt-3">
           <Button size={"small"} secondary onClick={editShow}>
             Editar <FontAwesomeIcon icon={faUserEdit} />
