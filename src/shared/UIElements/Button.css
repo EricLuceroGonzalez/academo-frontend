@@ -1,13 +1,17 @@
 :root {
-  --mor-fg: #7d64ff;
-  --mor-hover: #4934B3;
+  --color-fg: #7d64ff;
+  --color-hover: #4934B3;
+  --color-peach:#FF8F7D;
+  --color-yellow:#FFE94A;
+  --color-green:#57FFB3;
 }
+
 .button {
   font: inherit;
   padding: 0.25rem 1.5rem;
-  border: 1px solid var(--mor-fg);
+  border: 1px solid var(--color-fg);
   border-radius: 4px;
-  background: var(--mor-fg);
+  background: var(--color-fg);
   color: white;
   cursor: pointer;
   margin-right: 1rem;
@@ -22,20 +26,33 @@
 
 .button:hover,
 .button:active {
-  background: var(--mor-hover);
-  border-color: var(--mor-fg);
+  background: var(--color-hover);
+  border-color: var(--color-fg);
 }
 
 .button--inverse {
   background: transparent;
-  color: #7070eb;
+  color: var(--color-fg);
 }
 
 .button--inverse:hover,
 .button--inverse:active {
   color: white;
-  background: var(--mor-fg);
+  background: var(--color-fg);
 }
+
+.button--secondary {
+  background: transparent;
+  border: 1px solid var(--color-green);
+  color: var(--color-green);
+}
+
+.button--secondary:hover,
+.button--secondary:active {
+  color:var(--color-hover);
+  background: var(--color-green);
+}
+
 
 .button--danger {
   background: #830000;

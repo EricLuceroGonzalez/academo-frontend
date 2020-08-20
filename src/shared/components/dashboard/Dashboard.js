@@ -13,6 +13,7 @@ import {
   faTimesCircle,
   faCheckCircle,
   faUserEdit,
+  faPoll,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useHistory } from "react-router-dom";
 import LoadingSpinner from "../../UIElements/LoadingSpinner";
@@ -195,20 +196,20 @@ const Dashboard = (props) => {
           <div className="col-12 mt-3">
             <Button
               size={"small"}
-              inverse
+              secondary
               onClick={() => history.push("/survey")}
             >
-              Encuesta <FontAwesomeIcon icon={faUserEdit} />
+              Encuesta <FontAwesomeIcon icon={faPoll} />
             </Button>
           </div>
         )}
         <div className="col-12 mt-3">
-          <Button size={"small"} inverse onClick={editShow}>
+          <Button size={"small"} secondary onClick={editShow}>
             Editar <FontAwesomeIcon icon={faUserEdit} />
           </Button>
         </div>
         <div className="col-12 mt-3">
-          <Button size={"small"} inverse onClick={auth.logout}>
+          <Button size={"small"} secondary onClick={auth.logout}>
             Cerrar sesión
           </Button>
         </div>

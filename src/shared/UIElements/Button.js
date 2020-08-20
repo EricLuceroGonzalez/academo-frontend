@@ -46,8 +46,9 @@ const Button = (props) => {
   return (
     <button
       className={`button ${props.animate} button--${props.size || "default"} ${
-        props.inverse && "button--inverse"
-      } ${props.danger && "button--danger"}`}
+        props.inverse && "button--inverse"}
+        ${props.secondary && "button--secondary"}
+       ${props.danger && "button--danger"}`}
       type={props.type}
       onClick={props.onClick}
       disabled={props.disabled}

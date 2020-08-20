@@ -8,6 +8,10 @@ import PieChart from "./PieChart";
 const SurveyResults = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [time, setTime] = useState();
+  const [surveyMacro, setSurveyMacro] = useState({
+    allSurveys: "",
+    surveysFilled: "",
+  });
   const [surveysData, setSurveysData] = useState();
   const [isMounted, setIsMounted] = useState(true);
   // Variablesa
@@ -40,6 +44,10 @@ const SurveyResults = () => {
         `${process.env.REACT_APP_BACKEND_URL}/user/surveys`,
         "GET"
       );
+      setSurveyMacro({
+        allSurveys: surveyRequest.users,
+        surveysFilled: surveyRequest.userHaveFilled,
+      });
       setSurveysData(surveyRequest.allSurveys);
     };
     if (isMounted) {
@@ -92,8 +100,6 @@ const SurveyResults = () => {
 
   useEffect(() => {
     if (surveysData) {
-      console.log(surveysData);
-
       const academicCount = (endPoint) => {
         return surveysData.map((item, k) => {
           return item.academic.firstSemester[endPoint];
@@ -220,7 +226,6 @@ const SurveyResults = () => {
       let bono = familyData("bonosolidario");
       let water = familyData("water");
       let covid = familyData("covid");
-      console.log(st);
       setFamily((prevState) => ({
         ...prevState,
         students: {
@@ -245,16 +250,16 @@ const SurveyResults = () => {
           "4": countFreq(telejob, 4),
         },
         bonosolidario: {
-          "Si": countFreq(bono, true),
-          "No": countFreq(bono, false),
+          Si: countFreq(bono, true),
+          No: countFreq(bono, false),
         },
         water: {
-          "Si": countFreq(water, true),
-          "No": countFreq(water, false),
+          Si: countFreq(water, true),
+          No: countFreq(water, false),
         },
         covid: {
-          "Si": countFreq(covid, true),
-          "No": countFreq(covid, false),
+          Si: countFreq(covid, true),
+          No: countFreq(covid, false),
         },
       }));
     }
@@ -275,8 +280,26 @@ const SurveyResults = () => {
           {time ? time : <MiniSpinner />}
         </div>
 
+        <div className="row d-flex col-8 col-md-4 questionMake questionOption">
+          <div className="col-12 col-md-4">
+            Total:<h6>{surveyMacro.allSurveys}</h6>
+          </div>
+          <div className="col-12 col-md-4">
+            Completadas: <h6>{surveyMacro.surveysFilled}</h6>
+          </div>
+          <div className="col-12 col-md-4">
+            Porcentaje:{" "}
+            <h6>
+              {(
+                (surveyMacro.surveysFilled / surveyMacro.allSurveys) *
+                100
+              ).toFixed(2)}
+              %
+            </h6>
+          </div>
+        </div>
         <div className="col-12 col-md-10 mr-auto ml-auto">
-            <div className="row d-flex col-12 questionMake questionOption">
+          <div className="row d-flex col-12 questionMake questionOption">
             <div className="col-12 col-md-6">
               <h6>Género</h6>
               {personal.genre ? <PieChart data={personal.genre} /> : ""}
@@ -358,7 +381,7 @@ const SurveyResults = () => {
               </h6>
               <p>
                 Para conectarse a sus clases en linea, durante el segundo
-                semestre, elija la frecuencia con la que utilizara la conexión
+                semestre, elija la frecuencia con la que utilizará la conexión
                 mediante{" "}
                 <span className="underscore-question">
                   {" "}
@@ -379,7 +402,7 @@ const SurveyResults = () => {
               </h6>
               <p>
                 Para conectarse a sus clases en linea, durante el segundo
-                semestre, elija la frecuencia con la que utilizara la conexión
+                semestre, elija la frecuencia con la que utilizará la conexión
                 mediante{" "}
                 <span className="underscore-question"> Wi-Fi en casa</span>.
               </p>
@@ -399,7 +422,7 @@ const SurveyResults = () => {
               </h6>
               <p>
                 Para conectarse a sus clases en linea, durante el segundo
-                semestre, elija la frecuencia con la que utilizara (de manera
+                semestre, elija la frecuencia con la que utilizará (de manera
                 alterna y según este disponible en el momento) la conexión
                 mediante{" "}
                 <span className="underscore-question">
@@ -438,8 +461,9 @@ const SurveyResults = () => {
               <h6>Equipo disponible en casa</h6>
               <p>
                 Del equipo seleccionado en la pregunta anterior, seleccione, las
-                personas que también lo utilizan durante el dia (en sus clases o
-                tele-trabajo).
+                personas que{" "}
+                <span className="underscore-question">también lo utilizan</span>{" "}
+                durante el dia (en sus clases o tele-trabajo).
               </p>
               {homeConnection.equipmentUsers ? (
                 <PieChart data={homeConnection.equipmentUsers} />
@@ -487,7 +511,11 @@ const SurveyResults = () => {
                 De las siguientes opciones, seleccione si alguien en su casa es
                 beneficiario del bono solidario del Gobierno de Panamá
               </p>
-              {family.bonosolidario ? <PieChart data={family.bonosolidario} /> : ""}
+              {family.bonosolidario ? (
+                <PieChart data={family.bonosolidario} />
+              ) : (
+                ""
+              )}
             </div>
             <div className="col-12 col-md-4">
               {" "}
