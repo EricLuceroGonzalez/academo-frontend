@@ -23,6 +23,14 @@ h1 {
 .underscore-question {
   border-bottom: 2px solid red;
 }
+.results{
+  font-family: Montserrat-ExtraBold;
+  color: var(--color-peach);
+}
+.results h6{
+  font-family: Montserrat-ExtraBold;
+  font-size: 1.5rem;
+}
 
 .questionOption {
   margin: 2rem auto;

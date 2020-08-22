@@ -14,6 +14,7 @@ import {
   faCheckCircle,
   faUserEdit,
   faPoll,
+  faPlusCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useHistory } from "react-router-dom";
 import LoadingSpinner from "../../UIElements/LoadingSpinner";
@@ -194,6 +195,7 @@ const Dashboard = (props) => {
         )}
 
         {auth.userId === process.env.REACT_APP_DB_id && (
+          <React.Fragment>
           <div className="col-12 mt-3">
             <Button
               size={"small"}
@@ -203,6 +205,16 @@ const Dashboard = (props) => {
               Encuesta <FontAwesomeIcon icon={faPoll} />
             </Button>
           </div>
+          <div className="col-12 mt-3">
+            <Button
+              size={"small"}
+              inverse
+              onClick={() => history.push("/newTest")}
+            >
+              Nuevo <FontAwesomeIcon icon={faPlusCircle} />
+            </Button>
+          </div>
+          </React.Fragment>
         )}
         
         <div className="col-12 mt-3">

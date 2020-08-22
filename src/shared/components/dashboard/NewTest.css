@@ -1,0 +1,61 @@
+:root {
+  --color-fg: #7d64ff;
+  --color-hover: #4934b3;
+  --color-peach: #ff8f7d;
+  --color-yellow: #ffe94a;
+  --color-green: #57ffb3;
+}
+
+.newTest-box {
+  width: 100%;
+  max-width: 43rem;
+  margin: 1rem auto;
+  text-align: center;
+  box-shadow: 2px 4px 6px gainsboro;
+  padding: 2rem 4rem;
+}
+
+.testName-box {
+  margin: 2rem auto;
+  padding: 2rem 0 4rem 0;
+  background-color: var(--color-yellow);
+}
+.newTest-view {
+  background-color: gray;
+  min-height: 100vh;
+  padding: 10% 0;
+}
+
+.newQuestion-box {
+  margin: 100px auto;
+  padding: 3rem 3rem;
+  width: 90%;
+  background-color: gainsboro;
+}
+
+.checkMark {
+  margin-left: 6px;
+  font-family: Montserrat-Bold;
+  color: var(--color-fg);
+}
+
+h6 {
+  font-family: Montserrat-ExtraBold;
+  color: var(--color-peach);
+  margin-bottom: -10px;
+}
+
+h5 {
+  font-family: Montserrat-ExtraBold;
+  text-shadow: 0px 2px 1px hsla(0, 0%, 0%, 0.09);
+  color: var(--color-yellow);
+  margin-bottom: -10px;
+}
+.editQuestion {
+  font-family: Montserrat-ExtraBold;
+  padding: 1rem;
+  background-color: var(--color-yellow);
+  color: var(--color-hover);
+  border: 1px solid red;
+  max-width: 100px;
+}

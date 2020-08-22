@@ -281,13 +281,13 @@ const SurveyResults = () => {
         </div>
 
         <div className="row d-flex col-8 col-md-4 questionMake questionOption">
-          <div className="col-12 col-md-4">
+          <div className="col-12 col-md-4 results">
             Total:<h6>{surveyMacro.allSurveys}</h6>
           </div>
-          <div className="col-12 col-md-4">
+          <div className="col-12 col-md-4 results">
             Completadas: <h6>{surveyMacro.surveysFilled}</h6>
           </div>
-          <div className="col-12 col-md-4">
+          <div className="col-12 col-md-4 results">
             Porcentaje:{" "}
             <h6>
               {(

@@ -43,6 +43,10 @@ const SurveyResults = React.lazy(() =>
   import("./shared/components/dashboard/SurveyResults")
 );
 
+const NewTest = React.lazy(() =>
+  import("./shared/components/dashboard/NewTest")
+);
+
 // const AllGrades = React.lazy(() =>
 //   import("./shared/components/dashboard/AllGrades")
 // );
@@ -54,13 +58,19 @@ function App() {
     routes = (
       <Switch>
         {userId === process.env.REACT_APP_DB_id ? (
-          <Route exact path="/survey">
-            <SurveyResults />
-          </Route>
+            <Route exact path="/survey">
+              <SurveyResults />
+            </Route>
         ) : (
           ""
         )}
-        
+
+        {userId === process.env.REACT_APP_DB_id ? (
+          <Route exact path="/newTest">
+          <NewTest />
+        </Route>) : ('')
+      }
+
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/encuesta" component={Survey} />
         <Route exact path="/taller/:Taller/:id" component={TallerComponent} />
@@ -68,8 +78,8 @@ function App() {
         <Route exact path="/checkError" component={CheckError}></Route>
         <Route exact path="/notas" component={TableOfGrades}></Route>
         <Route path="/about" component={About} />
-        <Route path="/login" component={Auth} />
-        <Route exact path="/" component={Dashboard} />
+        <Route path="/login" component={NewTest} />
+        <Route exact path="/" component={NewTest} />
 
         <Route component={NotFound}></Route>
       </Switch>
