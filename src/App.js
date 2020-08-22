@@ -80,8 +80,7 @@ function App() {
         <Route path="/about" component={About} />
         <Route path="/login" component={Auth} />
         <Route exact path="/" component={About} />
-
-        <Route component={NotFound}></Route>
+        <Redirect component={NotFound}></Redirect>
       </Switch>
     );
   } else {
@@ -90,7 +89,7 @@ function App() {
         <Route exact path="/" component={About} />
         <Route path="/login" component={Auth} />
         <Route path="/about" component={About} />
-        <Route component={NotFound}></Route>
+        <Redirect to={NotFound}></Redirect>
       </Switch>
     );
   }
