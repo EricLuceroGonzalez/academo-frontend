@@ -78,8 +78,8 @@ function App() {
         <Route exact path="/checkError" component={CheckError}></Route>
         <Route exact path="/notas" component={TableOfGrades}></Route>
         <Route path="/about" component={About} />
-        <Route path="/login" component={NewTest} />
-        <Route exact path="/" component={NewTest} />
+        <Route path="/login" component={Auth} />
+        <Route exact path="/" component={About} />
 
         <Route component={NotFound}></Route>
       </Switch>
@@ -90,7 +90,6 @@ function App() {
         <Route exact path="/" component={About} />
         <Route path="/login" component={Auth} />
         <Route path="/about" component={About} />
-        <Redirect to="/login"></Redirect>
         <Route component={NotFound}></Route>
       </Switch>
     );
