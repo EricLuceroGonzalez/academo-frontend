@@ -2,6 +2,7 @@ import React from "react";
 import { InlineMath, BlockMath } from "react-katex";
 
 import "./ImageCard.css";
+import "./CheckItems.css";
 
 const CheckItems = (props) => {
   const generateCheck = () => {
@@ -10,25 +11,19 @@ const CheckItems = (props) => {
     } else {
       const checks = props.values.map((item, k) => {
         return (
-          <div className="checkOption" key={k}>
-            <input
-              onClick={(e) => props.wasClick(e)}
-              pts={props.pts}
-              className="form-check-input"
-              type="radio"
-              name={props.questionName}
-              id={props.answer}
-              value={item.isEquation ? item.equation : item.text}
-            ></input>
-            <div
-              style={{
-                margin: "3px 1px",
-                borderRadius: "12px",
-                border: "1px solid rgba(100,100,100,0.2)",
-                padding: "3px 2px",
-              }}
-            >
-              <label className="ml-2 form-check-label" htmlFor="inlineRadio2">
+          <div className="col-12 checkItem-option" key={k}>
+            <label className="ml-2 rad">
+              <input
+                onClick={(e) => props.wasClick(e)}
+                pts={props.pts}
+                className="form-check-input"
+                type="radio"
+                name={props.questionName}
+                id={props.answer}
+                value={item.isEquation ? item.equation : item.text}
+              ></input>
+              <i></i>
+              <span className="checkItem-option-box">
                 {item.isEquation ? (
                   item.isInline ? (
                     <React.Fragment>
@@ -42,8 +37,8 @@ const CheckItems = (props) => {
                 ) : (
                   item.text
                 )}
-              </label>
-            </div>
+              </span>
+            </label>
           </div>
         );
       });
@@ -51,10 +46,16 @@ const CheckItems = (props) => {
     }
   };
   return (
-    <div className="checkBox col-12 col-sm-10 col-lg-6 col-md-10">
-      <div className="pts col-3 ml-auto p-1">
+    <div className="checkBox col-12 col-sm-8 col-md-8 col-lg-6 ">
+      <div className='col-12 topBar row d-flex'>
+      <div className="number-box col-2 mr-auto">
+      {props.numberQuestion}
+    </div>
+      <div className="point-box col-4 ml-auto align-items-middle">
         {props.value > 1 ? `${props.value} puntos` : `${props.value} punto`}
       </div>
+      </div>
+  
       {!!props.image && (
         <div className="image-card-container">
           <div className="col-10">
@@ -66,9 +67,7 @@ const CheckItems = (props) => {
           </div>
         </div>
       )}
-      <div className="checkQuestion">
-        <span className="theNumber">{props.numberQuestion}</span>
-        {") "}
+      <div className="checkItem-question">
         {props.question}
       </div>
       <div
@@ -82,3 +81,4 @@ const CheckItems = (props) => {
 };
 
 export default CheckItems;
+// <div className="checkItem-option-box">

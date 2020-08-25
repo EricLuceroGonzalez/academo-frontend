@@ -10,8 +10,7 @@ const PieChart = (props) => {
     // console.log(Object.keys(props.data.genre));
     // console.log(Object.values(props.data.genre));
 
-    let myChart;
-    myChart = new Chart(canvasRef.current, {
+    new Chart(canvasRef.current, {
       type: "doughnut",
       options: {
         maintainAspectRatio: false,
@@ -22,17 +21,23 @@ const PieChart = (props) => {
             data: dataValues,
             label: dataLabels,
             backgroundColor: [
-            "#7d64ff",
+              "#7d64ff",
               "#4934B3",
               "#FF8F7D",
               "#FFE94A",
-              "#57FFB3"              
+              "#57FFB3",
             ],
           },
         ],
         labels: dataLabels,
       },
     });
+
+    return () => {
+      setDataValues("");
+      setDataLabels("");
+      setCanvasRef("");
+    };
   }, [canvasRef, dataValues, dataLabels]);
   return (
     <React.Fragment>

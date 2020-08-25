@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import ls from "local-storage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCheckCircle,
-  faTimesCircle,
   faPlusCircle,
   faPaperPlane,
+  faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { InlineMath, BlockMath } from "react-katex";
@@ -13,27 +12,41 @@ import { VALIDATOR_REQUIRE } from "../../utils/validators";
 import { useForm } from "../../hooks/form-hook";
 import InputForTest from "../../UIElements/InputForTest";
 import Card from "../../UIElements/Card";
-import "../UIElements/CheckBox.css";
 import Button from "../../UIElements/Button";
-import "./NewTest.css";
 import CheckItems from "./CheckItems";
+import { useHttpClient } from "../../hooks/http-hook";
+import LoadingSpinner from "../UIElements/LoadingSpinner";
+import ErrorModal from "../../UIElements/ErrorModal";
+import "../UIElements/CheckBox.css";
+import "./NewTest.css";
 
 const NewTest = () => {
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [questIsEquation, setQuestIsEquation] = useState(false);
+  const [evaluationType, setEvaluationType] = useState("");
   const [questIsInLine, setQuestIsInLine] = useState(true);
   const [ansIsEquation, setAnsIsEquation] = useState(false);
   const [ansIsInLine, setAnsIsInLine] = useState(true);
   const [optionIsEquation, setOptionIsEquation] = useState(false);
   const [addOptionDisable, setAddOptionDisable] = useState(false);
   const [addQuestionDisable, setAddQuestionDisable] = useState(false);
-  const [optionIsInLine, setOptionIsInLine] = useState(false);
+  const [optionIsInLine, setOptionIsInLine] = useState(true);
+  const [disabledSentButton, setDisabledSentButton] = useState(true);
   const [question, setQuestion] = useState(ls.get("questions") || []);
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
-    console.log("QUESTIONS:");
-    console.log(question);
-  }, [question]);
+    ls.set("questions", question);
+    if (question.length > 0) {
+      console.log("QUESTIONS:");
+      console.log(question);
+    }
+
+    if (options.length > 0) {
+      console.log("OPTIONS :");
+      console.log(options);
+    }
+  }, [options, question]);
 
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -45,7 +58,6 @@ const NewTest = () => {
       answerEquation: { value: "", isValid: false },
       optionText: { value: "", isValid: false },
       optionEquation: { value: "", isValid: false },
-      evaluation: { value: "", isValid: false },
       contents: { value: "", isValid: false },
       description: { value: "", isValid: false },
       instructions: { value: "", isValid: false },
@@ -53,6 +65,25 @@ const NewTest = () => {
     },
     false
   );
+  useEffect(() => {
+   
+    if (evaluationType) {
+      if (
+        evaluationType !== "" &&
+        question.length > 1
+      ) {
+        console.log('here');
+        
+        setDisabledSentButton(false);
+      }
+      console.log('here!!')
+    }
+
+    // return () => {
+    //   setQuestion([]);
+    // };
+  }, [question.length, evaluationType, formState]);
+
 
   const AddOption = () => {
     console.log("\nAdd Option");
@@ -69,7 +100,7 @@ const NewTest = () => {
     console.log(options);
   };
 
-  const AddQuestion = () => {
+  const AddQuestion = async () => {
     console.log("Add Question");
 
     question.push({
@@ -87,8 +118,8 @@ const NewTest = () => {
       pts: formState.inputs.questionPoints.value,
       options: options,
     });
+    ls.remove('questions')
     ClearFormState();
-    ls.set("questions", question);
     setAddQuestionDisable(true);
     setTimeout(() => {
       setAddQuestionDisable(false);
@@ -101,6 +132,7 @@ const NewTest = () => {
 
   const ClearFormState = () => {
     setOptions([]);
+    ls.remove('questions')
     setFormData(
       {
         question: { value: "", isValid: false },
@@ -117,10 +149,13 @@ const NewTest = () => {
   };
 
   const renderCheckQuestions = () => {
+    console.log('jereereere');
+    console.log(question);
+    
     if (question) {
       const checkQuestions = question.map((item, k) => {
-        console.log(item);
-
+        console.log(`k = ${k}`);
+        
         return (
           <CheckItems
             key={k}
@@ -154,16 +189,19 @@ const NewTest = () => {
           ></CheckItems>
         );
       });
+      console.log(checkQuestions);
+      
       return checkQuestions;
     }
   };
   const renderQuesstions = () => {
     return question.map((item, k) => {
+      console.log(item);
+      
       return (
         <div
           key={k}
           onClick={() => {
-            formState.inputs.question.value = "JNNNN";
             console.log(`${item.questionName}, k = ${k}`);
           }}
           className="col-2 editQuestion"
@@ -174,14 +212,42 @@ const NewTest = () => {
     });
   };
 
-  const submitThisTest = () => {
+  const submitThisTest = async () => {
     console.log("submitThisTest");
+    console.log(question);
+    const test = {
+      questions: question,
+      evaluation: evaluationType,
+      contents: formState.inputs.contents.value,
+      description: formState.inputs.description.value,
+      instructions: formState.inputs.instructions.value,
+      testName: formState.inputs.testName.value,
+      subject: "5f310a910689020004a5a097",
+    };
+    console.log(test);
+    try {
+      await sendRequest(
+        process.env.REACT_APP_BACKEND_URL + "/test/newTest",
+        "POST",
+        JSON.stringify(test),
+        { "Content-Type": "application/json" }
+      );
+    } catch (err) {}
   };
+
+  const errorHandler = () => {
+    clearError();
+  };
+
   return (
     <React.Fragment>
+    <ErrorModal error={error} onClear={errorHandler} />
+    {isLoading && <LoadingSpinner asOverlay />}
+
       <div className="newTest-view">
         <h3>NewTest</h3>
         <Card className="newTest-box">
+
           <InputForTest
             element="input"
             id="question"
@@ -296,6 +362,22 @@ const NewTest = () => {
                 IsInLine
               </label>
             </div>
+            <div className="col-4 col-sm-4 mt-4 row d-flex justify-content-around">
+              {formState.inputs.answerText.value &&
+                formState.inputs.answerText.value ===
+                  formState.inputs.optionText.value && (
+                  <div className="good-check">
+                    Txt: <FontAwesomeIcon icon={faCheckCircle} />
+                  </div>
+                )}
+              {formState.inputs.answerEquation.value !== "" &&
+                formState.inputs.answerEquation.value ===
+                  formState.inputs.optionEquation.value && (
+                  <div className="good-check">
+                    Eqn: <FontAwesomeIcon icon={faCheckCircle} />
+                  </div>
+                )}
+            </div>
           </div>
           <InputForTest
             element="input"
@@ -345,6 +427,7 @@ const NewTest = () => {
                 className="checkIt"
                 type="checkbox"
                 id="inlineCheckbox6"
+                defaultChecked={optionIsInLine}
                 value="option1"
                 onClick={() => {
                   setOptionIsInLine(!optionIsInLine);
@@ -412,33 +495,69 @@ const NewTest = () => {
         </Card>
 
         <div className="newQuestion-box">
-          <div className="bordeA row d-flex justify-content-around">
+          <div className="row d-flex justify-content-around">
             {renderQuesstions()}
           </div>
           <div>{renderCheckQuestions()}</div>
+
           <div className="col-10 testName-box">
-            <div className="col-12 col-sm-4 mt-3">
-              <input
-                className="checkIt"
-                type="checkbox"
-                id="inlineCheckbox1"
-                value="option1"
-                onClick={() => {
-                  setQuestIsEquation(!questIsEquation);
-                }}
-              />
-              <label
-                className="form-check-label checkMark"
-                htmlFor="inlineCheckbox1"
+            <div className="row d-flex">
+              <div className="col-12 col-sm-4 mt-3">
+                <input
+                  className="checkIt"
+                  type="checkbox"
+                  id="inlineCheckbox7"
+                  value="option1"
+                  onClick={() => {
+                    setEvaluationType("taller");
+                  }}
+                />
+                <label
+                  className="form-check-label checkMark"
+                  htmlFor="inlineCheckbox7"
+                >
+                  Taller
+                </label>
+              </div>
+              <div className="col-12 col-sm-4 mt-3">
+                <input
+                  className="checkIt"
+                  type="checkbox"
+                  id="inlineCheckbox8"
+                  value={evaluationType}
+                  onClick={() => {
+                    setEvaluationType("parcial");
+                  }}
+                />
+                <label
+                  className="form-check-label checkMark"
+                  htmlFor="inlineCheckbox8"
+                >
+                  Parcial
+                </label>
+              </div>
+              <div
+                className={`col-12 col-sm-4 mt-3 ${
+                  evaluationType === "taller" ? "red-text" : "green-text"
+                }`}
               >
-                isEquation
-              </label>
+                {evaluationType}
+              </div>
             </div>
             <InputForTest
               element="input"
               id="contents"
               type="text"
               label="Contents"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorText="Introduce al menos un apellido"
+              onInput={inputHandler}
+            />
+            <InputForTest
+              element="input"
+              id="testName"
+              type="text"
+              label="Test Name"
               validators={[VALIDATOR_REQUIRE()]}
               errorText="Introduce al menos un apellido"
               onInput={inputHandler}
@@ -461,20 +580,18 @@ const NewTest = () => {
               errorText="Introduce al menos un apellido"
               onInput={inputHandler}
             />
-            <InputForTest
-            element="textarea"
-            id="testName"
-            type="text"
-            label="Test Name"
-            validators={[VALIDATOR_REQUIRE()]}
-            errorText="Introduce al menos un apellido"
-            onInput={inputHandler}
-          />
-
           </div>
           <div>
+          <Button
+          onClick={() => {
+            console.log(question);
+            
+          }}
+        >
+          VER <FontAwesomeIcon icon={faPaperPlane} />
+        </Button>
             <Button
-            disabled={!question.length <4}
+              disabled={disabledSentButton}
               onClick={() => {
                 submitThisTest();
               }}
@@ -482,6 +599,17 @@ const NewTest = () => {
               ENVIAR <FontAwesomeIcon icon={faPaperPlane} />
             </Button>
           </div>
+        </div>
+        <div className="col-10 col-md-6 danger-zone">
+          <Button
+            danger
+            onClick={() => {
+              ls.remove("questions");
+              ClearFormState();
+            }}
+          >
+            clear all
+          </Button>
         </div>
       </div>
     </React.Fragment>

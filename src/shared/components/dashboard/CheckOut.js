@@ -1,26 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../context/auth-context";
+import Button from "../../UIElements/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
+import { useHistory } from "react-router-dom";
+import TimeClock from "../UIElements/Time-Clock";
 // import { useHistory } from "react-router-dom";
 // import PropTypes from "prop-types";
 // import { connect } from "react-redux";
 // import { logoutUser } from "../../actions/authActions";
 // import LoadingSpinner from "../UIElements/LoadingSpinner";
 
-const CheckOut = (props) => {
-  const onLogoutClick = (e) => {
-    e.preventDefault();
-    props.logoutUser();
-  };
-
-  const [isLogged, setIsLogged] = useState(false);
-  const [userName, setUserName] = useState();
+const CheckOut = () => {
+  const auth = useContext(AuthContext);
+  const history = useHistory();
+  // const [isLogged, setIsLogged] = useState(false);
+  // const [userName, setUserName] = useState();
   // const history = useHistory();
 
-  useEffect(() => {
-    props.auth.isAuthenticated ? setIsLogged(true) : setIsLogged(false);
-    props.auth.isAuthenticated
-      ? setUserName(props.auth.user.name.firstName)
-      : setUserName();
-  }, [props]);
+  // useEffect(() => {
+  //   auth.userId ? setIsLogged(true) : setIsLogged(false);
+  //   auth.userId ? setUserName(auth.userName) : setUserName();
+  // }, [auth]);
 
   return (
     <React.Fragment>
@@ -44,7 +45,7 @@ const CheckOut = (props) => {
               </span>
             </div>
             <h4>
-              <b className="navThing">Gracias,</b> {userName}
+              <b className="navThing">Gracias,</b> {auth.userName}
               <span role="img" aria-label="thumb-up">
                 {" "}
                 👍
@@ -62,20 +63,31 @@ const CheckOut = (props) => {
                 Revisa tu correo.{" "}
               </p>
             </h4>
+            <TimeClock />
           </div>
         </div>
-        <div className="col-12 col-lg-4 col-md-6 col-sm-8 mr-auto ml-auto mt-5">
-          <button
-            style={{
-              borderRadius: "3px",
-              letterSpacing: "1.5px",
-              marginTop: "10rem",
-            }}
-            onClick={onLogoutClick}
-            className="btn btn-large nextBtn col-10"
-          >
-            Salir
-          </button>
+        <div className="col-12 col-lg-4 col-md-6 col-sm-8 mr-auto ml-auto mt-5 row d-flex justify-content-around">
+          <div className="col-6">
+            {" "}
+            <Button
+              onClick={() => {
+                history.push("/dashboard");
+              }}
+              size={'small'}
+              inverse
+            >
+              <FontAwesomeIcon icon={faUndoAlt} /> Regresar
+            </Button>
+          </div>
+          <div className="col-6">
+            {" "}
+            <Button
+              onClick={() => auth.logout()}
+              size={'small'}
+            >
+              Salir
+            </Button>
+          </div>
         </div>
       </div>
     </React.Fragment>

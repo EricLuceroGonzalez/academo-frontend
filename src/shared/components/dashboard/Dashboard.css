@@ -20,7 +20,7 @@
   margin: 0.75rem auto;
 }
 
-h4{
+.dashboard-title {
   color: var(--color-green);
   font-size: 2rem;
   border-bottom: 2px solid var(--color-fg);

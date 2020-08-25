@@ -4,6 +4,8 @@ import MiniSpinner from "../../UIElements/MiniSpinner";
 import "./SurveyResults.css";
 import { useHttpClient } from "../../hooks/http-hook";
 import PieChart from "./PieChart";
+import LoadingSpinner from "../UIElements/LoadingSpinner";
+import ErrorModal from "../../UIElements/ErrorModal";
 
 const SurveyResults = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -272,9 +274,14 @@ const SurveyResults = () => {
     return aCount.get(variable);
   };
 
+  const clearHandler = () => {
+    clearError();
+  };
   return (
     <React.Fragment>
       <div className="surveyBox">
+        <ErrorModal error={error} onClear={clearHandler} />
+        {isLoading && <LoadingSpinner asOverlay />}
         <h1>Resultados</h1>
         <div className="col-12 dashboard-content date-format">
           {time ? time : <MiniSpinner />}

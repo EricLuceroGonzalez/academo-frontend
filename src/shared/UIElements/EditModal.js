@@ -14,6 +14,7 @@ import { VALIDATOR_MINLENGTH, VALIDATOR_EMAIL } from "../utils/validators";
 import { useHttpClient } from "../hooks/http-hook";
 import LoadingSpinner from "./LoadingSpinner";
 import "./EditModal.css";
+import ErrorModal from "./ErrorModal";
 
 const EditModal = (props) => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -89,6 +90,9 @@ const EditModal = (props) => {
       setDisableButton(true);
     } catch (err) {}
   };
+  const clearHandle =() => {
+    clearError()
+  }
 
   return (
     <Modal
@@ -114,6 +118,7 @@ const EditModal = (props) => {
         </div>
       }
     >
+    <ErrorModal error={error} onClear={clearHandle}/>
       {isLoading && <LoadingSpinner asOverlay />}
       {!isLoading && loadedUser && (
         <div className='col-12 col-sm-8 col-md-4'>

@@ -1,11 +1,43 @@
+:root {
+  --color-fg: #7d64ff;
+  --color-hover: #4934b3;
+  --color-peach: #ff8f7d;
+  --color-yellow: #ffe94a;
+  --color-green: #57ffb3;
+}
+
 .loading {
   /* height: 150vh; */
   width: 100vw;
-  border: 20x solid red;
+  border: 10px solid salmon;
 }
 
 .loaded {
-  height: 120%;
+  padding: 3rem 0 8rem 0;
+  height: 99vh;
   width: 100vw;
-  border: 2x solid red;
+}
+
+.course-name {
+  text-shadow:0px 2px 2px hsla(0, 0%, 0%, 0.2);
+ font-family: Montserrat-ExtraBold;
+  color: var(--color-fg);
+}
+.time-text{
+  color: var(--color-peach);
+  font-family: Montserrat-ExtraBold;
+  text-align: center;
+  font-size: 0.75em;
+}
+
+.test-username{
+  text-shadow:0px 2px 2px hsla(0, 0%, 0%, 0.2);
+  font-family: Montserrat-ExtraBold;
+   color: var(--color-hover);
+}
+
+.button-box{
+  position: fixed;
+  left: 7px;
+  bottom: 50px;
 }

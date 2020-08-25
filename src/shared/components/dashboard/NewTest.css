@@ -21,14 +21,14 @@
   background-color: var(--color-yellow);
 }
 .newTest-view {
-  background-color: gray;
+  background-color: gainsboro;
   min-height: 100vh;
   padding: 10% 0;
 }
 
 .newQuestion-box {
   margin: 100px auto;
-  padding: 3rem 3rem;
+  padding: 3rem 10px;
   width: 90%;
   background-color: gainsboro;
 }
@@ -58,4 +58,24 @@ h5 {
   color: var(--color-hover);
   border: 1px solid red;
   max-width: 100px;
+}
+.good-check{
+  color: var(--color-green);
+}
+
+.green-text {
+  font-size: 2rem;
+  color: var(--color-green);
+  font-family: Montserrat-Bold;
+}
+
+.red-text {
+  font-size: 2rem;
+  color: var(--color-peach);
+  font-family: Montserrat-Bold;
+}
+.danger-zone{
+  margin:15rem auto 2rem auto;
+  padding: 2rem 3rem;
+  border: 1px solid #830000;
 }

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Button, Spinner } from "reactstrap";
+import React, { useEffect, useState, useContext } from "react";
 // import { connect } from "react-redux";
 // import { logoutUser } from "../../actions/authActions";
 import LoadingSpinner from "../UIElements/LoadingSpinner";
@@ -7,44 +6,54 @@ import LoadingSpinner from "../UIElements/LoadingSpinner";
 import CheckItems from "../dashboard/CheckItems";
 import { InlineMath, BlockMath } from "react-katex";
 import { useHistory } from "react-router-dom";
+import { AuthContext } from "../../context/auth-context";
+import { useHttpClient } from "../../hooks/http-hook";
+import ErrorModal from "../../UIElements/ErrorModal";
+import "./Test.css";
+import Button from "../../UIElements/Button";
+import TimeClock from "../UIElements/Time-Clock";
 
 const TallerComponent = (props) => {
-  const [author, setAuthor] = useState();
-  const [authorId, setAuthorId] = useState();
+  const auth = useContext(AuthContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [test, setTest] = useState("");
-  const [allAns, setAllAns] = useState([]);
+  const [badAns, setBadAns] = useState([]);
+  const [badQuest, setBadQuest] = useState([]);
   const [goodAns, setGoodAns] = useState([]);
   const [goodQuest, setGoodQuest] = useState([]);
-  const [allQuest, setAllQuest] = useState([]);
+
   const [allPts, setAllPts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
 
   useEffect(() => {
-    setAuthorId(props.auth.user.id);
-    setAuthor(props.auth.user.name);
-
     const getTest = async () => {
-      // console.log("here");
-
       try {
-        // const data = await theApi.getATest(props.match.params.id);
-        // setIsLoading(false);
-        // setTest(data.data.test);
-      } catch (err) {
-        setIsLoading(false);
-      }
+        const data = await sendRequest(
+          `${process.env.REACT_APP_BACKEND_URL}/test/getATest/${props.match.params.id}`,
+          "GET"
+        );
+        setTest(data.test);
+      } catch (err) {}
     };
     getTest();
-  }, [props]);
+  }, [sendRequest, auth.userId, props.match.params]);
 
+  // useEffect(() => {
+  //   allPts.map((item, k) => {
+  //     if (typeof item === "undefined") {
+  //       item = 0;
+  //     }
+  //   });
+  // }, [allPts]);
   const renderInstrucciones = () => {
     if (!test) {
-      return <Spinner color="primary" />;
+      return <div>...</div>;
     } else {
       return (
-        <div className="instrucciones col-12 col-lg-6 col-md-10 mr-auto ml-auto">
-          {test.instructions}
+        <div className="col-8 col-md-4 instruct-box">
+          <div className="instrucciones-label col-4">Instrucciones</div>
+          <div>{test.instructions}</div>
           <p className="shakeThatThing ">
             <span role="img" aria-label="star-dust">
               {" "}
@@ -73,6 +82,7 @@ const TallerComponent = (props) => {
 
   const setSelectedAnswer = async (question, selection, theAnswer) => {
     await test.questions.map((item, k) => {
+      // find that question on test array
       if (item.questionName === question && theAnswer === selection) {
         // Save the answer and question
         const newQuest = [...goodQuest, question];
@@ -89,11 +99,11 @@ const TallerComponent = (props) => {
           return "";
         });
       } else if (item.questionName === question && theAnswer !== selection) {
-        const newQuest = [...allQuest, question];
-        const newAns = [...allAns, selection];
+        const newQuest = [...badQuest, question];
+        const newAns = [...badAns, selection];
         updatePts(0, k);
-        setAllAns(newAns);
-        setAllQuest(newQuest);
+        setBadAns(newAns);
+        setBadQuest(newQuest);
         test.questions.map((item, ii) => {
           if (ii === k) {
             test.questions[k].pts = 0;
@@ -107,8 +117,14 @@ const TallerComponent = (props) => {
 
   const renderPuntaje = () => {
     var acumPts = 0;
+
     test.questions.map((item) => {
-      acumPts = acumPts + item.pts;
+      if (item.pts !== item.value && item.pts !== 0) {
+      } else if (item.pts !== item.value && item.pts === 0) {
+        acumPts = acumPts + 0;
+      } else {
+        acumPts = acumPts + item.pts;
+      }
       return acumPts;
     });
     return acumPts;
@@ -154,71 +170,65 @@ const TallerComponent = (props) => {
 
   const sendForm = async () => {
     let puntos = renderPuntaje();
-    let sumPts = [];
-    sumPts = test.questions.map((val, i) => (sumPts = val.value));
-    let puntaje = sumPts.reduce((a, b) => {
-      return a + b;
-    });
 
-    let grade = ((puntos / puntaje) * 100).toFixed(2);
-
-    try {
-      setIsLoading(true);
-      // await theApi.postExam({
-      //   theName: author,
-      //   theId: authorId,
-      //   totalPts: puntaje,
-      //   testId: test._id,
-      //   testName: test.testName,
-      //   grade: grade,
-      //   allAns: allAns,
-      //   allPts: allPts,
-      //   ansQuest: allQuest,
-      //   goodAns: goodAns,
-      //   goodQuest: goodQuest,
-      // });
-      setIsLoading(false);
-      history.push({
-        pathname: "/checkOut",
+    if (allPts.includes(undefined)) {
+      setErrorMessage("Hay respuestas sin marcar.");
+      return;
+    } else {
+      let sumPts = [];
+      sumPts = test.questions.map((val, i) => (sumPts = val.value));
+      let puntaje = sumPts.reduce((a, b) => {
+        return a + b;
       });
-    } catch (err) {
-      setIsLoading(false);
+      let grade = ((puntos / puntaje) * 100).toFixed(2);
+      try {
+        const testInfo = {
+          theId: auth.userId,
+          totalPts: puntaje,
+          testId: test._id,
+          testName: test.testName,
+          grade: grade,
+          allPts: allPts,
+          badAns: badAns,
+          badQuest: badQuest,
+          goodAns: goodAns,
+          goodQuest: goodQuest,
+        };
+        await sendRequest(
+          process.env.REACT_APP_BACKEND_URL + "/test/test",
+          "POST",
+          JSON.stringify(testInfo),
+          { "Content-Type": "application/json" }
+        );
+        history.push("/checkOut");
+      } catch (err) {}
     }
+  };
+  const errorHandle = () => {
+    setErrorMessage("");
+    clearError();
   };
 
   return (
     <React.Fragment>
+      <div className="pb-2 col-12 test-header">
       {isLoading && <LoadingSpinner asOverlay />}
-      <div
-        style={{
-          margin: "0px auto 35px auto",
-          padding: "55px 0px",
-          height: "100%",
-        }}
-        className="pb-2 col-10"
-      >
-        <h3 className="theTitle">
+      <ErrorModal error={error || errorMessage} onClear={errorHandle} />
+        <h4 className="header-title">
           {test ? test.testName : "cargando titulo..."}{" "}
-        </h3>
-
+        </h4>
+        <TimeClock />
         {renderInstrucciones()}
-        <p className="theTitle mt-4">
-          <b>Estudiante: </b>
-          {!author ? "..." : `${author.firstName} ${author.lastName}`}
-        </p>
+        <h6 className="col-8 col-md-4 test-userName">{auth.userName}</h6>
 
-        <div>{renderCheckQuestions()}</div>
+        <div className='col-12'>{renderCheckQuestions()}</div>
 
-        <Button
-          className="col-8 col-md-4 ml-auto mr-auto nextBtn mb-4"
-          onClick={sendForm}
-        >
+        <Button onClick={sendForm}>
           ENVIAR
           <span role="img" aria-label="star-dust">
             {" "}
             🚀
           </span>{" "}
-          {!isLoading ? "" : <Spinner type="grow" color="warning" />}
         </Button>
       </div>
     </React.Fragment>

@@ -12,7 +12,7 @@ const ShowTestDone = (props) => {
   return (
     <React.Fragment>
       <span className={`dot ${isDone ? "dot-ok" : "dot-no"}`}></span>
-      {!isDone ? " " : `Nota:  ${grade}`}
+      <span className='testDone-grade'>{!isDone ? " " : `Nota:  ${grade}`}</span>
     </React.Fragment>
   );
 };

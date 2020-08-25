@@ -1,11 +1,10 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "katex/dist/katex.min.css";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
 } from "react-router-dom";
 
 import { AuthContext } from "./shared/context/auth-context";
@@ -46,6 +45,9 @@ const SurveyResults = React.lazy(() =>
 const NewTest = React.lazy(() =>
   import("./shared/components/dashboard/NewTest")
 );
+const CourseDashboard = React.lazy(() =>
+  import("./shared/components/dashboard/Course")
+);
 
 // const AllGrades = React.lazy(() =>
 //   import("./shared/components/dashboard/AllGrades")
@@ -58,29 +60,32 @@ function App() {
     routes = (
       <Switch>
         {userId === process.env.REACT_APP_DB_id ? (
-            <Route exact path="/survey">
-              <SurveyResults />
-            </Route>
+          <Route exact path="/survey">
+            <SurveyResults />
+          </Route>
         ) : (
           ""
         )}
 
         {userId === process.env.REACT_APP_DB_id ? (
           <Route exact path="/newTest">
-          <NewTest />
-        </Route>) : ('')
-      }
+            <NewTest />
+          </Route>
+        ) : (
+          ""
+        )}
 
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/encuesta" component={Survey} />
+        <Route exact path="/talleres" component={CourseDashboard} />
         <Route exact path="/taller/:Taller/:id" component={TallerComponent} />
         <Route exact path="/checkOut" component={CheckOut}></Route>
         <Route exact path="/checkError" component={CheckError}></Route>
         <Route exact path="/notas" component={TableOfGrades}></Route>
         <Route path="/about" component={About} />
         <Route path="/login" component={Auth} />
-        <Route exact path="/" component={About} />
-        <Redirect component={NotFound}></Redirect>
+        <Route exact path="/" component={NewTest} />
+        <Route path="/notFound" component={NotFound} />
       </Switch>
     );
   } else {
@@ -89,7 +94,7 @@ function App() {
         <Route exact path="/" component={About} />
         <Route path="/login" component={Auth} />
         <Route path="/about" component={About} />
-        <Redirect to={NotFound}></Redirect>
+        <Route path="/notFound" component={NotFound} />
       </Switch>
     );
   }

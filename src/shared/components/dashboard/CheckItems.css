@@ -1,0 +1,126 @@
+:root {
+  --color-fg: #7d64ff;
+  --color-hover: #4934b3;
+  --color-peach: #ff8f7d;
+  --color-yellow: #ffe94a;
+  --color-green: #57ffb3;
+}
+
+.checkBox {
+  background-color: whitesmoke;
+  box-shadow: 0 3px 6px 0 hsla(0, 0%, 0%, 0.4);
+  margin: 2rem auto;
+  padding: 0 0 1rem 0;
+}
+.point-box {
+  box-shadow: 0 1px 2px 0 hsla(0, 0%, 0%, 0.1);
+  background-color: var(--color-yellow);
+  color: var(--color-fg);
+  margin-bottom: 12px;
+  font-family: Montserrat-ExtraBold;
+  vertical-align: middle;
+  padding: 0.7rem 0.5rem;
+  font-size: 0.65em;
+  top: 0px;
+  right: 0px;
+}
+
+.number-box {
+  box-shadow: 0 1px 2px 0 hsla(0, 0%, 0%, 0.1);
+  background-color: var(--color-green);
+  color: var(--color-fg);
+  margin-bottom: 12px;
+  font-family: Montserrat-ExtraBold;
+  padding: 0.7rem 0.4rem;
+  font-size: 0.95em;
+  top: 0px;
+  left: 0px;
+}
+.topBar {
+  margin: 0;
+  top: 0px;
+  padding: 0;
+}
+
+.checkItem-question {
+  color: var(--color-hover);
+  font-size: 1.25em;
+  font-family: Montserrat-Bold;
+  margin: 1.25rem 0;
+}
+.question-number {
+  font-family: Montserrat-ExtraBold;
+  color: var(--color-peach);
+  font-size: 1.25em;
+}
+
+.checkItem-option {
+  color: var(--color-fg);
+  margin: 1rem 0;
+  /* font-size: 1.15em; */
+  font-family: Montserrat-Bold;
+}
+
+.checkItem-option:hover {
+  color: var(--color-peach);
+  font-size: 1.15em;
+  font-family: Montserrat-Bold;
+  transition: font-size 0.2s ease-in-out;
+}
+.checkItem-option-box {
+  padding: 1rem 0;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px 0 hsla(0, 0%, 0%, 0.2);
+  border: 1px solid hsla(0, 0%, 0%, 0.08);
+  /* padding: 3px 2rem; */
+  width: 100%;
+}
+
+input:checked {
+  transform: scale(2);
+  color: red;
+  border: 1px solid pink;
+  background-color: royalblue;
+}
+
+/* CUSTOM RADIO & CHECKBOXES
+   http://stackoverflow.com/a/17541916/383904 */
+.rad {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  margin: 0.4rem auto;
+}
+.rad > input {
+  /* HIDE ORG RADIO & CHECKBOX */
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+/* RADIO & CHECKBOX STYLES */
+/* DEFAULT <i> STYLE */
+.rad > i {
+  margin-right: 1rem;
+  display: inline-block;
+  vertical-align: middle;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transition: 0.2s;
+  box-shadow: inset 0 0 0 8px var(--color-fg);
+  border: 1px solid var(--color-green);
+  background: var(--color-fg);
+}
+.rad:hover > i {
+  /* HOVER <i> STYLE */
+  box-shadow: inset 0 0 0 3px #fff;
+  background: var(--color-green);
+  transform: scale(1.6);
+}
+.rad > input:checked + i {
+  /* (RADIO CHECKED) <i> STYLE */
+  box-shadow: inset 0 0 0 3px #fff;
+  background: var(--color-peach);
+}

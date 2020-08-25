@@ -1,9 +1,54 @@
-.done {
-  font-family: monospace;
-  color: white;
-  font-size: 0.7em;
+:root {
+  --color-fg: #7d64ff;
+  --color-hover: #4934b3;
+  --color-peach: #ff8f7d;
+  --color-yellow: #ffe94a;
+  --color-green: #57ffb3;
 }
 
+.test-header {
+  margin: 0 auto 3rem 0;
+  padding: 2rem 0;
+}
+.instrucciones-label{
+  box-shadow: 0 1px 2px 0 hsla(0, 0%, 0%, 0.1);
+  background-color: var(--color-peach);
+  color: var(--color-yellow);
+  padding: 0.3rem 1rem;
+  margin-bottom: 12px;
+  font-family: Montserrat-ExtraBold;
+  font-size: 0.65em;
+  top: 0px;
+  right: 0px;
+}
+.header-title {
+  font-size: 2rem;
+  color: var(--color-hover);
+  text-transform: uppercase;
+  font-family: Montserrat-ExtraBold;
+}
+
+.test-userName {
+  font-size: 1.3rem;
+  margin: 0.3rem auto 4rem auto;
+  color: var(--color-fg);
+  padding: 1rem 0.5rem;
+  background-color: var(--color-green);
+  font-family: Montserrat-ExtraBold;
+}
+
+.instruct-box {
+  margin: 2rem auto;
+  padding:0 0.5rem 1rem 0;
+  color: var(--color-hover);
+  font-family: Montserrat-Bold;
+  background-color: var(--color-yellow);
+}
+/* .done-date {
+  font-family: Montserrat-Medium;
+  color: white;
+  font-size: 0.75em;
+}
 
 .dot {
   height: 8px;
@@ -12,22 +57,30 @@
   border-radius: 50%;
   display: inline-block;
   vertical-align: middle;
-}                                                       
+}
 
 .dot-ok {
-  background-color: rgb(40, 210, 105);
+  background-color: var(--color-green);
 }
 
 .dot-no {
-  background-color: rgb(241, 68, 68);
+  background-color: var(--color-yellow);
 }
 
-.pts{
-  background-color: rgba(116, 35, 153,0.65);
+.test-title {
+  margin: 1rem auto;
+  font-family: Montserrat-ExtraBold;
+}
+.test-content {
+  font-family: Montserrat-Medium;
+} */
+
+/* .pts {
+  background-color: rgba(116, 35, 153, 0.65);
   margin-bottom: 12px;
   font-family: Montserrat-ExtraBold;
   color: white;
   font-size: 0.5em;
   top: 0px;
   right: 0px;
-}
+} */

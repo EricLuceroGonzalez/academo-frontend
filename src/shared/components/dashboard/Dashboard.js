@@ -36,12 +36,17 @@ const Dashboard = (props) => {
     moment.locale("es");
 
     const requestUser = async () => {
-      const userRequest = await sendRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/user/info/${auth.userId}`,
-        "GET"
-      );
+      try {
+        const userRequest = await sendRequest(
+          `${process.env.REACT_APP_BACKEND_URL}/user/info/${auth.userId}`,
+          "GET"
+        );
+        console.log(userRequest);
 
-      setUserInfo(userRequest);
+        setUserInfo(userRequest);
+      } catch (err) {
+        console.log(`Error: ${err}`);
+      }
     };
     if (isMounted) {
       requestUser();
@@ -83,7 +88,7 @@ const Dashboard = (props) => {
         request={editInfo}
       />
       <div className="dashboard-container">
-        <h4>Dashboard</h4>
+        <h4 className="dashboard-title">Dashboard</h4>
         <div className="col-12 dashboard-content">
           Usuario:{" "}
           <span>
@@ -127,12 +132,6 @@ const Dashboard = (props) => {
             )}
           </span>
         </div>
-        <div className="col-12 dashboard-content">
-          Talleres realizados: <span className="date-format">(?/3)</span>
-        </div>
-        <div className="col-12 dashboard-content">
-          Exámenes realizados: <span className="date-format">(?/3)</span>
-        </div>
         {!userInfo.submitSurvey && (
           <React.Fragment>
             <div className="row d-flex col-12 col-md-6 survey-box">
@@ -162,11 +161,9 @@ const Dashboard = (props) => {
               <Button
                 size={"small"}
                 inverse
-                onClick={() =>
-                  setErrorMsg("Por el momento no hay actividades.")
-                }
+                onClick={() => history.push("/talleres")}
               >
-                Ir a exámenes
+                Ir a los talleres
               </Button>
             </div>
             <div className="col-12 mt-2">
@@ -177,7 +174,7 @@ const Dashboard = (props) => {
                   setErrorMsg("Por el momento no hay actividades.")
                 }
               >
-                Ir a los talleres
+                Ir a exámenes
               </Button>
             </div>
             <div className="col-12 mt-2">
@@ -196,27 +193,27 @@ const Dashboard = (props) => {
 
         {auth.userId === process.env.REACT_APP_DB_id && (
           <React.Fragment>
-          <div className="col-12 mt-3">
-            <Button
-              size={"small"}
-              secondary
-              onClick={() => history.push("/survey")}
-            >
-              Encuesta <FontAwesomeIcon icon={faPoll} />
-            </Button>
-          </div>
-          <div className="col-12 mt-3">
-            <Button
-              size={"small"}
-              inverse
-              onClick={() => history.push("/newTest")}
-            >
-              Nuevo <FontAwesomeIcon icon={faPlusCircle} />
-            </Button>
-          </div>
+            <div className="col-12 mt-3">
+              <Button
+                size={"small"}
+                secondary
+                onClick={() => history.push("/survey")}
+              >
+                Encuesta <FontAwesomeIcon icon={faPoll} />
+              </Button>
+            </div>
+            <div className="col-12 mt-3">
+              <Button
+                size={"small"}
+                inverse
+                onClick={() => history.push("/newTest")}
+              >
+                Nuevo <FontAwesomeIcon icon={faPlusCircle} />
+              </Button>
+            </div>
           </React.Fragment>
         )}
-        
+
         <div className="col-12 mt-3">
           <Button size={"small"} secondary onClick={editShow}>
             Editar <FontAwesomeIcon icon={faUserEdit} />

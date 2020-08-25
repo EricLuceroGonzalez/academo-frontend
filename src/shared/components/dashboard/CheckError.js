@@ -1,20 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { AuthContext } from "../../context/auth-context";
 // import PropTypes from "prop-types";
 // import { connect } from "react-redux";
 // import { logoutUser } from "../../actions/authActions";
 
 const CheckError = (props) => {
-  const [isLogged, setIsLogged] = useState(false);
-  const [userName, setUserName] = useState();
+  const auth = useContext(AuthContext);
   const history = useHistory();
-
-  useEffect(() => {
-    props.auth.isAuthenticated ? setIsLogged(true) : setIsLogged(false);
-    props.auth.isAuthenticated
-      ? setUserName(props.auth.user.name.firstName)
-      : setUserName();
-  }, [props]);
 
   const onLogoutClick = (e) => {
     e.preventDefault();
@@ -42,7 +35,7 @@ const CheckError = (props) => {
               </span>
             </div>
             <div>
-              <b className="navThing">Lo sentimos,</b> {userName}
+              <b className="navThing">Lo sentimos,</b> {auth.userName}
               <p className="flow-text grey-text text-darken-1">
                 Hay un error, vuelve a hacer la prueba.{" "}
               </p>

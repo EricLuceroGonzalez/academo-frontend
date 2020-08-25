@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCodeBranch, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faCodeBranch } from "@fortawesome/free-solid-svg-icons";
 
 import "./Footer.css";
 
