@@ -84,7 +84,7 @@ function App() {
         <Route exact path="/notas" component={TableOfGrades}></Route>
         <Route path="/about" component={About} />
         <Route path="/login" component={Auth} />
-        <Route exact path="/" component={NewTest} />
+        <Route exact path="/" component={Auth} />
         <Route path="/notFound" component={NotFound} />
       </Switch>
     );
