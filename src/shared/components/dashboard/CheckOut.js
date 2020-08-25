@@ -4,7 +4,7 @@ import Button from "../../UIElements/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
-import TimeClock from "../UIElements/Time-Clock";
+import TimeClock from "../../UIElements/Time-Clock";
 // import { useHistory } from "react-router-dom";
 // import PropTypes from "prop-types";
 // import { connect } from "react-redux";

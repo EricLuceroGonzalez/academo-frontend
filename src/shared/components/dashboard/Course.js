@@ -9,7 +9,7 @@ import MiniSpinner from "../../UIElements/MiniSpinner";
 import LoadingSpinner from "../UIElements/LoadingSpinner";
 import Button from "../../UIElements/Button";
 import TestsComponent from "../Courses/TestsComponent";
-import TimeClock from "../UIElements/Time-Clock";
+import TimeClock from "../../UIElements/Time-Clock";
 import "./Course.css";
 const CourseDashboard = () => {
   const auth = useContext(AuthContext);
@@ -92,7 +92,7 @@ console.log(theData);
     <React.Fragment>
       <ErrorModal error={error} onClear={errorHandler} />
       {isLoading && <LoadingSpinner asOverlay />}
-      <div className="loaded">
+      <div className="col-12 loaded">
         {!isLoading && (
           <div className="mr-auto ml-auto">
             <h4 className="course-name">{courses}</h4>

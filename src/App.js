@@ -1,11 +1,7 @@
 import React, { Suspense } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "katex/dist/katex.min.css";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from "./shared/hooks/auth-hook";
@@ -21,9 +17,11 @@ import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
 import Auth from "./auth/Auth";
 
 const Survey = React.lazy(() => import("./shared/components/dashboard/Survey"));
+ 
 const TallerComponent = React.lazy(() =>
   import("./shared/components/Courses/TallerComponent")
 );
+
 const Dashboard = React.lazy(() =>
   import("./shared/components/dashboard/Dashboard")
 );
@@ -95,6 +93,7 @@ function App() {
         <Route path="/login" component={Auth} />
         <Route path="/about" component={About} />
         <Route path="/notFound" component={NotFound} />
+        <Redirect to='/'></Redirect>
       </Switch>
     );
   }

@@ -11,7 +11,7 @@ import { useHttpClient } from "../../hooks/http-hook";
 import ErrorModal from "../../UIElements/ErrorModal";
 import "./Test.css";
 import Button from "../../UIElements/Button";
-import TimeClock from "../UIElements/Time-Clock";
+import TimeClock from '../../UIElements/Time-Clock';
 
 const TallerComponent = (props) => {
   const auth = useContext(AuthContext);
@@ -51,15 +51,10 @@ const TallerComponent = (props) => {
       return <div>...</div>;
     } else {
       return (
-        <div className="col-8 col-md-4 instruct-box">
+        <div className="col-10 col-md-4 instruct-box">
           <div className="instrucciones-label col-4">Instrucciones</div>
-          <div>{test.instructions}</div>
-          <p className="shakeThatThing ">
-            <span role="img" aria-label="star-dust">
-              {" "}
-              🚀
-            </span>
-          </p>
+          <div className='col-10 mr-auto ml-auto'>{test.instructions}
+            </div>
         </div>
       );
     }

@@ -14,7 +14,7 @@
   box-shadow: 0 1px 2px 0 hsla(0, 0%, 0%, 0.1);
   background-color: var(--color-peach);
   color: var(--color-yellow);
-  padding: 0.3rem 1rem;
+  padding: 0.3rem 10px;
   margin-bottom: 12px;
   font-family: Montserrat-ExtraBold;
   font-size: 0.65em;
@@ -41,8 +41,11 @@
   margin: 2rem auto;
   padding:0 0.5rem 1rem 0;
   color: var(--color-hover);
-  font-family: Montserrat-Bold;
+  font-family: Montserrat-Medium;
+  font-weight: 500;
+  text-align: justify;
   background-color: var(--color-yellow);
+  font-size: 0.75em;
 }
 /* .done-date {
   font-family: Montserrat-Medium;

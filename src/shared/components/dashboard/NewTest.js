@@ -17,7 +17,7 @@ import CheckItems from "./CheckItems";
 import { useHttpClient } from "../../hooks/http-hook";
 import LoadingSpinner from "../UIElements/LoadingSpinner";
 import ErrorModal from "../../UIElements/ErrorModal";
-import "../UIElements/CheckBox.css";
+import "../../UIElements/CheckBox.css";
 import "./NewTest.css";
 
 const NewTest = () => {
