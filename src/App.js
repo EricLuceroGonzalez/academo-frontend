@@ -13,7 +13,7 @@ import About from "./shared/components/layout/About";
 import NotFound from "./shared/components/layout/NotFount";
 import "./App.css";
 // import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
-import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
+import LoadingSpinner from "./shared/UIElements/LoadingSpinner";
 import Auth from "./auth/Auth";
 
 const Survey = React.lazy(() => import("./shared/components/dashboard/Survey"));

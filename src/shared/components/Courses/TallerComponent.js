@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 // import { connect } from "react-redux";
 // import { logoutUser } from "../../actions/authActions";
-import LoadingSpinner from "../UIElements/LoadingSpinner";
+import LoadingSpinner from "../../UIElements/LoadingSpinner";
 // import CheckItems from "./CheckItems";
 import CheckItems from "../dashboard/CheckItems";
 import { InlineMath, BlockMath } from "react-katex";
@@ -9,9 +9,9 @@ import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/auth-context";
 import { useHttpClient } from "../../hooks/http-hook";
 import ErrorModal from "../../UIElements/ErrorModal";
-import "./Test.css";
 import Button from "../../UIElements/Button";
 import TimeClock from '../../UIElements/Time-Clock';
+import "./Test.css";
 
 const TallerComponent = (props) => {
   const auth = useContext(AuthContext);

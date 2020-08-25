@@ -4,7 +4,7 @@ import MiniSpinner from "../../UIElements/MiniSpinner";
 import "./SurveyResults.css";
 import { useHttpClient } from "../../hooks/http-hook";
 import PieChart from "./PieChart";
-import LoadingSpinner from "../UIElements/LoadingSpinner";
+import LoadingSpinner from "../../UIElements/LoadingSpinner";
 import ErrorModal from "../../UIElements/ErrorModal";
 
 const SurveyResults = () => {

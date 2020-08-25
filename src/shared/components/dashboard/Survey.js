@@ -13,7 +13,7 @@ import ErrorModal from "../../UIElements/ErrorModal";
 import { useAuth } from "../../hooks/auth-hook";
 import { AuthContext } from "../../context/auth-context";
 import { useHistory } from "react-router-dom";
-import LoadingSpinner from "../UIElements/LoadingSpinner";
+import LoadingSpinner from "../../UIElements/LoadingSpinner";
 
 const Survey = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();

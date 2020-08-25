@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/auth-context";
 import { useHttpClient } from "../../hooks/http-hook";
 import ErrorModal from "../../UIElements/ErrorModal";
 import MiniSpinner from "../../UIElements/MiniSpinner";
-import LoadingSpinner from "../UIElements/LoadingSpinner";
+import LoadingSpinner from "../../UIElements/LoadingSpinner";
 import Button from "../../UIElements/Button";
 import TestsComponent from "../Courses/TestsComponent";
 import TimeClock from "../../UIElements/Time-Clock";
