@@ -9,21 +9,28 @@
 }
 
 .testTable-box {
-  margin: 2em auto;
-  padding-top: 60px;
-  padding-bottom: 60px;
-  height: 100vh;
+  margin: 1rem auto 8rem auto;
+  padding: 1rem auto;
+  height: 100%;
 }
 
 .testTable-title {
-  box-shadow: 4px 4px 6px hsla(0, 0%, 0%, 0.2);
   background-color: var(--color-green);
+  box-shadow: 4px 2px 3px hsla(0, 0%, 0%, 0.1);
   font-family: Montserrat-ExtraBold;
   color: var(--color-hover);
   margin: 10px auto;
   border-radius: 50%;
-  padding: 3rem 17px;
-  width: 120px;
+  padding: 2rem 17px;
+  width: 90px;
+  animation: camaleonTitle 30s infinite ease-in-out;
+}
+
+@keyframes camaleonTitle {
+  50% {
+    background-color: var(--color-hover);
+    color: var(--color-green);
+  }
 }
 
 .testTable-all {
@@ -49,24 +56,26 @@
 .eachAnswers-row-good {
   background-color: var(--github-green);
   color: var(--color-hover);
+  font-size: 0.65rem;
 }
 
 .eachAnswers-row-bad {
   background-color: var(--github-red);
   color: var(--color-hover);
+  font-size: 0.65rem;
 }
 
 .answersTable-head {
   background-color: var(--color-hover);
   font-family: Montserrat-ExtraBold;
   color: white;
-  font-size: 0.75rem;
+  font-size: 0.5rem;
 }
 
 .answersTable-body {
   background-color: var(--color-yellow);
   color: var(--color-hover);
-  font-size: 0.75rem;
+  font-size: 0.6rem;
 }
 
 .answersTable-row {

@@ -3,7 +3,12 @@ import moment from "moment";
 // import { CSVLink } from "react-csv";
 import { InlineMath } from "react-katex";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faTimes, faCheckCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faTimes,
+  faCheckCircle,
+  faTimesCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../context/auth-context";
 import { useHttpClient } from "../../hooks/http-hook";
 import LoadingSpinner from "../../UIElements/LoadingSpinner";
@@ -53,8 +58,8 @@ const TableOfGrades = () => {
                 <tr className="answersTable-head">
                   <th> </th>
                   <th>Correctas</th>
-                  <th>Calificación</th>
-                  <th>Puntos totales</th>
+                  <th>Nota</th>
+                  <th>Puntos</th>
                   <th>Fecha</th>
                 </tr>
               </thead>
@@ -91,7 +96,7 @@ const TableOfGrades = () => {
     if (allAnswers.length > 0) {
       let thisMap = test.map((item, indx) => {
         return (
-          <div key={indx}>
+          <div key={indx} className="mt-4">
             <h4 className="eachAnswers-title">{allAnswers[indx].name}</h4>
             <table
               className="table col-12 ml-auto mr-auto table-sm table-shadow"
@@ -102,7 +107,7 @@ const TableOfGrades = () => {
                   <th></th>
                   <th>Item</th>
                   <th>Respuesta</th>
-                  <th>Puntos totales</th>
+                  <th>Puntos</th>
                 </tr>
               </thead>
               <tbody>{renderAns(indx)}</tbody>
@@ -128,7 +133,7 @@ const TableOfGrades = () => {
             <td>
               {" "}
               <FontAwesomeIcon
-                style={{ color: "#7d64ff", fontSize:'1.23rem' }}
+                style={{ color: "#7d64ff", fontSize: "1.23rem" }}
                 icon={faCheckCircle}
               ></FontAwesomeIcon>{" "}
             </td>
@@ -141,10 +146,7 @@ const TableOfGrades = () => {
             ) : (
               <td> {testAns.answers[k].text}</td>
             )}
-            <td>
-              {userPoints[k] ? userPoints[k] : "0"}{" "}
-              {userPoints[k] > 1 ? " puntos" : "punto"}
-            </td>
+            <td>{userPoints[k]}</td>
           </tr>
         );
       }
@@ -154,7 +156,7 @@ const TableOfGrades = () => {
             <td>
               {" "}
               <FontAwesomeIcon
-                style={{ color: "#7d64ff", fontSize:'1.23rem' }}
+                style={{ color: "#7d64ff", fontSize: "1.23rem" }}
                 icon={faTimesCircle}
               ></FontAwesomeIcon>{" "}
             </td>
@@ -166,18 +168,12 @@ const TableOfGrades = () => {
             ) : (
               <td> {userAnswer.shift()}</td>
             )}
-            <td>0 puntos</td>
+            <td>0</td>
           </tr>
         );
       } else {
         return (
-          <tr
-            key={k}
-            style={{
-              backgroundColor: "#ffdce0",
-              fontFamily: "Poppins-Light",
-            }}
-          >
+          <tr key={k}>
             <td>
               {" "}
               <FontAwesomeIcon
@@ -187,7 +183,7 @@ const TableOfGrades = () => {
             </td>
             <td>{k + 1}</td>
             <td> -- </td>
-            <td>0 puntos</td>
+            <td>0</td>
           </tr>
         );
       }
