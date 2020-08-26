@@ -1,0 +1,78 @@
+:root {
+  --color-fg: #7d64ff;
+  --color-hover: #4934b3;
+  --color-peach: #ff8f7d;
+  --color-yellow: #ffe94a;
+  --color-green: #57ffb3;
+  --github-red: #ffdce0;
+  --github-green: #dcffe4;
+}
+
+.testTable-box {
+  margin: 2em auto;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  height: 100vh;
+}
+
+.testTable-title {
+  box-shadow: 4px 4px 6px hsla(0, 0%, 0%, 0.2);
+  background-color: var(--color-green);
+  font-family: Montserrat-ExtraBold;
+  color: var(--color-hover);
+  margin: 10px auto;
+  border-radius: 50%;
+  padding: 3rem 17px;
+  width: 120px;
+}
+
+.testTable-all {
+  font-family: Montserrat-ExtraBold;
+}
+.testTable-each {
+  font-family: Montserrat-ExtraBold;
+  color: var(--color-hover);
+}
+
+.eachAnswers-title {
+  background-color: var(--color-hover);
+  color: white;
+  padding: 0.5rem 0;
+  border-top: 8px solid var(--color-green);
+  font-size: 1.45rem;
+}
+.eachAnswers-header {
+  background-color: var(--color-fg);
+  color: white;
+  font-size: 0.75rem;
+}
+.eachAnswers-row-good {
+  background-color: var(--github-green);
+  color: var(--color-hover);
+}
+
+.eachAnswers-row-bad {
+  background-color: var(--github-red);
+  color: var(--color-hover);
+}
+
+.answersTable-head {
+  background-color: var(--color-hover);
+  font-family: Montserrat-ExtraBold;
+  color: white;
+  font-size: 0.75rem;
+}
+
+.answersTable-body {
+  background-color: var(--color-yellow);
+  color: var(--color-hover);
+  font-size: 0.75rem;
+}
+
+.answersTable-row {
+  font-family: Montserrat-ExtraBold;
+}
+
+.table-shadow {
+  box-shadow: 0px 4px 6px hsla(0, 0%, 0%, 0.2);
+}

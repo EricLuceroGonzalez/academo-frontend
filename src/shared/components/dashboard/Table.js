@@ -1,95 +1,56 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import moment from "moment";
-import { CSVLink } from "react-csv";
-
-import { Spinner } from "reactstrap";
+// import { CSVLink } from "react-csv";
 import { InlineMath } from "react-katex";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faTimes, faCheckCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../../context/auth-context";
+import { useHttpClient } from "../../hooks/http-hook";
+import LoadingSpinner from "../../UIElements/LoadingSpinner";
+import ErrorModal from "../../UIElements/ErrorModal";
+import "./GradeTable.css";
 
-const TableOfGrades = (props) => {
+const TableOfGrades = () => {
+  const auth = useContext(AuthContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [test, setTest] = useState([]);
   const [allAnswers, setAllAnswers] = useState([]);
+  const [isMounted, setIsMounted] = useState(true);
 
   useEffect(() => {
     const getGradesData = async () => {
-      // const getData = await theApi.getUserGrades(props.auth.user.id);
-      // setTest(getData.data.testInfo);
-      // setAllAnswers(getData.data.testAnswers);
-      // console.log(getData.data);
-    };
-    getGradesData();
-  }, [props]);
+      try {
+        const userRequest = await sendRequest(
+          `${process.env.REACT_APP_BACKEND_URL}/grade/getUserGrades/${auth.userId}`,
+          "GET"
+        );
 
-  const renderCSV = () => {};
+        setTest(userRequest.testInfo);
+        setAllAnswers(userRequest.testAnswers);
+      } catch (err) {}
+    };
+
+    if (isMounted) {
+      getGradesData();
+    }
+  }, [sendRequest, auth.userId, isMounted]);
+
+  useEffect(() => {
+    return () => {
+      setIsMounted(false);
+    };
+  }, []);
+
+  // const renderCSV = () => {};
 
   const renderAnswers = () => {
-    if (test.length === 0) {
-      return (
-        <table
-          className="table table-striped col-12 ml-auto mr-auto table-sm"
-          style={{
-            backgroundColor: "rgba(225,224,227,1)",
-            fontSize: "0.65em",
-          }}
-        >
-          <thead>
-            <tr>
-              <td>
-                <Spinner
-                  className="mr-auto ml-auto"
-                  size="sm"
-                  type="grow"
-                  color="primary"
-                />
-              </td>
-              <td>
-                <Spinner
-                  className="mr-auto ml-auto"
-                  size="sm"
-                  type="grow"
-                  color="primary"
-                />
-              </td>
-              <td>
-                <Spinner
-                  className="mr-auto ml-auto"
-                  size="sm"
-                  type="grow"
-                  color="primary"
-                />
-              </td>
-              <td>
-                <Spinner
-                  className="mr-auto ml-auto"
-                  size="sm"
-                  type="grow"
-                  color="primary"
-                />
-              </td>
-            </tr>
-          </thead>
-        </table>
-      );
-    } else {
+    if (test.length > 0) {
       return (
         <React.Fragment>
           <div className="mt-5">
-            <table
-              className="table table-striped col-12 ml-auto mr-auto table-sm"
-              style={{
-                backgroundColor: "rgba(225,224,227,1)",
-                fontSize: "0.65em",
-              }}
-            >
+            <table className="table table-striped col-12 table-sm table-shadow">
               <thead>
-                <tr
-                  style={{
-                    backgroundColor: "rgba(155,74,177,1)",
-                    color: "white",
-                    fontFamily: "Montserrat-ExtraBold",
-                  }}
-                >
+                <tr className="answersTable-head">
                   <th> </th>
                   <th>Correctas</th>
                   <th>Calificación</th>
@@ -97,7 +58,7 @@ const TableOfGrades = (props) => {
                   <th>Fecha</th>
                 </tr>
               </thead>
-              <tbody>{renderAllTest()}</tbody>
+              <tbody className="answersTable-body">{renderAllTest()}</tbody>
             </table>
           </div>
         </React.Fragment>
@@ -109,14 +70,7 @@ const TableOfGrades = (props) => {
   const renderAllTest = () => {
     const array = test.map((item, i) => {
       return (
-        <tr
-          key={i}
-          style={{
-            color: "rgba(155,74,177,1)",
-            fontFamily: "Montserrat-ExtraBold",
-            fontSize: "1.15em",
-          }}
-        >
+        <tr key={i} className="answersTable-row">
           <td>{item.testName}</td>
           <td>{item.goodAns.length}</td>
           <td>{item.grade}</td>
@@ -138,28 +92,13 @@ const TableOfGrades = (props) => {
       let thisMap = test.map((item, indx) => {
         return (
           <div key={indx}>
-            <h4
-              style={{
-                marginTop: "80px",
-                fontFamily: "Poppins-ExtraBold",
-                backgroundColor: "rgba(155,74,177,0.5)",
-                color: "white",
-              }}
-            >
-              {allAnswers[indx].name}
-            </h4>
+            <h4 className="eachAnswers-title">{allAnswers[indx].name}</h4>
             <table
-              className="table table-striped col-12 ml-auto mr-auto table-sm"
+              className="table col-12 ml-auto mr-auto table-sm table-shadow"
               key={indx + 2}
             >
               <thead>
-                <tr
-                  style={{
-                    backgroundColor: "rgba(155,74,177,0.75)",
-                    color: "white",
-                    fontFamily: "Poppins-ExtraBold",
-                  }}
-                >
+                <tr className="eachAnswers-header">
                   <th></th>
                   <th>Item</th>
                   <th>Respuesta</th>
@@ -172,43 +111,6 @@ const TableOfGrades = (props) => {
         );
       });
       return thisMap;
-    } else {
-      return (
-        <div>
-          <table className="table table-striped col-12 ml-auto mr-auto table-sm">
-            <thead>
-              <tr
-                style={{
-                  backgroundColor: "rgba(155,74,177,0.75)",
-                  color: "white",
-                  fontFamily: "Poppins-ExtraBold",
-                }}
-              >
-                <th></th>
-                <th>Item</th>
-                <th>Respuesta</th>
-                <th>Puntos totales</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <Spinner className="mr-auto ml-auto" size="md" type="grow" />
-                </td>
-                <td>
-                  <Spinner className="mr-auto ml-auto" size="md" type="grow" />
-                </td>
-                <td>
-                  <Spinner className="mr-auto ml-auto" size="md" type="grow" />
-                </td>
-                <td>
-                  <Spinner className="mr-auto ml-auto" size="md" type="grow" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      );
     }
   };
 
@@ -218,22 +120,16 @@ const TableOfGrades = (props) => {
 
     testAns = allAnswers[index];
     let userPoints = test[index].allPts;
-    let userAnswer = test[index].allAns;
+    let userAnswer = test[index].badAns;
     let thisShit = testAns.answers.map((itm, k) => {
       if (userPoints[k]) {
         return (
-          <tr
-            key={k}
-            style={{
-              backgroundColor: "#dcffe4",
-              fontFamily: "Poppins-Light",
-            }}
-          >
+          <tr key={k} className="eachAnswers-row-good">
             <td>
               {" "}
               <FontAwesomeIcon
-                style={{ color: "#99ffb1" }}
-                icon={faCheck}
+                style={{ color: "#7d64ff", fontSize:'1.23rem' }}
+                icon={faCheckCircle}
               ></FontAwesomeIcon>{" "}
             </td>
             <td>{k + 1}</td>
@@ -254,18 +150,12 @@ const TableOfGrades = (props) => {
       }
       if (userPoints[k] === 0) {
         return (
-          <tr
-            key={k}
-            style={{
-              backgroundColor: "#ffdce0",
-              fontFamily: "Poppins-Light",
-            }}
-          >
+          <tr key={k} className="eachAnswers-row-bad">
             <td>
               {" "}
               <FontAwesomeIcon
-                style={{ color: "#ff99a5" }}
-                icon={faTimes}
+                style={{ color: "#7d64ff", fontSize:'1.23rem' }}
+                icon={faTimesCircle}
               ></FontAwesomeIcon>{" "}
             </td>
             <td>{k + 1}</td>
@@ -305,29 +195,19 @@ const TableOfGrades = (props) => {
     return thisShit;
   };
 
+  const clearModal = () => {
+    clearError();
+  };
   return (
-    <div
-      style={{
-        paddingTop: "60px",
-        paddingBottom: "60px",
-        height: "100%",
-      }}
-      className="container valign-wrapper"
-    >
-      <h3 className="navThing">Notas</h3>
-      <div
-        className="table-responsive ml-auto mr-auto col-12"
-        style={{ margin: "10px 5px", fontFamily: "Poppins-Light" }}
-      >
-        {renderAnswers()}
-      </div>
-      <div
-        className="table-responsive ml-auto mr-auto col-12"
-        style={{ fontSize: "0.65em" }}
-      >
+    <div className="testTable-box col-12 col-md-8 col-lg-6">
+      <ErrorModal error={error} onClear={clearModal} />
+      {isLoading && <LoadingSpinner asOverlay />}
+      <h5 className="testTable-title">Notas</h5>
+      <div className="table-responsive col-12">{renderAnswers()}</div>
+      <div className="table-responsive testTable-each col-12">
         {renderTableAnswers()}
       </div>
-      {renderCSV()}
+      {/*renderCSV()*/}
     </div>
   );
 };

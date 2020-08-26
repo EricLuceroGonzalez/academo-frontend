@@ -1,9 +1,9 @@
 :root {
   --color-fg: #7d64ff;
-  --color-hover: #4934B3;
-  --color-peach:#FF8F7D;
-  --color-yellow:#FFE94A;
-  --color-green:#57FFB3;
+  --color-hover: #4934b3;
+  --color-peach: #ff8f7d;
+  --color-yellow: #ffe94a;
+  --color-green: #57ffb3;
 }
 
 .button {
@@ -43,17 +43,27 @@
 }
 
 .button--secondary {
-  background: transparent;
-  border: 1px solid var(--color-green);
-  color: var(--color-green);
+  background: var(--color-peach);
+  color: white;
 }
 
 .button--secondary:hover,
 .button--secondary:active {
-  color:var(--color-hover);
-  background: var(--color-green);
+  color: var(--color-hover);
+  background: var(--color-peach);
 }
 
+.button--secondaryInverse {
+  border: 1px solid var(--color-peach);
+  background: transparent;
+  color: var(--color-peach);
+}
+
+.button--secondaryInverse:hover,
+.button--secondaryInverse:active {
+  color: var(--color-hover);
+  background: var(--color-peach);
+}
 
 .button--danger {
   background: #830000;

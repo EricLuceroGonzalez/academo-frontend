@@ -35,9 +35,11 @@ const Button = (props) => {
       <Link
         to={props.to}
         exact={props.exact}
-        className={`button button--${props.size || "default"} ${
-          props.inverse && "button--inverse"
-        } ${props.danger && "button--danger"}`}
+        className={`button button--${props.size || "default"} 
+        ${props.inverse && "button--inverse"}
+        ${props.secondary && "button--secondary"}
+        ${props.secondaryInverse && "button--secondaryInverse"}
+         ${props.danger && "button--danger"}`}
       >
         {props.children}
       </Link>
@@ -48,6 +50,7 @@ const Button = (props) => {
       className={`button ${props.animate} button--${props.size || "default"} ${
         props.inverse && "button--inverse"}
         ${props.secondary && "button--secondary"}
+        ${props.secondaryInverse && "button--secondaryInverse"}
        ${props.danger && "button--danger"}`}
       type={props.type}
       onClick={props.onClick}

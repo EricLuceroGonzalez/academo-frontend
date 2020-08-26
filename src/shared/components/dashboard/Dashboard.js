@@ -41,8 +41,6 @@ const Dashboard = (props) => {
           `${process.env.REACT_APP_BACKEND_URL}/user/info/${auth.userId}`,
           "GET"
         );
-        console.log(userRequest);
-
         setUserInfo(userRequest);
       } catch (err) {
         console.log(`Error: ${err}`);
@@ -180,10 +178,8 @@ const Dashboard = (props) => {
             <div className="col-12 mt-2">
               <Button
                 size={"small"}
-                inverse
-                onClick={() =>
-                  setErrorMsg("Por el momento no hay actividades.")
-                }
+                secondaryInverse
+                onClick={() => history.push("/notas")}
               >
                 Mis soluciones
               </Button>
@@ -196,7 +192,7 @@ const Dashboard = (props) => {
             <div className="col-12 mt-3">
               <Button
                 size={"small"}
-                secondary
+                inverse
                 onClick={() => history.push("/survey")}
               >
                 Encuesta <FontAwesomeIcon icon={faPoll} />
@@ -215,12 +211,12 @@ const Dashboard = (props) => {
         )}
 
         <div className="col-12 mt-3">
-          <Button size={"small"} secondary onClick={editShow}>
+          <Button size={"small"} onClick={editShow}>
             Editar <FontAwesomeIcon icon={faUserEdit} />
           </Button>
         </div>
         <div className="col-12 mt-3">
-          <Button size={"small"} secondary onClick={auth.logout}>
+          <Button size={"small"} onClick={auth.logout}>
             Cerrar sesión
           </Button>
         </div>
