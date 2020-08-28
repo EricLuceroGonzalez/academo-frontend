@@ -57,7 +57,7 @@ function App() {
   if (token) {
     routes = (
       <Switch>
-        {userId === process.env.REACT_APP_DB_id ? (
+        {userId === process.env.REACT_APP_ID ? (
           <Route exact path="/survey">
             <SurveyResults />
           </Route>
@@ -65,7 +65,7 @@ function App() {
           ""
         )}
 
-        {userId === process.env.REACT_APP_DB_id ? (
+        {userId === process.env.REACT_APP_ID ? (
           <Route exact path="/newTest">
             <NewTest />
           </Route>

@@ -187,7 +187,7 @@ const Dashboard = (props) => {
           </div>
         )}
 
-        {auth.userId === process.env.REACT_APP_DB_id && (
+        {auth.userId === process.env.REACT_APP_ID && (
           <React.Fragment>
             <div className="col-12 mt-3">
               <Button
