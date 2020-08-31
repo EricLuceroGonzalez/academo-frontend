@@ -27,7 +27,6 @@ const CourseDashboard = () => {
           `${process.env.REACT_APP_BACKEND_URL}/course/coursesDashboard/${auth.userId}`,
           "GET"
         );
-console.log(theData);
 
         setUserTests(theData.userExistingTests);
         setTests(theData.allTests.tests);

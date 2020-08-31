@@ -39,13 +39,6 @@ const TallerComponent = (props) => {
     getTest();
   }, [sendRequest, auth.userId, props.match.params]);
 
-  // useEffect(() => {
-  //   allPts.map((item, k) => {
-  //     if (typeof item === "undefined") {
-  //       item = 0;
-  //     }
-  //   });
-  // }, [allPts]);
   const renderInstrucciones = () => {
     if (!test) {
       return <div>...</div>;
@@ -83,13 +76,14 @@ const TallerComponent = (props) => {
         const newQuest = [...goodQuest, question];
         const newAns = [...goodAns, selection];
 
-        updatePts(item.value, k);
+        updatePts(item.pts, k);
         setGoodAns(newAns);
         setGoodQuest(newQuest);
 
-        test.questions.map((item, ii) => {
+        test.questions.map((item, ii) => {          
           if (ii === k) {
-            test.questions[k].pts = item.value;
+            console.log(test.questions[k].pts);
+            test.questions[k].value = item.pts;
           }
           return "";
         });
@@ -101,7 +95,7 @@ const TallerComponent = (props) => {
         setBadQuest(newQuest);
         test.questions.map((item, ii) => {
           if (ii === k) {
-            test.questions[k].pts = 0;
+            test.questions[k].value = 0;
           }
           return "";
         });
@@ -114,6 +108,8 @@ const TallerComponent = (props) => {
     var acumPts = 0;
 
     test.questions.map((item) => {
+      console.log(item);
+      
       if (item.pts !== item.value && item.pts !== 0) {
       } else if (item.pts !== item.value && item.pts === 0) {
         acumPts = acumPts + 0;
@@ -165,13 +161,15 @@ const TallerComponent = (props) => {
 
   const sendForm = async () => {
     let puntos = renderPuntaje();
+    console.log(`puntos: ${puntos}`);
+    
 
     if (allPts.includes(undefined)) {
       setErrorMessage("Hay respuestas sin marcar.");
       return;
     } else {
       let sumPts = [];
-      sumPts = test.questions.map((val, i) => (sumPts = val.value));
+      sumPts = test.questions.map((val, i) => (sumPts = val.pts));
       let puntaje = sumPts.reduce((a, b) => {
         return a + b;
       });

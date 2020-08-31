@@ -52,7 +52,7 @@ const CheckItems = (props) => {
       {props.numberQuestion}
     </div>
       <div className="point-box col-4 ml-auto align-items-middle">
-        {props.value > 1 ? `${props.value} puntos` : `${props.value} punto`}
+        {props.pts > 1 ? `${props.pts} puntos` : `${props.pts} punto`}
       </div>
       </div>
   

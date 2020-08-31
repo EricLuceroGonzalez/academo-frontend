@@ -57,14 +57,14 @@
 .checkItem-option {
   color: var(--color-fg);
   margin: 1rem 0;
-  /* font-size: 1.15em; */
+  font-size: 0.75em;
   font-family: Montserrat-Bold;
 }
 
 .checkItem-option:hover {
   color: var(--color-peach);
-  font-size: 1.15em;
   font-family: Montserrat-Bold;
+  font-size: 0.9em;
   transition: font-size 0.2s ease-in-out;
 }
 .checkItem-option-box {
