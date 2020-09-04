@@ -6,6 +6,10 @@
   --color-green:#57FFB3;
 }
 
+.navbarLogo{
+  max-height: 30px;
+}
+
 .navThing {
   margin: 7px 2px;
   font-family: Montserrat-ExtraBold;

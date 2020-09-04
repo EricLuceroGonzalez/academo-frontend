@@ -15,7 +15,7 @@ class FooterComponent extends Component {
           <span role="img" aria-label="star-dust">
           {" "}
           🚀
-        </span>Academo.xyz</div>
+        </span>Academo<span className='footerAltText'>.xyz</span></div>
           <div className="col-6 col-md-6">  
             creado para fines académicos por{" "}
             <Link to="/">Eric Lucero G. {"  "}</Link>

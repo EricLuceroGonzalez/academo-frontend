@@ -28,11 +28,11 @@ const NavBar = () => {
           to={"/"}
           activeClassName="activeNavLink"
         >
-          <span role="img" aria-label="star-dust">
-            {" "}
-            🚀
-          </span>
-          Academo
+          <img
+            src="https://res.cloudinary.com/dcvnw6hvt/image/upload/v1599179407/Academo/Identidy/academoLogoC_oxeawu.png"
+            alt="academo logo is an A in a circle with an arrow"
+            className='navbarLogo'
+          ></img>
         </NabLink>
 
         <NavbarToggler onClick={toggle} />
