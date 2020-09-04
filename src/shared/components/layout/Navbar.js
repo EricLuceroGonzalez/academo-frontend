@@ -26,7 +26,6 @@ const NavBar = () => {
           className="navThing"
           exact
           to={"/"}
-          activeClassName="activeNavLink"
         >
           <img
             src="https://res.cloudinary.com/dcvnw6hvt/image/upload/v1599179407/Academo/Identidy/academoLogoC_oxeawu.png"

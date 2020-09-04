@@ -9,33 +9,25 @@ class FooterComponent extends Component {
   state = {};
   render() {
     return (
-      <div className="col-12 footer-basic">
-        <div className="row d-flex">
-          <div className="col-6 col-md-6 footer-brand mr-auto">
+      <div className="row d-flex footer-basic">
+          <div className="col-5 col-md-5 footer-brand mr-auto">
           <span role="img" aria-label="star-dust">
           {" "}
           🚀
         </span>Academo<span className='footerAltText'>.xyz</span></div>
-          <div className="col-6 col-md-6">  
+          <div className="col-7 col-md-7 footerTextB">  
             creado para fines académicos por{" "}
-            <Link to="/">Eric Lucero G. {"  "}</Link>
+            <a
+            href="mailto: ericlucero501@gmail.com"
+            alt="a mail button to ericlucero501@gmail.com"
+          >
+          Eric Lucero G. {"  "}
+          </a>
             <FontAwesomeIcon
               className="footer-icon"
               icon={faCodeBranch}
             ></FontAwesomeIcon>
           </div>
-          {/**
-          <div className='col-12 col-md-4'>
-          <a
-            href="mailto: ericlucero501@gmail.com"
-            alt="a mail button to ericlucero501@gmail.com"
-          >
-            ericlucero501@gmail.com
-          </a>
-          <FontAwesomeIcon className='footer-icon ml-1' icon={faEnvelope} />
-        </div>
- */}
-        </div>
       </div>
     );
   }

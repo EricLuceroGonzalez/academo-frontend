@@ -11,9 +11,8 @@
 }
 
 .navThing {
-  margin: 7px 2px;
   font-family: Montserrat-ExtraBold;
-  color: #7d64ff;
+  color: var(--color-fg);
 }
 
 .nav-username{
