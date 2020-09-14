@@ -14,7 +14,8 @@
 
 .loaded {
   padding: 3rem 0 8rem 0;
-  height: 99vh;
+  /* margin-bottom: 18rem; */
+  /* height: 99vh; */
   width: 100vw;
 }
 
