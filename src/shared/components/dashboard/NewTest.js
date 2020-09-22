@@ -133,7 +133,6 @@ const NewTest = () => {
 
   const ClearFormState = async () => {
     setOptions([]);
-    setQuestion([]);
     await ls.remove('questions')
     setFormData(
       {
