@@ -120,6 +120,7 @@ const NewTest = () => {
       pts: formState.inputs.questionPoints.value,
       options: options,
     });
+    setOptions([]);
     setAddQuestionDisable(true);
     setTimeout(() => {
       setAddQuestionDisable(false);
