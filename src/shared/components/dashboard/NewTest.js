@@ -19,9 +19,11 @@ import LoadingSpinner from "../../UIElements/LoadingSpinner";
 import ErrorModal from "../../UIElements/ErrorModal";
 import "../../UIElements/CheckBox.css";
 import "./NewTest.css";
+import { useHistory } from "react-router-dom";
 
 const NewTest = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const history = useHistory();
   const [questIsEquation, setQuestIsEquation] = useState(false);
   const [evaluationType, setEvaluationType] = useState("");
   const [questIsInLine, setQuestIsInLine] = useState(true);
@@ -118,8 +120,6 @@ const NewTest = () => {
       pts: formState.inputs.questionPoints.value,
       options: options,
     });
-    ls.remove('questions')
-    ClearFormState();
     setAddQuestionDisable(true);
     setTimeout(() => {
       setAddQuestionDisable(false);
@@ -130,9 +130,10 @@ const NewTest = () => {
     console.log(formState);
   };
 
-  const ClearFormState = () => {
+  const ClearFormState = async () => {
     setOptions([]);
-    ls.remove('questions')
+    setQuestion([]);
+    await ls.remove('questions')
     setFormData(
       {
         question: { value: "", isValid: false },
@@ -148,22 +149,14 @@ const NewTest = () => {
     );
   };
 
-  const renderCheckQuestions = () => {
-    console.log('jereereere');
-    console.log(question);
-    
+  const renderCheckQuestions = () => {   
     if (question) {
-      const checkQuestions = question.map((item, k) => {
-        console.log(`k = ${k}`);
-        
+      const checkQuestions = question.map((item, k) => {       
         return (
           <CheckItems
             key={k}
             image={item.image}
             numberQuestion={k + 1}
-            wasClick={() => {
-              console.log(`Ans cliek ${item.questionName}`);
-            }}
             value={item.pts}
             values={item.options}
             question={
@@ -189,15 +182,13 @@ const NewTest = () => {
           ></CheckItems>
         );
       });
-      console.log(checkQuestions);
+      // console.log(checkQuestions);
       
       return checkQuestions;
     }
   };
   const renderQuesstions = () => {
-    return question.map((item, k) => {
-      console.log(item);
-      
+    return question.map((item, k) => {     
       return (
         <div
           key={k}
@@ -224,7 +215,6 @@ const NewTest = () => {
       testName: formState.inputs.testName.value,
       subject: "5f310a910689020004a5a097",
     };
-    console.log(test);
     try {
       await sendRequest(
         process.env.REACT_APP_BACKEND_URL + "/test/newTest",
@@ -232,6 +222,8 @@ const NewTest = () => {
         JSON.stringify(test),
         { "Content-Type": "application/json" }
       );
+      await ClearFormState();
+      await history.push('/dashboard')
     } catch (err) {}
   };
 

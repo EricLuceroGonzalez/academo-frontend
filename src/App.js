@@ -80,9 +80,9 @@ function App() {
         <Route exact path="/checkOut" component={CheckOut}></Route>
         <Route exact path="/checkError" component={CheckError}></Route>
         <Route exact path="/notas" component={TableOfGrades}></Route>
-        <Route path="/about" component={About} />
-        <Route path="/login" component={Auth} />
-        <Route exact path="/" component={Auth} />
+        <Route exact path="/about" component={About} />
+        <Route exact path="/login" component={Auth} />
+        <Route exact path="/" component={Dashboard} />
         <Route path="/notFound" component={NotFound} />
       </Switch>
     );
