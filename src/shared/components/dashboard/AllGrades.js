@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-// Redux:
-// import PropTypes from "prop-types";
-// import { connect } from "react-redux";
-// import { registerUser } from "../../actions/authActions";
 
-import moment from "moment";
+// import moment from "moment";
 import { CSVLink } from "react-csv";
 
-import LoadingSpinner from "../UIElements/LoadingSpinner";
+import LoadingSpinner from "../../UIElements/LoadingSpinner";
 import { Button } from "reactstrap";
+import { useHttpClient } from "../../hooks/http-hook";
+import "./AllGrades.css";
+import GradesTable from "./GradesTable";
 
 const headers = [
   { label: "Correo", key: "email" },
@@ -19,20 +18,19 @@ const headers = [
 ];
 
 const AllGrades = (props) => {
-  const [test, setTest] = useState([]);
-  const [allAnswers, setAllAnswers] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  // const [test, setTest] = useState([]);
+  // const [allAnswers, setAllAnswers] = useState([]);
+  // const [userInfo, setUserInfo] = useState({});
   const [courseRoll, setCourseRoll] = useState([]);
   const [subjectName, setSubjectName] = useState("");
   const [subjectId, setSubjectId] = useState("");
-
-  useEffect(() => {
-    console.log(`subjectId: ${subjectId.length}`);
-  }, [subjectId]);
+  const [testLen, setTtestLen] = useState(0);
+  const [isData, setIsData] = useState(false);
 
   const renderCSV = () => {
     if (courseRoll.length === 0) {
-      return <div>Nothing</div>;
+      return "";
     } else {
       return (
         <div className="mt-2 mb-4">
@@ -55,94 +53,44 @@ const AllGrades = (props) => {
   };
 
   const getGradesData = async (subjectName) => {
-    setIsLoading(true);
-    let thisSubject;
-    let subject;
+    console.log(subjectName);
+    setSubjectName(subjectName);
     try {
-      // const getData = await theApi.getAllGrades();
-
-      // if (subjectName === "Matematica0") {
-      //   subject = await theApi.getACourse("5ed12f21fe88dd3e7a06b31e");
-      //   setSubjectId(subject.data.tests);
-
-      //   thisSubject = getData.data.filter(
-      //     (item) => item.subject === "5ed12f21fe88dd3e7a06b31e"
-      //   );
-      // } else {
-      //   subject = await theApi.getACourse("5ed12ebcfe88dd3e7a06b31d ");
-      //   setSubjectId(subject.data.tests);
-      //   thisSubject = getData.data.filter(
-      //     (item) => item.subject === "5ed12ebcfe88dd3e7a06b31d"
-      //   );
-      // }
-
-      setCourseRoll(thisSubject);
-      setIsLoading(false);
+      let allUsers = await sendRequest(
+        `${process.env.REACT_APP_BACKEND_URL}/grade/getAllGrades/${subjectName}`,
+        "GET"
+      );
+      setCourseRoll(allUsers.data);
+      setIsData(true);
+      setTtestLen(allUsers.testsLength);
     } catch (err) {
-      console.log(`ERROR: ${err}`);
-
-      setIsLoading(false);
-    }
-  };
-
-  const renderRoll = () => {
-    if (courseRoll.length) {
-      return courseRoll.map((item, k) => (
-        <tr
-          key={k}
-          style={{
-            backgroundColor: "rgb(255,254,247)",
-            color: "blacl",
-            fontFamily: "monospace",
-            fontSize: "0.75em",
-          }}
-        >
-          {console.log("-----------------------")}
-          <td>{k + 1}</td>
-          <td>{item.email}</td>
-          <td>
-            {item.name.firstName} {item.name.lastName}
-          </td>
-          <td>{item.testInfo.length}</td>
-          {subjectId.map((i, indx) => {
-            if (item.testInfo[indx]) {
-              return <td>{item.testInfo[indx].grade}</td>;
-            } else {
-              return <td>NaN</td>;
-            }
-          })}
-        </tr>
-      ));
+      setIsData(false);
     }
   };
 
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner asOverlay />}
-      <div
-        style={{
-          paddingTop: "10px",
-          paddingBottom: "60px",
-          minHeight: "100vh",
-          height: "100%",
-          minWidth: "100vh",
-          width: "100%",
-        }}
-        className="container valign-wrapper"
-      >
+      <div className="mr-auto ml-auto grades-box bordeA">
         <h3 className="navThing">Notas!</h3>
-        <div className="row d-flex">
+        <div className="row d-flex col-12">
           <Button
-            className="col-10 col-sm-4 ml-auto mr-auto nextBtn mb-4"
-            onClick={() => getGradesData("Matematica0")}
+            className="col-10 col-sm-3 ml-auto mr-auto nextBtn mb-4"
+            // onClick={() => getGradesData("Matematica0")}
           >
             Matemática 0
           </Button>
           <Button
-            className="col-10 col-sm-4 ml-auto mr-auto nextBtn mb-4"
-            onClick={() => getGradesData("Matematica1")}
+            className="col-10 col-sm-3 ml-auto mr-auto nextBtn mb-4"
+            // onClick={() => getGradesData("Matematica1")}
           >
             Matemática 1
+          </Button>
+          <Button
+            className="col-10 col-sm-3 ml-auto mr-auto nextBtn mb-4"
+            onClick={() => getGradesData("Matemática II")}
+          >
+            Matemática 2
           </Button>
         </div>
         <div>
@@ -156,27 +104,10 @@ const AllGrades = (props) => {
           >
             {subjectName}
           </h4>
-          {subjectId ? (
-            <table className="table table-bordered col-12 ml-auto mr-auto table-sm">
-              <thead>
-                <tr
-                  style={{
-                    backgroundColor: "rgba(155,74,177,0.75)",
-                    color: "white",
-                    fontFamily: "Poppins-ExtraBold",
-                  }}
-                >
-                  <th></th>
-                  <th>Correo</th>
-                  <th>Nombre</th>
-                  <th>Realizados</th>
-                  <th colSpan={subjectId.length}>Talleres</th>
-                </tr>
-              </thead>
-              <tbody>{renderRoll()}</tbody>
-            </table>
+          {isData ? (
+            <GradesTable courseAll={courseRoll} testLn={testLen} />
           ) : (
-            ""
+            <h2>nada</h2>
           )}
         </div>
       </div>

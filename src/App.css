@@ -58,7 +58,7 @@ body {
   margin-bottom: 20px;
   height: auto;
   min-height: 90%;
-  min-width: 100%;
+  /* min-width: 100%; */
   /* padding: 0 0 80px; */
   box-sizing: border-box;
   overflow: auto;
@@ -79,7 +79,7 @@ body {
 }
 
 .bordeA {
-  border: 1px solid blue;
+  border: 1px solid red;
 }
 
 .testBorder-r {
@@ -253,4 +253,13 @@ body {
   font-family: Montserrat-Medium;
   src: url(./styles/fonts/montserrat/Montserrat-Medium.ttf);
   /* src: url('../fonts/poppins/Poppins-Regular.ttf');  */
+}
+
+:root {
+  --color-fg: #7d64ff;
+  --color-hover: #4934b3;
+  --color-gray: #bebebe;
+  --color-peach: #ff8f7d;
+  --color-yellow: #ffe94a;
+  --color-green: #57ffb3;
 }

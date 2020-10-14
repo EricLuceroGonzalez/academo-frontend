@@ -1,7 +1,12 @@
 import React, { Suspense } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "katex/dist/katex.min.css";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from "./shared/hooks/auth-hook";
@@ -17,7 +22,7 @@ import LoadingSpinner from "./shared/UIElements/LoadingSpinner";
 import Auth from "./auth/Auth";
 
 const Survey = React.lazy(() => import("./shared/components/dashboard/Survey"));
- 
+
 const TallerComponent = React.lazy(() =>
   import("./shared/components/Courses/TallerComponent")
 );
@@ -47,9 +52,9 @@ const CourseDashboard = React.lazy(() =>
   import("./shared/components/dashboard/Course")
 );
 
-// const AllGrades = React.lazy(() =>
-//   import("./shared/components/dashboard/AllGrades")
-// );
+const AllGrades = React.lazy(() =>
+  import("./shared/components/dashboard/AllGrades")
+);
 
 function App() {
   const { userName, userId, token, login, logout } = useAuth();
@@ -68,6 +73,14 @@ function App() {
         {userId === process.env.REACT_APP_ID ? (
           <Route exact path="/newTest">
             <NewTest />
+          </Route>
+        ) : (
+          ""
+        )}
+
+        {userId === process.env.REACT_APP_ID ? (
+          <Route exact path="/allGrades">
+            <AllGrades />
           </Route>
         ) : (
           ""
@@ -93,7 +106,7 @@ function App() {
         <Route path="/login" component={Auth} />
         <Route path="/about" component={About} />
         <Route path="/notFound" component={NotFound} />
-        <Redirect to='/'></Redirect>
+        <Redirect to="/"></Redirect>
       </Switch>
     );
   }

@@ -1,0 +1,18 @@
+.grades-box{
+    min-height: 100vh;
+}
+
+.got-AB{
+    background-color: var(--color-green);
+}
+
+.got-C{
+    background-color: var(--color-yellow);
+}
+
+.got-F{
+    background-color: var(--color-peach);
+}
+.no-grade{
+    background-color: var(--color-gray);
+}

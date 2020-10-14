@@ -202,11 +202,20 @@ const Dashboard = (props) => {
               <Button
                 size={"small"}
                 inverse
-                onClick={() => history.push("/newTest")}
+                onClick={() => history.push("/allGrades")}
               >
-                Nuevo <FontAwesomeIcon icon={faPlusCircle} />
+                Notas <FontAwesomeIcon icon={faPoll} />
               </Button>
             </div>
+            <div className="col-12 mt-3">
+            <Button
+              size={"small"}
+              inverse
+              onClick={() => history.push("/newTest")}
+            >
+              Nuevo <FontAwesomeIcon icon={faPlusCircle} />
+            </Button>
+          </div>
           </React.Fragment>
         )}
 
