@@ -31,6 +31,7 @@ const Dashboard = (props) => {
   const [time, setTime] = useState();
   const [isMounted, setIsMounted] = useState(true);
   const [editInfo, setEditInfo] = useState(false);
+  const [courseClass, setCourseClass] = useState("");
 
   useEffect(() => {
     moment.locale("es");
@@ -40,7 +41,7 @@ const Dashboard = (props) => {
         const userRequest = await sendRequest(
           `${process.env.REACT_APP_BACKEND_URL}/user/info/${auth.userId}`,
           "GET"
-        );
+        );      
         setUserInfo(userRequest);
       } catch (err) {
         console.log(`Error: ${err}`);
@@ -72,6 +73,10 @@ const Dashboard = (props) => {
   const editShow = () => {
     setEditInfo(!editInfo);
   };
+
+  useEffect( () => {
+    setCourseClass(userInfo.courseClass)
+  },[editInfo,userInfo.courseClass])
   return (
     <React.Fragment>
       <Helmet>
@@ -90,11 +95,20 @@ const Dashboard = (props) => {
         <div className="col-12 dashboard-content">
           Usuario:{" "}
           <span>
-            {userInfo.name
-              ? `${userInfo.name.firstName} ${userInfo.name.lastName}`
-              : auth.userName}
-          </span>
+          {userInfo.name
+            ? `${userInfo.name.firstName} ${userInfo.name.lastName}`
+            : auth.userName}
+        </span>
         </div>
+        <div className="col-12 dashboard-content">
+        Clase:{" "}
+        <span className='date-format'>
+        {userInfo.courseClass
+          ? `${courseClass}`
+          : 'DEBES EDITAR TU GRUPO'}
+      </span>
+    
+      </div>
         <div className="col-12 dashboard-content">
           Correo:{" "}
           <span className="date-format">

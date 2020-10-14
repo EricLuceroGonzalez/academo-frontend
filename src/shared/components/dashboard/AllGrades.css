@@ -16,3 +16,15 @@
 .no-grade{
     background-color: var(--color-gray);
 }
+
+
+.floatCSV {
+    position: fixed;
+    bottom: 35px;
+    right: 18px;
+    color: black;
+    background-color: var(--color-peach);
+    font-family: "Montserrat-ExtraBold";
+    text-align: center;
+    box-shadow: 2px 2px 3px #999;
+  }

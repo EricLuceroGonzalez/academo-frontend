@@ -184,17 +184,6 @@ body {
   }
 }
 
-.floatCSV {
-  position: fixed;
-  bottom: 45px;
-  right: 10px;
-  color: white;
-  background-color: #57ffb3;
-  font-family: "Montserrat-ExtraBold";
-  text-align: center;
-  box-shadow: 2px 2px 3px #999;
-}
-
 @font-face {
   font-family: Poppins-Regular;
   src: url(./styles/fonts/poppins/Poppins-Regular.ttf);

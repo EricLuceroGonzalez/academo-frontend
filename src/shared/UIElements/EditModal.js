@@ -50,6 +50,10 @@ const EditModal = (props) => {
               value: responseData.name.lastName,
               isValid: true,
             },
+            courseClass: {
+              value: "",
+              isValid: true
+            },
             email: {
               value: responseData.email,
               isValid: true,
@@ -80,6 +84,7 @@ const EditModal = (props) => {
           firstName: formState.inputs.firstName.value,
           lastName: formState.inputs.lastName.value,
           email: formState.inputs.email.value,
+          courseClass: formState.inputs.courseClass.value,
           identification: formState.inputs.identification.value,
         }),
         {
@@ -90,9 +95,9 @@ const EditModal = (props) => {
       setDisableButton(true);
     } catch (err) {}
   };
-  const clearHandle =() => {
-    clearError()
-  }
+  const clearHandle = () => {
+    clearError();
+  };
 
   return (
     <Modal
@@ -118,10 +123,10 @@ const EditModal = (props) => {
         </div>
       }
     >
-    <ErrorModal error={error} onClear={clearHandle}/>
+      <ErrorModal error={error} onClear={clearHandle} />
       {isLoading && <LoadingSpinner asOverlay />}
       {!isLoading && loadedUser && (
-        <div className='col-12 col-sm-8 col-md-4'>
+        <div className="col-12 col-sm-8 col-md-4">
           <div>Edita solo los campos que quieras cambiar.</div>
           {showThis !== "" ? (
             <div className="col-12 mr-auto ml-auto mt-4 mb-4 dancingmessage">
@@ -154,6 +159,22 @@ const EditModal = (props) => {
             initialValue={loadedUser.name.lastName}
             initialValid={true}
           />
+          <Input
+            id="courseClass"
+            element="input"
+            validators={[VALIDATOR_MINLENGTH(2)]}
+            errorText="Please enter some valid description (min. 5 characters)"
+            label="Curso"
+            onInput={inputHandler}
+            someOptions={[
+              "-----",
+              "MAQUINA ALPHA",
+              "CUBIERTA CHARLIE",
+              "CUBIERTA BRAVO",
+              "ELECTROTECNIA",
+            ]}
+          />
+
           <Input
             id="email"
             element="input"

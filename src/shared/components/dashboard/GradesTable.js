@@ -47,6 +47,7 @@ const GradesTable = (props) => {
           <td>
             {item.name.firstName} {item.name.lastName}
           </td>
+          <td>{item.courseClass}</td>
           <td
             className={
               item.testInfo.length > props.testLn - 3
@@ -81,6 +82,7 @@ const GradesTable = (props) => {
           <th></th>
           <th>Correo</th>
           <th>Nombre</th>
+          <th>Clase</th>
           <th># ({props.testLn})</th>
           <th colSpan={props.testLn}>Taller</th>
         </tr>

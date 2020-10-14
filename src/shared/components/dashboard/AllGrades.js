@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-// import moment from "moment";
+import moment from "moment";
 import { CSVLink } from "react-csv";
 
 import LoadingSpinner from "../../UIElements/LoadingSpinner";
@@ -13,7 +13,8 @@ const headers = [
   { label: "Correo", key: "email" },
   { label: "Nombre", key: "name.firstName" },
   { label: "Apellido", key: "name.lastName" },
-  { label: "Correo", key: "email" },
+  { label: "Curso", key: "courseClass" },
+  { label: "Notas", key: `testInfo.grade` },
   { label: "Fecha", key: "testInfo[0].examDate" },
 ];
 
@@ -24,7 +25,6 @@ const AllGrades = (props) => {
   // const [userInfo, setUserInfo] = useState({});
   const [courseRoll, setCourseRoll] = useState([]);
   const [subjectName, setSubjectName] = useState("");
-  const [subjectId, setSubjectId] = useState("");
   const [testLen, setTtestLen] = useState(0);
   const [isData, setIsData] = useState(false);
 
@@ -32,17 +32,17 @@ const AllGrades = (props) => {
     if (courseRoll.length === 0) {
       return "";
     } else {
-      return (
+      return (        
         <div className="mt-2 mb-4">
           <CSVLink
             data={courseRoll}
-            filename={"00-estadistica-DataSet.csv"}
+            filename={`${moment().format()}-DataSet.csv`}
             headers={headers}
             separator={","}
             className="btn floatCSV"
             target="_blank"
           >
-            Descargar
+            Descargar{" "}
             <span role="img" aria-label="memo">
               📝
             </span>
@@ -53,7 +53,7 @@ const AllGrades = (props) => {
   };
 
   const getGradesData = async (subjectName) => {
-    console.log(subjectName);
+    // console.log(subjectName);
     setSubjectName(subjectName);
     try {
       let allUsers = await sendRequest(
@@ -62,7 +62,7 @@ const AllGrades = (props) => {
       );
       setCourseRoll(allUsers.data);
       setIsData(true);
-      setTtestLen(allUsers.testsLength);
+      setTtestLen(allUsers.testsLength);      
     } catch (err) {
       setIsData(false);
     }
