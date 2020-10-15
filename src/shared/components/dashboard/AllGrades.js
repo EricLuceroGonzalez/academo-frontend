@@ -9,15 +9,6 @@ import { useHttpClient } from "../../hooks/http-hook";
 import "./AllGrades.css";
 import GradesTable from "./GradesTable";
 
-const headers = [
-  { label: "Correo", key: "email" },
-  { label: "Nombre", key: "name.firstName" },
-  { label: "Apellido", key: "name.lastName" },
-  { label: "Curso", key: "courseClass" },
-  { label: "Notas", key: `testInfo.grade` },
-  { label: "Fecha", key: "testInfo[0].examDate" },
-];
-
 const AllGrades = (props) => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   // const [test, setTest] = useState([]);
@@ -52,6 +43,16 @@ const AllGrades = (props) => {
     }
   };
 
+  const headers = [
+    { label: "Correo", key: "email" },
+    { label: "Nombre", key: "name.firstName" },
+    { label: "Apellido", key: "name.lastName" },
+    { label: "Curso", key: "courseClass" },
+    { label: "Visitas", key: "visits" },
+    { label: "Creado", key: "date" },
+    { label: "Ultima visita", key: "lastEntry" },
+    { label: "Notas", key: `testInfo.map( (item) => item.grade)` },
+  ];
   const getGradesData = async (subjectName) => {
     // console.log(subjectName);
     setSubjectName(subjectName);

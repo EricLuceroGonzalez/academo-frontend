@@ -28,3 +28,21 @@
     text-align: center;
     box-shadow: 2px 2px 3px #999;
   }
+
+.good-visitor{
+    background-color: var(--color-hover);
+    font-family: "Poppins-ExtraBold";
+    color: whitesmoke
+}
+.med--visitor{
+    background-color: var(--color-green);
+    font-family: "Poppins-ExtraBold";
+}
+ .no--visitor{
+    background-color: var(--color-peach);
+    font-family: "Poppins-ExtraBold";
+ }
+  .bad--visitor{
+    background-color: var(--color-yellow);
+    font-family: "Poppins-ExtraBold";
+  }

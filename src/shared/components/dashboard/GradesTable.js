@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import "./AllGrades.css";
 const GradesTable = (props) => {
   const renderGrades = (params) => {
@@ -45,18 +46,29 @@ const GradesTable = (props) => {
           <td>{k + 1}</td>
           <td>{item.email}</td>
           <td>
-            {item.name.firstName} {item.name.lastName}
+            {item.name.firstName.charAt(0).toUpperCase() +
+              item.name.firstName.slice(1).toLowerCase()}{" "}
+            {item.name.lastName.charAt(0).toUpperCase() +
+              item.name.lastName.slice(1).toLowerCase()}
           </td>
-          <td>{item.courseClass}</td>
+          <td>
+            {item.courseClass
+              ? item.courseClass.charAt(0).toUpperCase() +
+                item.courseClass.slice(1).toLowerCase()
+              : "---"}
+          </td>
+          <td>{item.visits}</td>
+          <td>{moment(item.date).format("L")}</td>
+          <td>{moment(item.lastEntry).startOf("day").fromNow()}</td>
           <td
             className={
               item.testInfo.length > props.testLn - 3
-                ? "got-AB"
+                ? "good-visitor"
                 : item.testInfo.length > props.testLn - 6
-                ? "got-C"
+                ? "med--visitor"
                 : item.testInfo.length === 0
-                ? "no-grade"
-                : "got-F"
+                ? "no--visitor"
+                : "bad--visitor"
             }
           >
             {item.testInfo.length}
@@ -83,6 +95,9 @@ const GradesTable = (props) => {
           <th>Correo</th>
           <th>Nombre</th>
           <th>Clase</th>
+          <th>Visitas</th>
+          <th>Creado</th>
+          <th>Ultima visita</th>
           <th># ({props.testLn})</th>
           <th colSpan={props.testLn}>Taller</th>
         </tr>
