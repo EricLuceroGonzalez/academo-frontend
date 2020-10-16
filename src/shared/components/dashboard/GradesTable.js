@@ -59,7 +59,7 @@ const GradesTable = (props) => {
           </td>
           <td>{item.visits}</td>
           <td>{moment(item.date).format("L")}</td>
-          <td>{moment(item.lastEntry).startOf("day").fromNow()}</td>
+          <td>{moment(item.lastEntry).startOf("second").fromNow()}</td>
           <td
             className={
               item.testInfo.length > props.testLn - 3

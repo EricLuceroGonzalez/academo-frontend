@@ -8,6 +8,8 @@ import { Button } from "reactstrap";
 import { useHttpClient } from "../../hooks/http-hook";
 import "./AllGrades.css";
 import GradesTable from "./GradesTable";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faListAlt } from "@fortawesome/free-solid-svg-icons";
 
 const AllGrades = (props) => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -108,7 +110,7 @@ const AllGrades = (props) => {
           {isData ? (
             <GradesTable courseAll={courseRoll} testLn={testLen} />
           ) : (
-            <h2>nada</h2>
+            <h2><FontAwesomeIcon icon={faListAlt}/> </h2>
           )}
         </div>
       </div>
