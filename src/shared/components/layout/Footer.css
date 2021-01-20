@@ -1,5 +1,5 @@
 .footer-basic{
-    height:26px;
+    height:46px;
     color:white;
     background:#7d64ff;
     position:fixed;
@@ -13,13 +13,26 @@
     color: var(--color-peach);
 }
 .footer-brand{
-    font-size: 0.65rem;
-    border-right: 2px solid #38dfb1;
+    font-size: 0.95rem;
+    border-right: 4px solid #38dfb1;
 }
-.footerTextB{
-    margin: auto 0;
-    font-size: 0.36rem;
-}
+
+
+
+@media only screen and (max-width: 600px) {
+    .footerTextB{
+        margin: auto 0;
+        font-size: 0.5rem;
+    }
+  }
+
+  @media only screen and (min-width: 600px) {
+    .footerTextB{
+        margin: auto 0;
+        font-size: 0.66rem;
+    }
+  }
+
 a{
     text-decoration: none;
     color: white;

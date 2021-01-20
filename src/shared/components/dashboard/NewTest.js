@@ -25,6 +25,7 @@ const NewTest = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const history = useHistory();
   const [questIsEquation, setQuestIsEquation] = useState(false);
+  const [hasImage, setHasImage] = useState(false);
   const [evaluationType, setEvaluationType] = useState("");
   const [questIsInLine, setQuestIsInLine] = useState(true);
   const [ansIsEquation, setAnsIsEquation] = useState(false);
@@ -55,6 +56,7 @@ const NewTest = () => {
       question: { value: "", isValid: false },
       options: { value: "", isValid: false },
       questionEquation: { value: "", isValid: false },
+      questionImage: { value: "", isValid: false },
       questionPoints: { value: "", isValid: false },
       answerText: { value: "", isValid: false },
       answerEquation: { value: "", isValid: false },
@@ -68,24 +70,19 @@ const NewTest = () => {
     false
   );
   useEffect(() => {
-   
     if (evaluationType) {
-      if (
-        evaluationType !== "" &&
-        question.length > 1
-      ) {
-        console.log('here');
-        
+      if (evaluationType !== "" && question.length > 1) {
+        console.log("here");
+
         setDisabledSentButton(false);
       }
-      console.log('here!!')
+      console.log("here!!");
     }
 
     // return () => {
     //   setQuestion([]);
     // };
   }, [question.length, evaluationType, formState]);
-
 
   const AddOption = () => {
     console.log("\nAdd Option");
@@ -108,6 +105,7 @@ const NewTest = () => {
     question.push({
       isInline: questIsInLine,
       isEquation: questIsEquation,
+      questionImage: formState.inputs.questionImage.value,
       equation: formState.inputs.questionEquation.value,
       questionName: `question${question.length + 1}`,
       question: formState.inputs.question.value,
@@ -133,9 +131,10 @@ const NewTest = () => {
 
   const ClearFormState = async () => {
     setOptions([]);
-    await ls.remove('questions')
+    await ls.remove("questions");
     setFormData(
       {
+        questionImage: { value: "", isValid: false },
         question: { value: "", isValid: false },
         options: { value: "", isValid: false },
         questionEquation: { value: "", isValid: false },
@@ -149,9 +148,9 @@ const NewTest = () => {
     );
   };
 
-  const renderCheckQuestions = () => {   
+  const renderCheckQuestions = () => {
     if (question) {
-      const checkQuestions = question.map((item, k) => {       
+      const checkQuestions = question.map((item, k) => {
         return (
           <CheckItems
             key={k}
@@ -183,12 +182,12 @@ const NewTest = () => {
         );
       });
       // console.log(checkQuestions);
-      
+
       return checkQuestions;
     }
   };
   const renderQuesstions = () => {
-    return question.map((item, k) => {     
+    return question.map((item, k) => {
       return (
         <div
           key={k}
@@ -223,7 +222,7 @@ const NewTest = () => {
         { "Content-Type": "application/json" }
       );
       await ClearFormState();
-      await history.push('/dashboard')
+      await history.push("/dashboard");
     } catch (err) {}
   };
 
@@ -233,24 +232,53 @@ const NewTest = () => {
 
   return (
     <React.Fragment>
-    <ErrorModal error={error} onClear={errorHandler} />
-    {isLoading && <LoadingSpinner asOverlay />}
+      <ErrorModal error={error} onClear={errorHandler} />
+      {isLoading && <LoadingSpinner asOverlay />}
 
       <div className="newTest-view">
         <h3>NewTest</h3>
         <Card className="newTest-box">
+          <div className="col-12 col-sm-4">
+            <input
+              className="checkIt"
+              type="checkbox"
+              id="inlineCheckbox0"
+              value="option0"
+              onClick={() => {
+                setHasImage(!hasImage);
+              }}
+            />
+            <label
+              className="form-check-label checkMark"
+              htmlFor="inlineCheckbox0"
+            >
+              has Image
+            </label>
+          </div>
 
-          <InputForTest
-            element="input"
-            id="question"
-            type="text"
-            label="Question"
-            validators={[VALIDATOR_REQUIRE()]}
-            errorText="Introduce al menos un apellido"
-            onInput={inputHandler}
-          />
-          <div className="row d-flex mt-2">
-            <div className="col-4 col-sm-4">
+          {hasImage && (
+            <div>
+              <InputForTest
+                element="input"
+                id="questionImage"
+                type="text"
+                label="Image link"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Introduce al menos un valor"
+                onInput={inputHandler}
+              />
+              <div className="image-card-container">
+                <div className="col-10">
+                  <img
+                    className="main-image"
+                    src={formState.inputs.questionImage.value}
+                    alt="This is a terrible description!"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+               <div className="col-4 col-sm-4">
               <InputForTest
                 element="input"
                 id="questionPoints"
@@ -261,6 +289,18 @@ const NewTest = () => {
                 onInput={inputHandler}
               />
             </div>
+          <InputForTest
+            element="input"
+            id="question"
+            type="text"
+            label="Question"
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText="Introduce al menos un apellido"
+            onInput={inputHandler}
+          />
+
+          <div className="row d-flex mt-2">
+      
             <div className="col-12 col-sm-4 mt-3">
               <input
                 className="checkIt"
@@ -275,7 +315,7 @@ const NewTest = () => {
                 className="form-check-label checkMark"
                 htmlFor="inlineCheckbox1"
               >
-                isEquation
+                Q isEquation
               </label>
             </div>
             <div className="col-12 col-sm-4 mt-3">
@@ -574,14 +614,13 @@ const NewTest = () => {
             />
           </div>
           <div>
-          <Button
-          onClick={() => {
-            console.log(question);
-            
-          }}
-        >
-          VER <FontAwesomeIcon icon={faPaperPlane} />
-        </Button>
+            <Button
+              onClick={() => {
+                console.log(question);
+              }}
+            >
+              VER <FontAwesomeIcon icon={faPaperPlane} />
+            </Button>
             <Button
               disabled={disabledSentButton}
               onClick={() => {

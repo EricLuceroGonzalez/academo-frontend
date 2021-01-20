@@ -22,7 +22,7 @@
 
 .dashboard-title {
   color: var(--color-green);
-  font-size: 2rem;
+  font-size: 2.5rem;
   border-bottom: 2px solid var(--color-fg);
   max-width: 170px;
   margin-bottom: 2rem;

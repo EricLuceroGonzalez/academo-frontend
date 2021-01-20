@@ -139,6 +139,7 @@ const Input = (props) => {
       >
         <option>Seleccione su asignatura</option>
         <option>Matemática II</option>
+        <option>Física II</option>
       </select>
     );
   }

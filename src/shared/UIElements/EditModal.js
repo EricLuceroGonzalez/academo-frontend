@@ -10,7 +10,11 @@ import {
   faChevronCircleLeft,
   faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
-import { VALIDATOR_MINLENGTH, VALIDATOR_EMAIL } from "../utils/validators";
+import {
+  VALIDATOR_MINLENGTH,
+  VALIDATOR_EMAIL,
+  VALIDATOR_CEDULA,
+} from "../utils/validators";
 import { useHttpClient } from "../hooks/http-hook";
 import LoadingSpinner from "./LoadingSpinner";
 import "./EditModal.css";
@@ -19,6 +23,7 @@ import ErrorModal from "./ErrorModal";
 const EditModal = (props) => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
+  const [cedulaIsValid, setCedulaIsValid] = useState(false);
   const [loadedUser, setLoadedUser] = useState("");
   const [showThis, setShowThis] = useState("");
   const [disableButton, setDisableButton] = useState(false);
@@ -52,7 +57,7 @@ const EditModal = (props) => {
             },
             courseClass: {
               value: "",
-              isValid: true
+              isValid: true,
             },
             email: {
               value: responseData.email,
@@ -95,6 +100,58 @@ const EditModal = (props) => {
       setDisableButton(true);
     } catch (err) {}
   };
+
+  useEffect(() => {
+    console.log(formState.isValid);
+    if (!formState.isValid) {
+      setDisableButton(true);
+    }
+    validateCedula(formState.inputs.identification.value);
+  }, [formState.inputs, formState.isValid]);
+
+  const validateCedula = (cedula) => {
+    setCedulaIsValid(false);
+    let matchPan = /^P$|^(?:PE|N|E|[23456789]|[23456789](?:A|P)?|1[0123]?|1[0123]?(?:A|P)?)$|^(?:PE|N|E|[23456789]|[23456789](?:AV|PI)?|1[0123]?|1[0123]?(?:AV|PI)?)-?$|^(?:PE|N|E|[23456789](?:AV|PI)?|1[0123]?(?:AV|PI)?)-(?:\d{1,4})-?$ |^(PE|E|N|[23456789](?:AV|PI)?|1[0123]?(?:AV|PI)?)-(\d{1,4})-(\d{1,6})$/i;
+    var matched = cedula.match(matchPan);
+    var isComplete = false;
+
+    if (matched !== null) {
+      matched.splice(0, 1); // remove the first match, it contains the input string.
+      if (matched[0] !== undefined) {
+        // if matched[0] is set => cedula complete
+        isComplete = true;
+
+        if (matched[0].match(/^PE|E|N$/)) {
+          matched.splice(0, "0");
+        }
+
+        if (matched[0].match(/^(1[0123]?|[23456789])?$/)) {
+          matched.splice(1, "");
+        }
+
+        if (matched[0].match(/^(1[0123]?|[23456789])(AV|PI)$/)) {
+          var tmp = matched[0].match(/(\d+)(\w+)/);
+
+          matched.splice(0, 1);
+          matched.splice(0, tmp[1]);
+          matched.splice(1, tmp[2]);
+        }
+      } // matched[0]
+    }
+
+    var result = {
+      isValid: cedula.length === 0 ? true : matchPan.test(cedula),
+      inputString: cedula,
+      isComplete: isComplete,
+      cedula: isComplete ? matched.splice(0, 4) : null,
+    };
+    if (result.isValid && result.isComplete) {
+      setCedulaIsValid(result.isValid);
+    }
+
+    return result;
+  };
+
   const clearHandle = () => {
     clearError();
   };
@@ -114,7 +171,7 @@ const EditModal = (props) => {
           <div className="col-12 col-sm-6">
             <Button
               onClick={userUpdateSubmit}
-              disabled={disableButton}
+              disabled={disableButton && !formState.isValid}
               size={"small"}
             >
               ENVIAR <FontAwesomeIcon icon={faPaperPlane} />
@@ -143,7 +200,7 @@ const EditModal = (props) => {
             id="firstName"
             element="input"
             validators={[VALIDATOR_MINLENGTH(2)]}
-            errorText="Please enter some valid description (min. 5 characters)"
+            errorText="Intenta colocar un nombre"
             label="Nombre"
             onInput={inputHandler}
             initialValue={loadedUser.name.firstName}
@@ -153,7 +210,7 @@ const EditModal = (props) => {
             id="lastName"
             element="input"
             validators={[VALIDATOR_MINLENGTH(2)]}
-            errorText="Please enter some valid description (min. 5 characters)"
+            errorText="Coloca al menos 3 caracteres"
             label="Apellido"
             onInput={inputHandler}
             initialValue={loadedUser.name.lastName}
@@ -163,15 +220,15 @@ const EditModal = (props) => {
             id="courseClass"
             element="input"
             validators={[VALIDATOR_MINLENGTH(2)]}
-            errorText="Please enter some valid description (min. 5 characters)"
+            errorText="Elige un valir"
             label="Curso"
             onInput={inputHandler}
             someOptions={[
               "-----",
-              "MAQUINA ALPHA",
-              "CUBIERTA CHARLIE",
-              "CUBIERTA BRAVO",
-              "ELECTROTECNIA",
+              "FÍSICA 1",
+              "FÍSICA 2",
+              "MATEMÁTICA 1",
+              "MATEMÁTICA 2",
             ]}
           />
 
@@ -179,7 +236,7 @@ const EditModal = (props) => {
             id="email"
             element="input"
             validators={[VALIDATOR_EMAIL()]}
-            errorText="Please enter some valid description (min. 5 characters)"
+            errorText="Introduce una dirección de email"
             label="Correo"
             onInput={inputHandler}
             initialValue={loadedUser.email}
@@ -188,9 +245,12 @@ const EditModal = (props) => {
           <Input
             id="identification"
             element="input"
-            validators={[VALIDATOR_MINLENGTH(2)]}
-            errorText="Please enter some valid description (min. 5 characters)"
-            label="Identificación"
+            validators={[
+              VALIDATOR_MINLENGTH(4),
+              VALIDATOR_CEDULA(cedulaIsValid),
+            ]}
+            errorText="Tu cédula, con guiones"
+            label="Cédula"
             onInput={inputHandler}
             initialValue={loadedUser.identification}
             initialValid={true}

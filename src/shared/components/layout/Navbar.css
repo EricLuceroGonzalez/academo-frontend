@@ -1,13 +1,5 @@
-:root {
-  --color-fg: #7d64ff;
-  --color-hover: #4934B3;
-  --color-peach:#FF8F7D;
-  --color-yellow:#FFE94A;
-  --color-green:#57FFB3;
-}
-
 .navbarLogo{
-  max-height: 30px;
+  max-height: 40px;
 }
 
 .navThing {

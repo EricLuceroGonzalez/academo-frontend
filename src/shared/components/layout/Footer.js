@@ -10,15 +10,14 @@ class FooterComponent extends Component {
   render() {
     return (
       <div className="col-12 d-flex footer-basic">
-        <div className="col-5 col-md-5 footer-brand mr-auto">
+        <div className="col-6 col-md-5 footer-brand mr-auto d-flex align-items-center">
           <span role="img" aria-label="star-dust">
-            {" "}
-            🚀
+            🚀 {" "}
           </span>
           Academo<span className="footerAltText">.xyz</span>
         </div>
-        <div className="col-7 col-md-7 footerTextB">
-          creado para fines académicos por{" "}
+        <div className="col-6 col-md-7 footerTextB">
+          creado por{" "}
           <a
             href="mailto: ericlucero501@gmail.com"
             alt="a mail button to ericlucero501@gmail.com"

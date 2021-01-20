@@ -54,6 +54,7 @@ const CourseDashboard = () => {
               key={k}
               id={test._id}
               done={true}
+              disabled={test.disabled}
               testGrade={testEq[0].grd}
               evaluation={test.evaluation}
               theTitle={test.testName}
@@ -69,6 +70,7 @@ const CourseDashboard = () => {
               id={test._id}
               done={false}
               testGrade={""}
+              disabled={test.disabled}
               evaluation={test.evaluation}
               theTitle={test.testName}
               theText={test.description}

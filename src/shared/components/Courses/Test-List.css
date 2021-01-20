@@ -67,3 +67,14 @@
     right: 0px;
   }
   
+  .div-Disabled{
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  .border-Disabled{
+    background-color:var(--color-gray);
+  }
+
+  .title-Disabled{
+    color:var(--color-gray);
+  }

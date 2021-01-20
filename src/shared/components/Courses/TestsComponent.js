@@ -9,17 +9,22 @@ const TestsComponent = (props) => {
 
   useEffect(() => {
     moment.locale("es");
-  }, []);
+    console.log(props.disabled);
+  }, [props.disabled]);
 
   return (
     <div
-      className="mr-auto ml-auto mt-3 test-box"
+      className={`mr-auto ml-auto mt-3 test-box ${
+        props.disabled ? "div-Disabled" : ""
+      }`}
       onClick={() => {
         history.push(`/${props.evaluation}/${props.theTitle}/${props.id}`);
       }}
     >
       <div
-        className="col-12 mr-auto border-top"
+        className={`col-12 mr-auto ${
+          props.disabled ? "border-Disabled" : "border-top"
+        }`}
       >
         <div className="row">
           <div className="mr-auto done">
@@ -34,7 +39,9 @@ const TestsComponent = (props) => {
         </div>
       </div>
       <div className="row col-12 mr-auto ml-auto">
-        <div className="m-auto col-2 shakeThatThing">
+        <div
+          className={`m-auto col-2 ${props.disabled ? "" : "shakeThatThing"}`}
+        >
           <span
             role="img"
             aria-label="star-dust"
@@ -43,12 +50,14 @@ const TestsComponent = (props) => {
             }}
           >
             {" "}
-            🚀
+            {`${props.disabled ? "🥶" : "🚀"}`}
           </span>
         </div>
 
         <div className="col-10 ml-auto mr-auto">
-          <h4 className="test-title">{props.theTitle}</h4>
+          <h4 className={`${props.disabled ? "title-Disabled" : "test-title"}`}>
+            {props.theTitle}
+          </h4>
           <h6 className="test-content">{props.theContent}</h6>
           <div className="checkOption mt-2">
             <p>{props.theText}</p>
