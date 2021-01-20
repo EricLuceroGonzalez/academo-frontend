@@ -49,7 +49,7 @@ const NavBar = () => {
           )}
 
           {auth.isLoggedIn ? (
-            <React.Fragment
+            <React.Fragment>
               <NabLink
                 className="ml-auto navThing link-text user-text"
                 to={"/dashboard"}
