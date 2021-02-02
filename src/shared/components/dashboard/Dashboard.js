@@ -42,7 +42,7 @@ const Dashboard = (props) => {
           `${process.env.REACT_APP_BACKEND_URL}/user/info/${auth.userId}`,
           "GET"
         );      
-        setUserInfo(userRequest);
+        setUserInfo(userRequest);        
       } catch (err) {
         console.log(`Error: ${err}`);
       }

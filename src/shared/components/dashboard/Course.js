@@ -45,44 +45,46 @@ const CourseDashboard = () => {
   }, [isMounted, sendRequest, auth.userId, error]);
 
   const renderDashboard = () => {
-    let a = tests.map((test, k) => {
-      if (userTests) {
-        let testEq = userTests.filter((user, k) => user.testId === test._id);
-        if (testEq[0]) {
-          return (
-            <TestsComponent
-              key={k}
-              id={test._id}
-              done={true}
-              disabled={test.disabled}
-              testGrade={testEq[0].grd}
-              evaluation={test.evaluation}
-              theTitle={test.testName}
-              theText={test.description}
-              theContent={test.contents}
-              uploadDate={test.uploadDate}
-            ></TestsComponent>
-          );
-        } else {
-          return (
-            <TestsComponent
-              key={k}
-              id={test._id}
-              done={false}
-              testGrade={""}
-              disabled={test.disabled}
-              evaluation={test.evaluation}
-              theTitle={test.testName}
-              theText={test.description}
-              theContent={test.contents}
-              uploadDate={test.uploadDate}
-            ></TestsComponent>
-          );
+    if (tests.length !== 0) {
+      let a = tests.map((test, k) => {
+        if (userTests) {
+          let testEq = userTests.filter((user, k) => user.testId === test._id);
+          if (testEq[0]) {
+            return (
+              <TestsComponent
+                key={k}
+                id={test._id}
+                done={true}
+                disabled={test.disabled}
+                testGrade={testEq[0].grd}
+                evaluation={test.evaluation}
+                theTitle={test.testName}
+                theText={test.description}
+                theContent={test.contents}
+                uploadDate={test.uploadDate}
+              ></TestsComponent>
+            );
+          } else {
+            return (
+              <TestsComponent
+                key={k}
+                id={test._id}
+                done={false}
+                testGrade={""}
+                disabled={test.disabled}
+                evaluation={test.evaluation}
+                theTitle={test.testName}
+                theText={test.description}
+                theContent={test.contents}
+                uploadDate={test.uploadDate}
+              ></TestsComponent>
+            );
+          }
         }
-      }
-      return null;
-    });
-    return a;
+        return null;
+      });
+      return a;
+    }
   };
 
   const errorHandler = () => {
@@ -117,8 +119,7 @@ const CourseDashboard = () => {
           <div>{renderDashboard()}</div>
         </div>
         <div className="button-box">
-          <Button onClick={() => history.push("/dashboard")}
-          size={'small'}>
+          <Button onClick={() => history.push("/dashboard")} size={"small"}>
             <FontAwesomeIcon icon={faUndoAlt} /> Regresar
           </Button>
         </div>
