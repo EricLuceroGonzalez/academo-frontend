@@ -220,8 +220,10 @@ if (formState.inputs.subject.value === 'Matemática II') {
   };
 
   const submitThisTest = async () => {
-    console.log("submitThisTest");
-    console.log(question);
+    // console.log("submitThisTest");
+    // console.log(question);
+    // console.log(typeof(courseName));
+    
     const test = {
       questions: question,
       evaluation: evaluationType,
