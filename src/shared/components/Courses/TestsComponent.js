@@ -17,8 +17,10 @@ const TestsComponent = (props) => {
       className={`mr-auto ml-auto mt-3 test-box ${
         props.disabled ? "div-Disabled" : ""
       }`}
-      onClick={() => {
-        history.push(`/${props.evaluation}/${props.theTitle}/${props.id}`);
+      onClick={() => {        
+        if (!props.disabled) {
+          history.push(`/${props.evaluation}/${props.theTitle}/${props.id}`);
+        }
       }}
     >
       <div

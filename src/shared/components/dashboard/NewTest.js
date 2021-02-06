@@ -89,11 +89,8 @@ if (formState.inputs.subject.value === 'Matemática II') {
   useEffect(() => {
     if (evaluationType) {
       if (evaluationType !== "" && question.length > 1) {
-        console.log("here");
-
         setDisabledSentButton(false);
       }
-      console.log("here!!");
     }
 
     // return () => {
@@ -102,7 +99,7 @@ if (formState.inputs.subject.value === 'Matemática II') {
   }, [question.length, evaluationType, formState]);
 
   const AddOption = () => {
-    console.log("\nAdd Option");
+    // console.log("\nAdd Option");
     options.push({
       isInline: optionIsInLine,
       isEquation: optionIsEquation,
@@ -113,11 +110,11 @@ if (formState.inputs.subject.value === 'Matemática II') {
     setTimeout(() => {
       setAddOptionDisable(false);
     }, 500);
-    console.log(options);
+    // console.log(options);
   };
 
   const AddQuestion = async () => {
-    console.log("Add Question");
+    // console.log("Add Question");
 
     question.push({
       isInline: questIsInLine,
@@ -141,9 +138,9 @@ if (formState.inputs.subject.value === 'Matemática II') {
       setAddQuestionDisable(false);
     }, 500);
 
-    console.log(question);
-    console.log("---------------------");
-    console.log(formState);
+    // console.log(question);
+    // console.log("---------------------");
+    // console.log(formState);
   };
 
   const ClearFormState = async () => {
@@ -220,10 +217,9 @@ if (formState.inputs.subject.value === 'Matemática II') {
   };
 
   const submitThisTest = async () => {
-    // console.log("submitThisTest");
+    console.log("submitThisTest");
     // console.log(question);
-    // console.log(typeof(courseName));
-    
+
     const test = {
       questions: question,
       evaluation: evaluationType,
@@ -233,6 +229,8 @@ if (formState.inputs.subject.value === 'Matemática II') {
       testName: formState.inputs.testName.value,
       subject: courseName,
     };
+    // console.log(test);
+    
     try {
       await sendRequest(
         process.env.REACT_APP_BACKEND_URL + "/test/newTest",
@@ -241,8 +239,11 @@ if (formState.inputs.subject.value === 'Matemática II') {
         { "Content-Type": "application/json" }
       );
       await ClearFormState();
-      await history.push("/dashboard");
-    } catch (err) {}
+      history.push("/dashboard");
+    } catch (err) {
+      console.log(err);
+      
+    }
   };
 
   const errorHandler = () => {
