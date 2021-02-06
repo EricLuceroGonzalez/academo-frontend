@@ -220,7 +220,7 @@ const NewTest = () => {
       description: formState.inputs.description.value,
       instructions: formState.inputs.instructions.value,
       testName: formState.inputs.testName.value,
-      subject: "6007d846171d200004b52397",
+      subject: formState.inputs.subject.value,
     };
     try {
       await sendRequest(
