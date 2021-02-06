@@ -20,6 +20,7 @@ import ErrorModal from "../../UIElements/ErrorModal";
 import "../../UIElements/CheckBox.css";
 import "./NewTest.css";
 import { useHistory } from "react-router-dom";
+import Input from "../../UIElements/Input";
 
 const NewTest = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -66,9 +67,16 @@ const NewTest = () => {
       description: { value: "", isValid: false },
       instructions: { value: "", isValid: false },
       testName: { value: "", isValid: false },
+      subject: { value: "", isValid: false },
     },
     false
   );
+  useEffect(
+    () => {
+      console.log(formState.inputs.subject.value);
+      
+    },[formState.inputs.subject.value]
+  )
   useEffect(() => {
     if (evaluationType) {
       if (evaluationType !== "" && question.length > 1) {
@@ -212,7 +220,7 @@ const NewTest = () => {
       description: formState.inputs.description.value,
       instructions: formState.inputs.instructions.value,
       testName: formState.inputs.testName.value,
-      subject: "5f310a910689020004a5a097",
+      subject: "6007d846171d200004b52397",
     };
     try {
       await sendRequest(
@@ -315,7 +323,7 @@ const NewTest = () => {
                 className="form-check-label checkMark"
                 htmlFor="inlineCheckbox1"
               >
-                Q isEquation
+                Q isEquation?
               </label>
             </div>
             <div className="col-12 col-sm-4 mt-3">
@@ -612,6 +620,19 @@ const NewTest = () => {
               errorText="Introduce al menos un apellido"
               onInput={inputHandler}
             />
+
+<div className='mt-5'>
+<Input
+                id="subject"
+                element="select"
+                type="select"
+                name="subject"
+                label="Materia"
+                validators={[VALIDATOR_REQUIRE()]}
+                errorText="Seleccione su asignatura"
+                onInput={inputHandler}
+              ></Input>
+</div>
           </div>
           <div>
             <Button
