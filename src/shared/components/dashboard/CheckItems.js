@@ -58,11 +58,11 @@ const CheckItems = (props) => {
   
       {!!props.image && (
         <div className="image-card-container">
-          <div className="col-10">
+          <div className="col-12">
             <img
               className="main-image"
               src={props.image}
-              alt="This is a terrible description!"
+              alt="A problem illustration of below text"
             />
           </div>
         </div>
