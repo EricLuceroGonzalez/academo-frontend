@@ -27,6 +27,7 @@ const NewTest = () => {
   const history = useHistory();
   const [questIsEquation, setQuestIsEquation] = useState(false);
   const [hasImage, setHasImage] = useState(false);
+  const [courseName, setCourseName] = useState("");
   const [evaluationType, setEvaluationType] = useState("");
   const [questIsInLine, setQuestIsInLine] = useState(true);
   const [ansIsEquation, setAnsIsEquation] = useState(false);
@@ -72,11 +73,19 @@ const NewTest = () => {
     false
   );
   useEffect(
-    () => {
-      console.log(formState.inputs.subject.value);
+    () => {      
+      if (formState.inputs.subject) {
+        
+if (formState.inputs.subject.value === 'Física II') {
+  setCourseName('6007d846171d200004b52397')
+}
+if (formState.inputs.subject.value === 'Matemática II') {
+  setCourseName('5f310a910689020004a5a097')
+}
+      }
+
       
-    },[formState.inputs.subject.value]
-  )
+    },[formState])
   useEffect(() => {
     if (evaluationType) {
       if (evaluationType !== "" && question.length > 1) {
@@ -220,7 +229,7 @@ const NewTest = () => {
       description: formState.inputs.description.value,
       instructions: formState.inputs.instructions.value,
       testName: formState.inputs.testName.value,
-      subject: formState.inputs.subject.value,
+      subject: courseName,
     };
     try {
       await sendRequest(
