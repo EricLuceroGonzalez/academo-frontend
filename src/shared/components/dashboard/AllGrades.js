@@ -95,6 +95,12 @@ const AllGrades = (props) => {
           >
             Matemática 2
           </Button>
+          <Button
+            className="col-10 col-sm-3 ml-auto mr-auto nextBtn mb-4"
+            onClick={() => getGradesData("Física II")}
+          >
+            Física 2
+          </Button>
         </div>
         <div>
           <h4
