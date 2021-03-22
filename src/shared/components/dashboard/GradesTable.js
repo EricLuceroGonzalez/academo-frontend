@@ -82,13 +82,13 @@ const GradesTable = (props) => {
   };
 
   return (
-    <table className="table table-bordered col-12 ml-auto mr-auto table-sm">
+    <table className="table table-bordered col-12 ml-auto mr-auto table-sm mb-5">
       <thead>
         <tr
           style={{
             backgroundColor: "rgba(155,74,177,0.75)",
             color: "white",
-            fontFamily: "Poppins-ExtraBold",
+            fontFamily: "Montserrat-ExtraBold",
           }}
         >
           <th></th>
